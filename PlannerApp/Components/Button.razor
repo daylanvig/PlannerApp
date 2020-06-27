@@ -1,10 +1,12 @@
 ﻿
 
-<button class="button @CssClasses">@Label</button>
+<button class="button @CssClasses" @attributes="AllOtherAttributes">@Label</button>
 
 @code {
     [Parameter]
     public string CssClasses { get; set; }
     [Parameter]
     public string Label { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> AllOtherAttributes { get; set; }
 }

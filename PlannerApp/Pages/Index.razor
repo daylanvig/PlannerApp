@@ -1,29 +1,56 @@
 ﻿@page "/"
+@inject HttpClient Http
 
 <h1 class="title">@Title</h1>
 
-<EditForm Model="@NewItem">
-    <DataAnnotationsValidator></DataAnnotationsValidator>
-    <ValidationSummary></ValidationSummary>
+<section class="section">
+    <div class="container">
+        <EditForm Model="@NewItem">
+            <DataAnnotationsValidator></DataAnnotationsValidator>
 
-    <Field>
-        <ControlContent>
-            <InputText class="input is-medium" @bind-Value="NewItem.Description" placeholder="What do you have to do?"></InputText>
-        </ControlContent>
-    </Field>
-    <Field>
-        <ControlContent>
-            <input class="input is-medium" @bind="NewItem.PlannedActionDate" placeholder="When do you have to do it?">
-        </ControlContent>
-    </Field>
-    <Field>
-        <ControlContent>
-            <Button Label="Save" CssClasses="is-success"></Button>
-        </ControlContent>
-    </Field>
-</EditForm>
-
+            <Field>
+                <ControlContent>
+                    <TextInput class="is-medium" @bind-Value="NewItem.Description" placeholder="What do you have to do?*"></TextInput>
+                    <ValidationMessage For="@(() => NewItem.Description)"></ValidationMessage>
+                </ControlContent>
+            </Field>
+            <Field>
+                <ControlContent>
+                    <input id="@nameof(NewItem.PlannedActionDate)" class="input is-medium" @bind="NewItem.PlannedActionDate" placeholder="When do you have to do it?*">
+                    <ValidationMessage For="@(() => NewItem.PlannedActionDate)"></ValidationMessage>
+                </ControlContent>
+            </Field>
+            <Field>
+                <ControlContent>
+                    <Button Label="Save" CssClasses="is-success is-pulled-right" id="saveNewItemBtn"></Button>
+                </ControlContent>
+            </Field>
+        </EditForm>
+    </div>
+</section>
+<section class="section" id="plannerItems">
+    <div class="container has-text-centered">
+        @if (plannerItems == null)
+        {
+            <span>Loading Your Planner....</span>
+        }
+        else if (plannerItems.Count == 0)
+        {
+            <span>You don't have anything planned. Add something above!</span>
+        }
+    </div>
+</section>
 @code {
     public string Title = "Your Planner";
     public PlannerItem NewItem { get; set; } = new PlannerItem();
+
+    private ICollection<PlannerItem> plannerItems;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // todo -> load items
+        plannerItems = new List<PlannerItem>();
+
+    }
+
 } 

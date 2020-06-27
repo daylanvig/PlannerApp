@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using PlannerApp.Client;
 using System.Threading.Tasks;
 
-namespace PlannerApp
+namespace PlannerApp.Client
 {
     public class Program
     {
