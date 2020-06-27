@@ -7,13 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlannerApp.Client", "Planne
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlannerApp.UnitTests", "UnitTests\PlannerApp.UnitTests.csproj", "{A0BC4915-EE92-4275-BE4C-06AA6D94DE2F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlannerApp.Infrastructure", "Infrastructure\PlannerApp.Infrastructure.csproj", "{223234F2-C06A-4AF4-A293-4FCEA70DDEB3}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlannerApp.Server", "PlannerApp.Server\PlannerApp.Server.csproj", "{7185FC58-8A39-49F9-9DD7-6FE1E2D4CF9F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlannerApp.FunctionalTests", "PlannerApp.FunctionalTests\PlannerApp.FunctionalTests.csproj", "{7F17CFBD-6DB2-4324-88F3-217B108685BC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlannerApp.Core", "PlannerApp.Core\PlannerApp.Core.csproj", "{77E2EC0F-6A92-425B-AD55-9B673B7C1D09}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlannerApp.Shared", "PlannerApp.Core\PlannerApp.Shared.csproj", "{77E2EC0F-6A92-425B-AD55-9B673B7C1D09}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		{A0BC4915-EE92-4275-BE4C-06AA6D94DE2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0BC4915-EE92-4275-BE4C-06AA6D94DE2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0BC4915-EE92-4275-BE4C-06AA6D94DE2F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{223234F2-C06A-4AF4-A293-4FCEA70DDEB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{223234F2-C06A-4AF4-A293-4FCEA70DDEB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{223234F2-C06A-4AF4-A293-4FCEA70DDEB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{223234F2-C06A-4AF4-A293-4FCEA70DDEB3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7185FC58-8A39-49F9-9DD7-6FE1E2D4CF9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7185FC58-8A39-49F9-9DD7-6FE1E2D4CF9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7185FC58-8A39-49F9-9DD7-6FE1E2D4CF9F}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -3,8 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PlannerApp.Core.Models
 {
-    public class PlannerItem
+    public class PlannerItemDTO
     {
+        public int ID { get; set; }
         [Required]
         public string Description { get; set; }
         

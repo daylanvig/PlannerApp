@@ -16,7 +16,7 @@
             </Field>
             <Field>
                 <ControlContent>
-                    <DateInput class="is-medium" @bind-Value="NewItem.PlannedActionDate"></DateInput>
+                    <DateInput class="is-medium" @bind-Value="NewItem.PlannedActionDate" placeholder="When do you want to do it?*"></DateInput>
                     <ValidationMessage For="@(() => NewItem.PlannedActionDate)"></ValidationMessage>
                 </ControlContent>
             </Field>
@@ -40,32 +40,42 @@
         }
         else
         {
-            foreach(var item in plannerItems)
-            {
-                <div>
-                    <span>@item.Description</span>
-                    <span>@item.PlannedActionDate</span>
-                </div>
-            }
+            <ul>
+                @foreach (var item in plannerItems.OrderBy(p => p.PlannedActionDate))
+                {
+                    <li id="item-@(item.ID)">
+                        <span>@item.Description</span>
+                        <span>@(item.PlannedActionDate.Value.ToString("MMMM d, yyyy"))</span>
+                    </li>
+                }
+            </ul>
         }
     </div>
 </section>
 @code {
     public string Title = "Your Planner";
-    public PlannerItem NewItem { get; set; } = new PlannerItem();
+    public PlannerItemDTO NewItem { get; set; } = new PlannerItemDTO();
 
-    private ICollection<PlannerItem> plannerItems;
+    private List<PlannerItemDTO> plannerItems;
 
     protected override async Task OnInitializedAsync()
     {
-        // todo -> load items
-        plannerItems = new List<PlannerItem>();
+        plannerItems = await Http.GetJsonAsync<List<PlannerItemDTO>>("/api/PlannerItems");
     }
-
-
 
     private async Task SaveItem()
     {
-
+        PlannerItemDTO createdItem;
+        try
+        {
+            createdItem = await Http.PostJsonAsync<PlannerItemDTO>("/api/PlannerItems", NewItem);
+        }
+        catch
+        {
+            // todo -> error message/handling
+            createdItem = null;
+        }
+        plannerItems.Add(createdItem);
+        NewItem = new PlannerItemDTO();
     }
 } 
