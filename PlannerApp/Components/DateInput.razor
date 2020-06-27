@@ -1,0 +1,13 @@
+﻿@inherits InputDate<DateTime?>
+
+@* Use type text to avoid native datepicker in browser *@
+<input class="is-hidden" @bind="@CurrentValue" type="datetime-local" />
+
+<input @attributes="AdditionalAttributes" id="@(FieldIdentifier.FieldName)" class="@CssClass input" @onchange="UpdateBoundField"/>
+
+@code {
+    private void UpdateBoundField(ChangeEventArgs e)
+    {
+        CurrentValue = DateTime.Parse(e.Value.ToString());
+    }
+}

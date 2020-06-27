@@ -5,7 +5,7 @@
 
 <section class="section">
     <div class="container">
-        <EditForm Model="@NewItem">
+        <EditForm Model="@NewItem" OnValidSubmit="@SaveItem">
             <DataAnnotationsValidator></DataAnnotationsValidator>
 
             <Field>
@@ -16,7 +16,7 @@
             </Field>
             <Field>
                 <ControlContent>
-                    <input id="@nameof(NewItem.PlannedActionDate)" class="input is-medium" @bind="NewItem.PlannedActionDate" placeholder="When do you have to do it?*">
+                    <DateInput class="is-medium" @bind-Value="NewItem.PlannedActionDate"></DateInput>
                     <ValidationMessage For="@(() => NewItem.PlannedActionDate)"></ValidationMessage>
                 </ControlContent>
             </Field>
@@ -38,6 +38,16 @@
         {
             <span>You don't have anything planned. Add something above!</span>
         }
+        else
+        {
+            foreach(var item in plannerItems)
+            {
+                <div>
+                    <span>@item.Description</span>
+                    <span>@item.PlannedActionDate</span>
+                </div>
+            }
+        }
     </div>
 </section>
 @code {
@@ -50,7 +60,12 @@
     {
         // todo -> load items
         plannerItems = new List<PlannerItem>();
-
     }
 
+
+
+    private async Task SaveItem()
+    {
+
+    }
 } 

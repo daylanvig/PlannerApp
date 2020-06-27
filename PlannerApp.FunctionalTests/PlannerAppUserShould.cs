@@ -20,8 +20,6 @@ namespace PlannerApp.FunctionalTests
             driver.Quit();
         }
 
-
-
         [Fact]
         public void BeAbleToAddAnItem()
         {
@@ -35,13 +33,13 @@ namespace PlannerApp.FunctionalTests
             Assert.True(plannerArea.Displayed);
             Assert.Contains("You don't have anything planned. Add something above!", plannerArea.Text);
 
-            // User enters that they have a doctor's appointment on July 2nd, 2020
+            // User enters that they have a doctor's appointment on July 2nd, 2020 at 3:00pm
             var descriptionInput = driver.FindElement(By.Id("Description"));
             var dateInput = driver.FindElement(By.Id("PlannedActionDate"));
 
             descriptionInput.SendKeys("Doctor's Appointment");
             // todo -> this needs to be a date field still, but need to use custom calendar
-            dateInput.SendKeys("July 2nd, 2020");
+            dateInput.SendKeys("07/02/2020 15:00");
 
             // User submits form and sees the item appear below
             driver.FindElement(By.Id("saveNewItemBtn")).Click();
