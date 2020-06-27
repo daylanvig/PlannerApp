@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlannerApp.Client", "PlannerApp\PlannerApp.Client.csproj", "{D384A206-164B-471F-9CFC-7FBEB1CD8164}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlannerApp.Client", "PlannerApp\PlannerApp.Client.csproj", "{D384A206-164B-471F-9CFC-7FBEB1CD8164}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlannerApp.UnitTests", "UnitTests\PlannerApp.UnitTests.csproj", "{A0BC4915-EE92-4275-BE4C-06AA6D94DE2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlannerApp.UnitTests", "UnitTests\PlannerApp.UnitTests.csproj", "{A0BC4915-EE92-4275-BE4C-06AA6D94DE2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlannerApp.Infrastructure", "Infrastructure\PlannerApp.Infrastructure.csproj", "{223234F2-C06A-4AF4-A293-4FCEA70DDEB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlannerApp.Infrastructure", "Infrastructure\PlannerApp.Infrastructure.csproj", "{223234F2-C06A-4AF4-A293-4FCEA70DDEB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlannerApp.Server", "PlannerApp.Server\PlannerApp.Server.csproj", "{7185FC58-8A39-49F9-9DD7-6FE1E2D4CF9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlannerApp.Server", "PlannerApp.Server\PlannerApp.Server.csproj", "{7185FC58-8A39-49F9-9DD7-6FE1E2D4CF9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlannerApp.Common", "PlannerApp.Common\PlannerApp.Common.csproj", "{60A6C15B-A9AC-43EA-952E-4B2C3011ACF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlannerApp.FunctionalTests", "PlannerApp.FunctionalTests\PlannerApp.FunctionalTests.csproj", "{7F17CFBD-6DB2-4324-88F3-217B108685BC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlannerApp.Core", "PlannerApp.Core\PlannerApp.Core.csproj", "{77E2EC0F-6A92-425B-AD55-9B673B7C1D09}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +37,14 @@ Global
 		{7185FC58-8A39-49F9-9DD7-6FE1E2D4CF9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7185FC58-8A39-49F9-9DD7-6FE1E2D4CF9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7185FC58-8A39-49F9-9DD7-6FE1E2D4CF9F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{60A6C15B-A9AC-43EA-952E-4B2C3011ACF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{60A6C15B-A9AC-43EA-952E-4B2C3011ACF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{60A6C15B-A9AC-43EA-952E-4B2C3011ACF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{60A6C15B-A9AC-43EA-952E-4B2C3011ACF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F17CFBD-6DB2-4324-88F3-217B108685BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F17CFBD-6DB2-4324-88F3-217B108685BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F17CFBD-6DB2-4324-88F3-217B108685BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F17CFBD-6DB2-4324-88F3-217B108685BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77E2EC0F-6A92-425B-AD55-9B673B7C1D09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77E2EC0F-6A92-425B-AD55-9B673B7C1D09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77E2EC0F-6A92-425B-AD55-9B673B7C1D09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77E2EC0F-6A92-425B-AD55-9B673B7C1D09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

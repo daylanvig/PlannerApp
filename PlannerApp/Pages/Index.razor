@@ -1,11 +1,29 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+<h1 class="title">@Title</h1>
 
-<div class="alert alert-warning" role="alert">
-    Before authentication will function correctly, you must configure your provider details in <code>Program.cs</code>
-</div>
+<EditForm Model="@NewItem">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <ValidationSummary></ValidationSummary>
 
-Welcome to your new app.
+    <Field>
+        <ControlContent>
+            <InputText class="input is-medium" @bind-Value="NewItem.Description" placeholder="What do you have to do?"></InputText>
+        </ControlContent>
+    </Field>
+    <Field>
+        <ControlContent>
+            <input class="input is-medium" @bind="NewItem.PlannedActionDate" placeholder="When do you have to do it?">
+        </ControlContent>
+    </Field>
+    <Field>
+        <ControlContent>
+            <Button Label="Save" CssClasses="is-success"></Button>
+        </ControlContent>
+    </Field>
+</EditForm>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+@code {
+    public string Title = "Your Planner";
+    public PlannerItem NewItem { get; set; } = new PlannerItem();
+} 

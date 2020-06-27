@@ -1,0 +1,18 @@
+﻿
+<div class="field">
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <label class="label">@Label</label>
+    }
+    <div class="control @ControlClasses">
+        @ControlContent
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Label { get; set; }
+    public string ControlClasses { get; set; } = "";
+    [Parameter]
+    public RenderFragment ControlContent { get; set; }
+}
