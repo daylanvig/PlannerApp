@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Migrations\20200628014718_AddCategories.cs" />
+    <Compile Remove="Data\Migrations\20200628014718_AddCategories.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200628014930_AddCategories.cs" />
+    <Compile Remove="Data\Migrations\20200628014930_AddCategories.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="3.2.0" />
