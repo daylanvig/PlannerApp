@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PlannerApp.Server.Data;
 using PlannerApp.Server.Models;
 using PlannerApp.Shared.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -22,9 +23,19 @@ namespace PlannerApp.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<ICollection<PlannerItemDTO>> GetAllItems()
+        public async Task<ICollection<PlannerItemDTO>> GetItems(DateTime? Date)
         {
-            var items = await plannerItemRepository.ListAllAsync();
+            IReadOnlyList<PlannerItem> items;
+
+            if (Date.HasValue)
+            {
+                items = await plannerItemRepository.ListAsync(item => item.PlannedActionDate.Date == Date.Value.Date);
+            }
+            else
+            {
+                items = await plannerItemRepository.ListAllAsync();
+            }
+            
             var dtos = mapper.Map<PlannerItemDTO[]>(items);
             return dtos;
         }

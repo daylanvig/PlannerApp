@@ -7,19 +7,28 @@
         <h1 class="day-planner__title is-size-3-desktop is-size-4-touch">
             Your Schedule For @DateTimeHelper.FormatFullDate(ViewingDate)
         </h1>
-        @for (var hour = startHour; hour <= endHour; hour++)
+        @if (items == null)
         {
-            <div class="day-planner__interval">
-                <div class="day-planner__time-display">@DateTimeHelper.FormatTime(new DateTime(2020, 1, 1, hour, 0, 0))</div>
-                <div class="day-planner__entries">
-                    <div class="notification">
-
+            <LoadingIcon></LoadingIcon>
+        }
+        else
+        {
+            @for (var hour = startHour; hour <= endHour; hour++)
+            {
+                <div class="day-planner__interval">
+                    <div class="day-planner__time-display">@DateTimeHelper.FormatTime(new DateTime(2020, 1, 1, hour, 0, 0))</div>
+                    <div class="day-planner__entries">
+                        @foreach (var itemInInterval in items.Where(i => i.PlannedActionDate.Value.Hour >= hour && i.PlannedActionDate.Value.Hour < hour + 1))
+                        {
+                            <div class="notification">
+                                @itemInInterval.Description
+                            </div>
+                        }
                     </div>
                 </div>
-            </div>
+            }
         }
     </main>
-
 </section>
 
 
@@ -29,6 +38,10 @@
     private int endHour = 20;
 
     public DateTime ViewingDate { get; set; } = DateTime.Today;
+    private ICollection<PlannerItemDTO> items;
 
-
+    protected override async Task OnInitializedAsync()
+    {
+        items = await Http.GetJsonAsync<List<PlannerItemDTO>>($"/api/PlannerItems?Date={ViewingDate.ToString("yyyy-MM-dd")}");
+    }
 }
