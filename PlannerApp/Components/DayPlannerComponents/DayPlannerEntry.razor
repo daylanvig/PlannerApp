@@ -1,0 +1,10 @@
+﻿<div class="notification has-cursor-pointer" @onclick="ClickCallback">
+    @Item.Description
+</div>
+
+@code {
+    [Parameter]
+    public PlannerItemDTO Item { get; set; }
+    [Parameter]
+    public EventCallback ClickCallback { get; set; }
+}

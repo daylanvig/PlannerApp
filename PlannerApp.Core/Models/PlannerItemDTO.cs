@@ -12,6 +12,6 @@ namespace PlannerApp.Shared.Models
         [Required] // nullable to be able to create the input without prefilling, but required so it gets set
         public DateTime? PlannedActionDate { get; set; }
         [Required]
-        public DateTime? PlannedEndDate { get; set; }
+        public DateTime? PlannedEndTime { get; set; }
     }
 }

@@ -59,6 +59,19 @@ namespace PlannerApp.Server.Controllers
             return CreatedAtAction(nameof(GetByID), new { id = plannerItem.ID }, plannerItemDTO);
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> EditItem(int id, [FromBody] PlannerItemDTO item)
+        {
+            var dbItem = await plannerItemRepository.GetByIdAsync(id);
+            if(dbItem == null)
+            {
+                return BadRequest();
+            }
+            mapper.Map(item, dbItem);
+            await plannerItemRepository.UpdateAsync(dbItem);
+            return Ok(mapper.Map<PlannerItemDTO>(dbItem));
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePlannerItem(int id)
         {

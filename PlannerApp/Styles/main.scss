@@ -1,5 +1,6 @@
-﻿@import 'node_modules/bulma/bulma.sass';
+﻿@import './Base/reset';
+@import 'node_modules/bulma/bulma.sass';
+@import 'node_modules/bulma-helpers/bulma-helpers.sass';
 
-@import './Base/reset';
 @import './Base/typography';
 @import './Layout/day-planner';

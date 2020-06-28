@@ -18,8 +18,8 @@
                 <ValidationMessage For="@(() => NewItem.PlannedActionDate)"></ValidationMessage>
             </Field>
             <Field>
-                <DateInput class="is-medium" name="PlannedEndDate" @bind-Value="NewItem.PlannedEndDate" placeholder="When does it end?*"></DateInput>
-                <ValidationMessage For="@(() => NewItem.PlannedActionDate)"></ValidationMessage>
+                <DateInput class="is-medium" name="PlannedEndDate" @bind-Value="NewItem.PlannedEndTime" placeholder="When does it end?*"></DateInput>
+                <ValidationMessage For="@(() => NewItem.PlannedEndTime)"></ValidationMessage>
             </Field>
             <Field>
                 <Button Class="is-pulled-right" Color="Color.Success" Type="ButtonType.Submit" id="saveNewItemBtn">Save</Button>
@@ -39,7 +39,7 @@
         }
         else
         {
-            <h1 class="title is-4">Upcoming Events</h1>
+            <h1 class="title is-5">Upcoming Events</h1>
             @foreach (var daysEvents in plannerItems.Where(p => p.PlannedActionDate.Value >= DateTime.Now).GroupBy(p => p.PlannedActionDate.Value.Date).OrderBy(d => d.Key))
             {
                 <h2 class="title is-5">@(DateTimeHelper.FormatFullDate(daysEvents.Key))</h2>
@@ -57,6 +57,10 @@
                         </div>
                     }
                 </div>
+            }
+            @if(!plannerItems.Any(p => p.PlannedActionDate.Value >= DateTime.Now))
+            {
+                <p>You don't have any upcoming events.</p>
             }
         }
     </div>

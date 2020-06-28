@@ -20,9 +20,7 @@
                     <div class="day-planner__entries">
                         @foreach (var itemInInterval in items.Where(i => i.PlannedActionDate.Value.Hour >= hour && i.PlannedActionDate.Value.Hour < hour + 1))
                         {
-                            <div class="notification">
-                                @itemInInterval.Description
-                            </div>
+                            <DayPlannerEntry Item="itemInInterval" ClickCallback="() => ShowModal(itemInInterval)"></DayPlannerEntry>
                         }
                     </div>
                 </div>
@@ -30,18 +28,77 @@
         }
     </main>
 </section>
-
-
+@if (editingItem != null)
+{
+    <Modal @ref="modalRef">
+        <ModalBackdrop />
+        <ModalContent Class="box" Dialog="false">
+            <CloseButton Class="is-pulled-right" Clicked="HideModal"></CloseButton>
+            <ModalBody>
+                <EditForm Model="editingItem" OnValidSubmit="EditItem">
+                    <Field>
+                        <FieldLabel>Description</FieldLabel>
+                        <TextEdit @bind-Value="editingItem.Description" required />
+                    </Field>
+                    <Fields>
+                        <Field>
+                            <FieldLabel>From</FieldLabel>
+                            <DateInput name="PlannedActionDate" @bind-Value="editingItem.PlannedActionDate"></DateInput>
+                            <ValidationMessage For="@(() => editingItem.PlannedActionDate)"></ValidationMessage>
+                        </Field>
+                        <Field>
+                            <FieldLabel>Until</FieldLabel>
+                            <DateInput name="PlannedEndTime" @bind-Value="editingItem.PlannedEndTime"></DateInput>
+                            <ValidationMessage For="@(() => editingItem.PlannedEndTime)"></ValidationMessage>
+                        </Field>
+                    </Fields>
+                    <Field>
+                        <Button Class="is-pulled-right" Color="Color.Success" Type="ButtonType.Submit" id="saveChangesBtn">Update</Button>
+                    </Field>
+                </EditForm>
+            </ModalBody>
+        </ModalContent>
+    </Modal>
+}
 @code {
     // for now just view 4am - 8pm
     private int startHour = 4;
     private int endHour = 20;
-
     public DateTime ViewingDate { get; set; } = DateTime.Today;
+
     private ICollection<PlannerItemDTO> items;
+    private Modal modalRef;
+    private PlannerItemDTO editingItem;
 
     protected override async Task OnInitializedAsync()
     {
         items = await Http.GetJsonAsync<List<PlannerItemDTO>>($"/api/PlannerItems?Date={ViewingDate.ToString("yyyy-MM-dd")}");
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (modalRef != null)
+        {
+            modalRef.Show();
+        }
+    }
+
+    protected async Task EditItem()
+    {
+
+        var updatedItem= await Http.PutJsonAsync<PlannerItemDTO>($"/api/PlannerItems/{editingItem.ID}", editingItem);
+        items.Remove(editingItem);
+        items.Add(updatedItem);
+        HideModal();
+    }
+
+    private void ShowModal(PlannerItemDTO clickedItem)
+    {
+        editingItem = clickedItem;
+    }
+
+    private void HideModal()
+    {
+        editingItem = null;
     }
 }
