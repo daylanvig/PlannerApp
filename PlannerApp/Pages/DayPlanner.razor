@@ -1,4 +1,5 @@
 ﻿@page "/Day"
+@inherits DayPlannerBase
 @inject PlannerApp.Client.Services.IPlannerItemDataService PlannerItemDataService
 
 <section class="section">
@@ -7,18 +8,18 @@
         <h1 class="day-planner__title is-size-3-desktop is-size-4-touch">
             Your Schedule For @DateTimeHelper.FormatFullDate(ViewingDate)
         </h1>
-        @if (items == null)
+        @if (Items == null)
         {
             <LoadingIcon></LoadingIcon>
         }
         else
         {
-            @for (var hour = startHour; hour <= endHour; hour++)
+            @for (var hour = 4; hour <= 20; hour++)
             {
                 <div class="day-planner__interval">
                     <div class="day-planner__time-display">@DateTimeHelper.FormatTime(new DateTime(2020, 1, 1, hour, 0, 0))</div>
                     <div class="day-planner__entries">
-                        @foreach (var itemInInterval in items.Where(i => i.PlannedActionDate.Value.Hour >= hour && i.PlannedActionDate.Value.Hour < hour + 1))
+                        @foreach (var itemInInterval in Items.Where(i => i.PlannedActionDate.Value.Hour >= hour && i.PlannedActionDate.Value.Hour < hour + 1))
                         {
                             <DayPlannerEntry Item="itemInInterval" ClickCallback="() => ShowModal(itemInInterval)"></DayPlannerEntry>
                         }
@@ -28,28 +29,28 @@
         }
     </main>
 </section>
-@if (editingItem != null)
+@if (EditingItem != null)
 {
-    <Modal @ref="modalRef">
+    <Modal @ref="ModalRef">
         <ModalBackdrop />
         <ModalContent Class="box" Dialog="false">
             <CloseButton Class="is-pulled-right" Clicked="HideModal"></CloseButton>
             <ModalBody>
-                <EditForm Model="editingItem" OnValidSubmit="EditItem">
+                <EditForm Model="EditingItem" OnValidSubmit="EditItem">
                     <Field>
                         <FieldLabel>Description</FieldLabel>
-                        <TextEdit @bind-Value="editingItem.Description" required />
+                        <TextEdit @bind-Value="EditingItem.Description" required />
                     </Field>
                     <Fields>
                         <Field>
                             <FieldLabel>From</FieldLabel>
-                            <DateInput name="PlannedActionDate" @bind-Value="editingItem.PlannedActionDate"></DateInput>
-                            <ValidationMessage For="@(() => editingItem.PlannedActionDate)"></ValidationMessage>
+                            <DateInput name="PlannedActionDate" @bind-Value="EditingItem.PlannedActionDate"></DateInput>
+                            <ValidationMessage For="@(() => EditingItem.PlannedActionDate)"></ValidationMessage>
                         </Field>
                         <Field>
                             <FieldLabel>Until</FieldLabel>
-                            <DateInput name="PlannedEndTime" @bind-Value="editingItem.PlannedEndTime"></DateInput>
-                            <ValidationMessage For="@(() => editingItem.PlannedEndTime)"></ValidationMessage>
+                            <DateInput name="PlannedEndTime" @bind-Value="EditingItem.PlannedEndTime"></DateInput>
+                            <ValidationMessage For="@(() => EditingItem.PlannedEndTime)"></ValidationMessage>
                         </Field>
                     </Fields>
                     <Field>
@@ -59,45 +60,4 @@
             </ModalBody>
         </ModalContent>
     </Modal>
-}
-@code {
-    // for now just view 4am - 8pm
-    private int startHour = 4;
-    private int endHour = 20;
-    public DateTime ViewingDate { get; set; } = DateTime.Today;
-
-    private ICollection<PlannerItemDTO> items;
-    private Modal modalRef;
-    private PlannerItemDTO editingItem;
-
-    protected override async Task OnInitializedAsync()
-    {
-        items = (await PlannerItemDataService.LoadItems(ViewingDate)).ToList();
-    }
-
-    protected override void OnAfterRender(bool firstRender)
-    {
-        if (modalRef != null)
-        {
-            modalRef.Show();
-        }
-    }
-
-    protected async Task EditItem()
-    {
-        var updatedItem = await PlannerItemDataService.EditItem(editingItem);
-        items.Remove(editingItem);
-        items.Add(updatedItem);
-        HideModal();
-    }
-
-    private void ShowModal(PlannerItemDTO clickedItem)
-    {
-        editingItem = clickedItem;
-    }
-
-    private void HideModal()
-    {
-        editingItem = null;
-    }
 }
