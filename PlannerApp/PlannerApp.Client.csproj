@@ -7,10 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="bundleconfig.json" />
     <Content Remove="compilerconfig.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="bundleconfig.json" />
     <None Include="compilerconfig.json" />
   </ItemGroup>
 
@@ -37,6 +39,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PlannerApp.Core\PlannerApp.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\Scripts\" />
   </ItemGroup>
 
 </Project>
