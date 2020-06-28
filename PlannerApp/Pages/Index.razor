@@ -1,10 +1,12 @@
 ﻿@page "/"
 @inject HttpClient Http
+@using PlannerApp.Shared.Common
 
-<h1 class="title">@Title</h1>
+
 
 <section class="section">
     <div class="container">
+        <h1 class="title is-5">Enter a New Item</h1>
         <EditForm Model="@NewItem" OnValidSubmit="@SaveItem">
             <DataAnnotationsValidator></DataAnnotationsValidator>
 
@@ -29,26 +31,36 @@
     </div>
 </section>
 <section class="section" id="plannerItems">
-    <div class="container has-text-centered">
+    <div class="container">
         @if (plannerItems == null)
         {
-            <span>Loading Your Planner....</span>
+            <span class="has-text-centered">Loading Your Planner....</span>
         }
         else if (plannerItems.Count == 0)
         {
-            <span>You don't have anything planned. Add something above!</span>
+            <span class="has-text-centered">You don't have anything planned. Add something above!</span>
         }
         else
         {
-            <ul>
-                @foreach (var item in plannerItems.OrderBy(p => p.PlannedActionDate))
-                {
-                    <li id="item-@(item.ID)">
-                        <span>@item.Description</span>
-                        <span>@(item.PlannedActionDate.Value.ToString("MMMM d, yyyy"))</span>
-                    </li>
-                }
-            </ul>
+            <h1 class="title is-4">Upcoming Events</h1>
+            @foreach (var daysEvents in plannerItems.Where(p => p.PlannedActionDate.Value >= DateTime.Now).GroupBy(p => p.PlannedActionDate.Value.Date).OrderBy(d => d.Key))
+            {
+                <h2 class="title is-5">@(DateTimeHelper.FormatFullDate(daysEvents.Key))</h2>
+                <div class="mb-5">
+                    @foreach (var item in daysEvents.OrderBy(e => e.PlannedActionDate.Value.TimeOfDay))
+                    {
+                        <div class="notification" id="item-@(item.ID)">
+                            <button class="delete" @onclick="@(() => DeleteItem(item))"></button>
+                            <div class="columns is-mobile is-gapless">
+                                <div class="column is-3-mobile is-2-tablet is-1-widescreen has-text-weight-semibold">
+                                    @(DateTimeHelper.FormatTime(item.PlannedActionDate.Value))
+                                </div>
+                                <div class="column">@item.Description</div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
         }
     </div>
 </section>
@@ -77,5 +89,15 @@
         }
         plannerItems.Add(createdItem);
         NewItem = new PlannerItemDTO();
+    }
+
+    private async Task DeleteItem(PlannerItemDTO item)
+    {
+        var response = await Http.DeleteAsync($"/api/PlannerItems/{item.ID}");
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new ArgumentException();
+        }
+        plannerItems.Remove(item);
     }
 } 

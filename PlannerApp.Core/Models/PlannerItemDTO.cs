@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace PlannerApp.Core.Models
+namespace PlannerApp.Shared.Models
 {
     public class PlannerItemDTO
     {

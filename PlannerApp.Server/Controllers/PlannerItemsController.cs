@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Design;
-using PlannerApp.Core.Models;
 using PlannerApp.Server.Data;
 using PlannerApp.Server.Models;
+using PlannerApp.Shared.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PlannerApp.Server.Controllers
 {
@@ -50,6 +46,18 @@ namespace PlannerApp.Server.Controllers
             await plannerItemRepository.AddAsync(plannerItem);
             plannerItemDTO.ID = plannerItem.ID;
             return CreatedAtAction(nameof(GetByID), new { id = plannerItem.ID }, plannerItemDTO);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePlannerItem(int id)
+        {
+            var item = await plannerItemRepository.GetByIdAsync(id);
+            if(item == null)
+            {
+                return BadRequest();
+            }
+            await plannerItemRepository.DeleteAsync(item);
+            return NoContent();
         }
     }
 }

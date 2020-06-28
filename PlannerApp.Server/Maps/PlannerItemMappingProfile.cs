@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using PlannerApp.Core.Models;
+using PlannerApp.Shared.Models;
 using PlannerApp.Server.Models;
 
 namespace PlannerApp.Server.Maps

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace PlannerApp.Core.Common
+namespace PlannerApp.Shared.Common
 {
     public static class ReflectionExtensions
     {
