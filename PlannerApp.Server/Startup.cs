@@ -62,7 +62,6 @@ namespace PlannerApp.Server
                 endpoints.MapControllers();
                 endpoints.MapFallbackToFile("index.html");
             });
-            context.Database.Migrate();
         }
     }
 }

@@ -3,8 +3,9 @@ using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace PlannerApp.FunctionalTests
+namespace PlannerApp.FunctionalTests.Infrastructure
 {
     public static class WebDriverExtensions
     {

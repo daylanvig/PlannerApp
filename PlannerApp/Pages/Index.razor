@@ -9,23 +9,20 @@
         <h1 class="title is-5">Enter a New Item</h1>
         <EditForm Model="@NewItem" OnValidSubmit="@SaveItem">
             <DataAnnotationsValidator></DataAnnotationsValidator>
-
             <Field>
-                <ControlContent>
-                    <TextInput class="is-medium" @bind-Value="NewItem.Description" placeholder="What do you have to do?*"></TextInput>
-                    <ValidationMessage For="@(() => NewItem.Description)"></ValidationMessage>
-                </ControlContent>
+                <TextEdit name="Description" Size="Size.Medium" @bind-Text="NewItem.Description" Placeholder="What do you have to do?*"></TextEdit>
+                <ValidationMessage For="@(() => NewItem.Description)"></ValidationMessage>
             </Field>
             <Field>
-                <ControlContent>
-                    <DateInput class="is-medium" @bind-Value="NewItem.PlannedActionDate" placeholder="When do you want to do it?*"></DateInput>
-                    <ValidationMessage For="@(() => NewItem.PlannedActionDate)"></ValidationMessage>
-                </ControlContent>
+                <DateInput class="is-medium" name="PlannedActionDate" @bind-Value="NewItem.PlannedActionDate" placeholder="When does it start?*"></DateInput>
+                <ValidationMessage For="@(() => NewItem.PlannedActionDate)"></ValidationMessage>
             </Field>
             <Field>
-                <ControlContent>
-                    <Button Label="Save" CssClasses="is-success is-pulled-right" id="saveNewItemBtn"></Button>
-                </ControlContent>
+                <DateInput class="is-medium" name="PlannedEndDate" @bind-Value="NewItem.PlannedEndDate" placeholder="When does it end?*"></DateInput>
+                <ValidationMessage For="@(() => NewItem.PlannedActionDate)"></ValidationMessage>
+            </Field>
+            <Field>
+                <Button Class="is-pulled-right" Color="Color.Success" Type="ButtonType.Submit" id="saveNewItemBtn">Save</Button>
             </Field>
         </EditForm>
     </div>
