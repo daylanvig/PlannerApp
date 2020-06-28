@@ -1,5 +1,6 @@
 ﻿@page "/"
 @inject HttpClient Http
+@inject PlannerApp.Client.Services.IPlannerItemDataService PlannerItemDataService
 @using PlannerApp.Shared.Common
 
 
@@ -58,7 +59,7 @@
                     }
                 </div>
             }
-            @if(!plannerItems.Any(p => p.PlannedActionDate.Value >= DateTime.Now))
+            @if (!plannerItems.Any(p => p.PlannedActionDate.Value >= DateTime.Now))
             {
                 <p>You don't have any upcoming events.</p>
             }
@@ -73,20 +74,15 @@
 
     protected override async Task OnInitializedAsync()
     {
-        plannerItems = await Http.GetJsonAsync<List<PlannerItemDTO>>("/api/PlannerItems");
+        plannerItems = (await PlannerItemDataService.LoadItems()).ToList();
     }
 
     private async Task SaveItem()
     {
-        PlannerItemDTO createdItem;
-        try
+        var createdItem = await PlannerItemDataService.AddItem(NewItem);
+        if (createdItem == null)
         {
-            createdItem = await Http.PostJsonAsync<PlannerItemDTO>("/api/PlannerItems", NewItem);
-        }
-        catch
-        {
-            // todo -> error message/handling
-            createdItem = null;
+            throw new Exception("TODO");
         }
         plannerItems.Add(createdItem);
         NewItem = new PlannerItemDTO();
@@ -94,11 +90,7 @@
 
     private async Task DeleteItem(PlannerItemDTO item)
     {
-        var response = await Http.DeleteAsync($"/api/PlannerItems/{item.ID}");
-        if (!response.IsSuccessStatusCode)
-        {
-            throw new ArgumentException();
-        }
+        await PlannerItemDataService.DeleteItem(item.ID);
         plannerItems.Remove(item);
     }
 } 
