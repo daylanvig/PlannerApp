@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenQA.Selenium;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -26,6 +27,15 @@ namespace PlannerApp.FunctionalTests.Infrastructure
                 Thread.Sleep(500);
             }
             throw new TimeoutException("Condition was not true in allowed timespan");
+        }
+
+        public static void EnterDateTimeFieldValue(IWebElement element, string dateString)
+        {
+            var dateTime = dateString.Split(" ");
+            element.SendKeys(dateTime[0]);
+            element.SendKeys(Keys.ArrowRight);
+            element.SendKeys(dateTime[1]);
+            element.SendKeys(dateTime[2]);
         }
     }
 }
