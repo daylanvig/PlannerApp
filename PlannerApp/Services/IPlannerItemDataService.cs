@@ -10,5 +10,6 @@ namespace PlannerApp.Client.Services
         Task<IEnumerable<PlannerItemDTO>> LoadItems(DateTime? date = null);
         Task<PlannerItemDTO> AddItem(PlannerItemDTO plannerItem);
         Task DeleteItem(int itemID);
+        Task<PlannerItemDTO> EditItem(PlannerItemDTO plannerItem);
     }
 }

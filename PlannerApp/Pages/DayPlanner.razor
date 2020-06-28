@@ -1,5 +1,5 @@
 ﻿@page "/Day"
-@inject HttpClient Http
+@inject PlannerApp.Client.Services.IPlannerItemDataService PlannerItemDataService
 
 <section class="section">
 
@@ -72,7 +72,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        items = await Http.GetJsonAsync<List<PlannerItemDTO>>($"/api/PlannerItems?Date={ViewingDate.ToString("yyyy-MM-dd")}");
+        items = (await PlannerItemDataService.LoadItems(ViewingDate)).ToList();
     }
 
     protected override void OnAfterRender(bool firstRender)
@@ -85,8 +85,7 @@
 
     protected async Task EditItem()
     {
-
-        var updatedItem= await Http.PutJsonAsync<PlannerItemDTO>($"/api/PlannerItems/{editingItem.ID}", editingItem);
+        var updatedItem = await PlannerItemDataService.EditItem(editingItem);
         items.Remove(editingItem);
         items.Add(updatedItem);
         HideModal();

@@ -40,6 +40,11 @@ namespace PlannerApp.Client.Services
             return createdItem;
         }
 
+        public async Task<PlannerItemDTO> EditItem(PlannerItemDTO plannerItem)
+        {
+            return await client.PutJsonAsync<PlannerItemDTO>($"/api/PlannerItems/{plannerItem.ID}", plannerItem);
+        }
+
         public async Task DeleteItem(int itemID)
         {
             var response = await client.DeleteAsync($"/api/PlannerItems/{itemID}");
