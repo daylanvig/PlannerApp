@@ -1,0 +1,23 @@
+﻿@inherits PlannerItemFormBase
+
+<EditForm Model="Item" OnValidSubmit="OnValidCallback">
+    <Field>
+        <FieldLabel>Description</FieldLabel>
+        <TextEdit @bind-Value="Item.Description" required />
+    </Field>
+    <Fields>
+        <Field>
+            <FieldLabel>From</FieldLabel>
+            <DateInput name="PlannedActionDate" @bind-Value="Item.PlannedActionDate"></DateInput>
+            <ValidationMessage For="@(() => Item.PlannedActionDate)"></ValidationMessage>
+        </Field>
+        <Field>
+            <FieldLabel>Until</FieldLabel>
+            <DateInput name="PlannedEndTime" @bind-Value="Item.PlannedEndTime"></DateInput>
+            <ValidationMessage For="@(() => Item.PlannedEndTime)"></ValidationMessage>
+        </Field>
+    </Fields>
+    <Field>
+        <Button Class="is-pulled-right" Color="Color.Success" Type="ButtonType.Submit" id="saveChangesBtn">Update</Button>
+    </Field>
+</EditForm>

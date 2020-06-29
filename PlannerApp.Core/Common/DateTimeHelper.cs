@@ -6,6 +6,7 @@ namespace PlannerApp.Shared.Common
 {
     public class DateTimeHelper
     {
+
         /// <summary>
         /// Format date as Month day, year
         /// e.g. June 27, 2020
@@ -19,5 +20,7 @@ namespace PlannerApp.Shared.Common
         /// <param name="date"></param>
         /// <returns>12 hour time value</returns>
         public static string FormatTime(DateTime date) => date.ToString("h:mm tt");
+
+        public static string FormatDateTimeLocalInput(DateTime? date) => date.HasValue ? date.Value.ToString("yyyy-MM-ddTHH:mm") : "";
     }
 }

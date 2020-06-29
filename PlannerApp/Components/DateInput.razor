@@ -1,4 +1,12 @@
 ﻿@inherits InputDate<DateTime?>
 
-<input @bind="@CurrentValue" @attributes="AdditionalAttributes" id="@(FieldIdentifier.FieldName)" class="@CssClass input" @bind:format="yyyy-MM-ddThh:mm" type="datetime-local" />
+<input value="@(DateTimeHelper.FormatDateTimeLocalInput(CurrentValue))" @onchange="ParseDateTimeLocal" @attributes="AdditionalAttributes" id="@(FieldIdentifier.FieldName)" class="@CssClass input" type="datetime-local" />
 
+@code {
+    private void ParseDateTimeLocal(ChangeEventArgs e)
+    {
+        // Blazor was having issues interpreting time, but datetime.parse accepts the format
+        var enteredValue = e.Value.ToString();
+        CurrentValue = DateTime.Parse(enteredValue);
+    }
+}

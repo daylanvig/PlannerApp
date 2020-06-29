@@ -1,6 +1,5 @@
 ﻿@page "/Day"
 @inherits DayPlannerBase
-@inject PlannerApp.Client.Services.IPlannerItemDataService PlannerItemDataService
 
 <section class="section">
 
@@ -31,32 +30,13 @@
 </section>
 @if (EditingItem != null)
 {
-    <Modal @ref="ModalRef">
+    <Modal @ref="ModalRef" Class="is-fixed">
         <ModalBackdrop />
         <ModalContent Class="box" Dialog="false">
             <CloseButton Class="is-pulled-right" Clicked="HideModal"></CloseButton>
             <ModalBody>
-                <EditForm Model="EditingItem" OnValidSubmit="EditItem">
-                    <Field>
-                        <FieldLabel>Description</FieldLabel>
-                        <TextEdit @bind-Value="EditingItem.Description" required />
-                    </Field>
-                    <Fields>
-                        <Field>
-                            <FieldLabel>From</FieldLabel>
-                            <DateInput name="PlannedActionDate" @bind-Value="EditingItem.PlannedActionDate"></DateInput>
-                            <ValidationMessage For="@(() => EditingItem.PlannedActionDate)"></ValidationMessage>
-                        </Field>
-                        <Field>
-                            <FieldLabel>Until</FieldLabel>
-                            <DateInput name="PlannedEndTime" @bind-Value="EditingItem.PlannedEndTime"></DateInput>
-                            <ValidationMessage For="@(() => EditingItem.PlannedEndTime)"></ValidationMessage>
-                        </Field>
-                    </Fields>
-                    <Field>
-                        <Button Class="is-pulled-right" Color="Color.Success" Type="ButtonType.Submit" id="saveChangesBtn">Update</Button>
-                    </Field>
-                </EditForm>
+                <PlannerItemForm Item="EditingItem" OnValidCallback="EditItem">
+                </PlannerItemForm>
             </ModalBody>
         </ModalContent>
     </Modal>
