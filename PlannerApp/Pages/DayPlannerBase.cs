@@ -17,7 +17,8 @@ namespace PlannerApp.Client.Pages
         protected ICollection<PlannerItemDTO> Items;
         protected DateTime ViewingDate = DateTime.Today;
         protected Modal ModalRef;
-        protected PlannerItemDTO EditingItem;
+        protected PlannerItemDTO ModalFormItem; // the item being added/edited in the modal
+        protected bool isItemNew = false;
 
         protected override async Task OnInitializedAsync()
         {
@@ -31,22 +32,39 @@ namespace PlannerApp.Client.Pages
                 ModalRef.Show();
             }
         }
-        protected async Task EditItem()
+
+
+        protected async Task SavePlannerItem()
         {
-            var updatedItem = await PlannerItemDataService.EditItem(EditingItem);
-            Items.Remove(EditingItem);
-            Items.Add(updatedItem);
+            Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(ModalFormItem));
+            if (isItemNew)
+            {
+                Items.Add(await PlannerItemDataService.AddItem(ModalFormItem));
+                isItemNew = false;
+            }
+            else
+            {
+                var updatedItem = await PlannerItemDataService.EditItem(ModalFormItem);
+                Items.Remove(ModalFormItem);
+                Items.Add(updatedItem);
+            }
             HideModal();
         }
 
         protected void ShowModal(PlannerItemDTO clickedItem)
         {
-            EditingItem = clickedItem;
+            ModalFormItem = clickedItem;
         }
 
         protected void HideModal()
         {
-            EditingItem = null;
+            ModalFormItem = null;
+        }
+
+        protected void BeginAddingItem()
+        {
+            isItemNew = true;
+            ModalFormItem = new PlannerItemDTO();
         }
     }
 }

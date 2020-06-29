@@ -3,7 +3,8 @@
 <EditForm Model="Item" OnValidSubmit="OnValidCallback">
     <Field>
         <FieldLabel>Description</FieldLabel>
-        <TextEdit @bind-Value="Item.Description" required />
+        <TextEdit @bind-Text="Item.Description"/>
+        <ValidationMessage For="@(()=> Item.Description)"></ValidationMessage>
     </Field>
     <Fields>
         <Field>

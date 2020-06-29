@@ -1,8 +1,17 @@
 ﻿@page "/Day"
 @inherits DayPlannerBase
 
-<section class="section">
-
+<section class="section is-flex">
+    <menu type="toolbar" class="menu menu--side-menu">
+        <menuitem>
+            <label class="menu-label">
+                Actions
+            </label>
+        </menuitem>
+        <menuitem class="menu-list">
+            <a @onclick="BeginAddingItem">Add Item</a>
+        </menuitem>
+    </menu>
     <main class="day-planner">
         <h1 class="day-planner__title is-size-3-desktop is-size-4-touch">
             Your Schedule For @DateTimeHelper.FormatFullDate(ViewingDate)
@@ -28,14 +37,14 @@
         }
     </main>
 </section>
-@if (EditingItem != null)
+@if (ModalFormItem != null)
 {
     <Modal @ref="ModalRef" Class="is-fixed">
         <ModalBackdrop />
         <ModalContent Class="box" Dialog="false">
             <CloseButton Class="is-pulled-right" Clicked="HideModal"></CloseButton>
             <ModalBody>
-                <PlannerItemForm Item="EditingItem" OnValidCallback="EditItem">
+                <PlannerItemForm Item="ModalFormItem" OnValidCallback="SavePlannerItem">
                 </PlannerItemForm>
             </ModalBody>
         </ModalContent>

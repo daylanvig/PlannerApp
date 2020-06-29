@@ -3,7 +3,7 @@
 .day-planner {
     display: grid;
     grid-auto-rows: 1fr;
-
+    flex: 1;
 
     &__title {
         text-align: center;
