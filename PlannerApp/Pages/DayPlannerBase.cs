@@ -15,7 +15,8 @@ namespace PlannerApp.Client.Pages
         public IPlannerItemDataService PlannerItemDataService { get; set; }
 
         protected ICollection<PlannerItemDTO> Items;
-        protected DateTime ViewingDate = DateTime.Today;
+        [Parameter]
+        public DateTime ViewingDate { get; set; } = DateTime.Today;
         protected Modal ModalRef;
         protected PlannerItemDTO ModalFormItem; // the item being added/edited in the modal
         protected bool isItemNew = false;
@@ -63,6 +64,12 @@ namespace PlannerApp.Client.Pages
         {
             isItemNew = true;
             ModalFormItem = new PlannerItemDTO();
+        }
+
+        protected async Task ChangeViewingDate(ChangeEventArgs e)
+        {
+            ViewingDate = DateTime.Parse(e.Value.ToString());
+            Items = (await PlannerItemDataService.LoadItems(ViewingDate)).ToList();
         }
     }
 }

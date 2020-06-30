@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace PlannerApp.Shared.Common
@@ -29,5 +30,6 @@ namespace PlannerApp.Shared.Common
         public static string FormatTime(DateTime date) => date.ToString("h:mm tt");
 
         public static string FormatDateTimeLocalInput(DateTime? date) => date.HasValue ? date.Value.ToString("yyyy-MM-ddTHH:mm") : "";
+        public static string FormatDateInput(DateTime? date) => date == null ? "" : date.Value.ToString("yyyy-MM-dd");
     }
 }

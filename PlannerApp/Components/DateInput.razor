@@ -1,6 +1,6 @@
 ﻿@inherits InputDate<DateTime?>
 
-<input value="@(DateTimeHelper.FormatDateTimeLocalInput(CurrentValue))" @onchange="ParseDateTimeLocal" @attributes="AdditionalAttributes" id="@(FieldIdentifier.FieldName)" class="@CssClass input" type="datetime-local" />
+<input value="@(DateTimeHelper.FormatDateTimeLocalInput(CurrentValue))" @onchange="ParseDateTimeLocal" @attributes="AdditionalAttributes" class="@CssClass input" type="datetime-local" />
 
 @code {
     private void ParseDateTimeLocal(ChangeEventArgs e)

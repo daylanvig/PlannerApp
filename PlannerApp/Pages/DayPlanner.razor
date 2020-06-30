@@ -11,6 +11,9 @@
         <menuitem class="menu-list">
             <a @onclick="BeginAddingItem">Add Item</a>
         </menuitem>
+        <menuitem class="menu-list">
+            <input type="date" class="input" value="@(DateTimeHelper.FormatDateInput(ViewingDate))" @onchange="ChangeViewingDate" />
+        </menuitem>
     </menu>
     <main class="day-planner">
         <h1 class="day-planner__title is-size-3-desktop is-size-4-touch">
