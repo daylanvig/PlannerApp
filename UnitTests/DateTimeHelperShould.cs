@@ -1,4 +1,5 @@
 ﻿using PlannerApp.Shared.Common;
+using PlannerApp.UnitTests.Data;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,6 +21,13 @@ namespace PlannerApp.UnitTests
         {
             var date = new DateTime(2020, 6, 27, 0, 0, 0);
             Assert.Equal("June 27, 2020", DateTimeHelper.FormatFullDate(date));
+        }
+
+        [Theory]
+        [MemberData(nameof(DateTimeHelperTestData.CalculateLengthData), MemberType = typeof(DateTimeHelperTestData))]
+        public void CalculateLengthValues(DateTime startDate, DateTime endDate, double expected)
+        {
+            Assert.Equal(expected, DateTimeHelper.CalculateLength(startDate, endDate));
         }
     }
 }

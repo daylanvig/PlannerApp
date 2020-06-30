@@ -33,10 +33,8 @@ namespace PlannerApp.Client.Pages
             }
         }
 
-
         protected async Task SavePlannerItem()
         {
-            Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(ModalFormItem));
             if (isItemNew)
             {
                 Items.Add(await PlannerItemDataService.AddItem(ModalFormItem));

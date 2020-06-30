@@ -1,8 +1,6 @@
 ﻿@import 'node_modules/bulma/sass/utilities/mixins';
 
 .day-planner {
-    display: grid;
-    grid-auto-rows: 1fr;
     flex: 1;
 
     &__title {
@@ -16,8 +14,9 @@
         margin: 0 auto;
         display: flex;
         font-size: .75rem;
-        padding: 10px 0;
+        height: 78px;
         border-bottom: 1px solid $grey-lightest;
+        position: relative;
 
         &:first-of-type {
             border-top: 1px solid $grey-lightest;
@@ -34,6 +33,13 @@
     }
 
     &__entries {
-        flex-grow: 1;
+        position: absolute;
+        width: calc(100% - 100px);
+        right: 10px;
+        z-index: 1;
+
+        @include from($tablet) {
+            width: calc(100% - 150px);
+        }
     }
 }

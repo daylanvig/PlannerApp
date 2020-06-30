@@ -1,10 +1,5 @@
-﻿<div class="notification has-cursor-pointer" @onclick="ClickCallback">
+﻿@inherits DayPlannerEntryBase
+
+<div class="notification has-cursor-pointer" @onclick="ClickCallback" style="height: @CalculateHeight(); top: @CalculateTop()">
     @Item.Description
 </div>
-
-@code {
-    [Parameter]
-    public PlannerItemDTO Item { get; set; }
-    [Parameter]
-    public EventCallback ClickCallback { get; set; }
-}
