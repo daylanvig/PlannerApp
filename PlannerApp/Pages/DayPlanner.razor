@@ -14,6 +14,9 @@
         <menuitem class="menu-list">
             <input type="date" class="input" value="@(DateTimeHelper.FormatDateInput(ViewingDate))" @onchange="ChangeViewingDate" />
         </menuitem>
+        <menuitem class="menu-list">
+            <Button Color="Color.Info" @onclick="(() => ModalFormCategory = new CategoryDTO())">Add Category</Button>
+        </menuitem>
     </menu>
     <main class="day-planner">
         <h1 class="day-planner__title is-size-3-desktop is-size-4-touch">
@@ -30,7 +33,7 @@
                 <div class="day-planner__interval">
                     <div class="day-planner__time-display">@DateTimeHelper.FormatTime(new DateTime(2020, 1, 1, hour, 0, 0))</div>
                     <div class="day-planner__entries">
-                        @foreach ( var itemInInterval in PlannerItemService.FilterForInterval(Items, hour))
+                        @foreach (var itemInInterval in PlannerItemService.FilterForInterval(Items, hour))
                         {
                             <PlannerEvent Item="itemInInterval" ClickCallback="() => ShowModal(itemInInterval)"></PlannerEvent>
                         }
@@ -40,15 +43,22 @@
         }
     </main>
 </section>
-@if (ModalFormItem != null)
+@if (ModalFormItem != null || ModalFormCategory != null)
 {
     <Modal @ref="ModalRef" Class="is-fixed">
         <ModalBackdrop />
         <ModalContent Class="box" Dialog="false">
             <CloseButton Class="is-pulled-right" Clicked="HideModal"></CloseButton>
             <ModalBody>
-                <PlannerItemForm Item="ModalFormItem" OnValidCallback="SavePlannerItem">
-                </PlannerItemForm>
+                @if (ModalFormItem != null)
+                {
+                    <PlannerItemForm Item="ModalFormItem" OnValidCallback="SavePlannerItem">
+                    </PlannerItemForm>
+                }
+                else
+                {
+                    <CategoryForm Category="ModalFormCategory" OnSaveCallback="HideModal"></CategoryForm>
+                }
             </ModalBody>
         </ModalContent>
     </Modal>

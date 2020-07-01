@@ -3,7 +3,7 @@
 <EditForm Model="Item" OnValidSubmit="OnValidCallback">
     <Field>
         <FieldLabel>Description</FieldLabel>
-        <TextEdit @bind-Text="Item.Description"/>
+        <TextEdit @bind-Text="Item.Description" />
         <ValidationMessage For="@(()=> Item.Description)"></ValidationMessage>
     </Field>
     <Fields>
@@ -18,6 +18,15 @@
             <ValidationMessage For="@(() => Item.PlannedEndTime)"></ValidationMessage>
         </Field>
     </Fields>
+    <Field>
+        <Select SelectedValue="Item.CategoryID.GetValueOrDefault(-1)" @onchange="SetCategory">
+            <SelectItem Value="-1"></SelectItem>
+            @foreach (var category in Categories)
+            {
+                <SelectItem Value="category.ID">@category.Description</SelectItem>
+            }
+        </Select>
+    </Field>
     <Field>
         <Button Class="is-pulled-right" Color="Color.Success" Type="ButtonType.Submit" id="saveChangesBtn">Update</Button>
     </Field>

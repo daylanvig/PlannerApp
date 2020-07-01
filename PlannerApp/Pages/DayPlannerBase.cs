@@ -16,12 +16,13 @@ namespace PlannerApp.Client.Pages
         public IPlannerItemDataService PlannerItemDataService { get; set; }
         [Inject]
         public IPlannerItemService PlannerItemService { get; set; }
-
+        
         protected ICollection<PlannerItemDTO> Items;
         [Parameter]
         public DateTime ViewingDate { get; set; } = DateTime.Today;
         protected Modal ModalRef;
         protected PlannerItemDTO ModalFormItem; // the item being added/edited in the modal
+        protected CategoryDTO ModalFormCategory;
         protected bool isItemNew = false;
 
         protected override async Task OnInitializedAsync()
@@ -61,6 +62,7 @@ namespace PlannerApp.Client.Pages
         protected void HideModal()
         {
             ModalFormItem = null;
+            ModalFormCategory = null;
         }
 
         protected void BeginAddingItem()

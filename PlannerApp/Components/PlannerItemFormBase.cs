@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using PlannerApp.Client.Services;
 using PlannerApp.Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,31 @@ namespace PlannerApp.Client.Components
 {
     public class PlannerItemFormBase : ComponentBase
     {
+        [Inject]
+        public ICategoryDataService CategoryDataService { get; set; }
         [Parameter]
         public PlannerItemDTO Item { get; set; }
-        
         [Parameter]
         public EventCallback<EditContext> OnValidCallback { get; set; }
+
+        protected IEnumerable<CategoryDTO> Categories = new List<CategoryDTO>();
+
+        protected override async Task OnInitializedAsync()
+        {
+            Categories = await CategoryDataService.LoadCategories();
+        }
+
+        protected void SetCategory(ChangeEventArgs e)
+        {
+            var id = int.Parse(e.Value.ToString());
+            if (id == -1)
+            {
+                Item.CategoryID = null;
+            }
+            else
+            {
+                Item.CategoryID = id;
+            }
+        }
     }
 }

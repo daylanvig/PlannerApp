@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using PlannerApp.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,5 +9,6 @@ namespace PlannerApp.Client.Pages
 {
     public class CalendarBase : ComponentBase
     {
+        
     }
 }

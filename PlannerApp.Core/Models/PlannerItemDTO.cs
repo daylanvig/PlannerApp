@@ -13,5 +13,6 @@ namespace PlannerApp.Shared.Models
         public DateTime? PlannedActionDate { get; set; }
         [Required]
         public DateTime? PlannedEndTime { get; set; }
+        public int? CategoryID { get; set; }
     }
 }

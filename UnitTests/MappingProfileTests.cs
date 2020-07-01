@@ -14,7 +14,7 @@ namespace PlannerApp.UnitTests
         {
             var config = new MapperConfiguration(c =>
             {
-                c.AddProfile<PlannerItemMappingProfile>();
+                c.AddProfile<MappingProfile>();
             });
             config.AssertConfigurationIsValid();
         }
