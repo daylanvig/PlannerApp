@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PlannerApp.Client.Components
 {
-    public static class CalendarComponentHelper
+    public static class UIComponentHelper
     {
         private const int ROWHEIGHT = 80; // px
         /// <summary>

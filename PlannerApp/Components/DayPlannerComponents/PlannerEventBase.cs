@@ -12,8 +12,8 @@ namespace PlannerApp.Client.Components.DayPlannerComponents
         [Parameter]
         public EventCallback ClickCallback { get; set; }
 
-        protected string CalculateHeight() => CalendarComponentHelper.CalculateHeight(Item.PlannedActionDate.Value, Item.PlannedEndTime.Value);
+        protected string CalculateHeight() => UIComponentHelper.CalculateHeight(Item.PlannedActionDate.Value, Item.PlannedEndTime.Value);
 
-        protected string CalculateTop() => CalendarComponentHelper.CalculateTop(Item.PlannedActionDate.Value);
+        protected string CalculateTop() => UIComponentHelper.CalculateTop(Item.PlannedActionDate.Value);
     }
 }

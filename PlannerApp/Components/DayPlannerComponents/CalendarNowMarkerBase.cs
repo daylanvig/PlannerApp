@@ -22,6 +22,6 @@ namespace PlannerApp.Client.Components.DayPlannerComponents
             return false;
         }
 
-        protected string GetTop() => CalendarComponentHelper.CalculateTop(DateTime.Now);
+        protected string GetTop() => UIComponentHelper.CalculateTop(DateTime.Now);
     }
 }
