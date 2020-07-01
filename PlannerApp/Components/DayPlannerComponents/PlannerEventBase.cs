@@ -8,6 +8,8 @@ namespace PlannerApp.Client.Components.DayPlannerComponents
         [Parameter]
         public PlannerItemDTO Item { get; set; }
         [Parameter]
+        public string Colour { get; set; } = "";
+        [Parameter]
         public EventCallback ClickCallback { get; set; }
 
         protected string CalculateHeight() => CalendarComponentHelper.CalculateHeight(Item.PlannedActionDate.Value, Item.PlannedEndTime.Value);

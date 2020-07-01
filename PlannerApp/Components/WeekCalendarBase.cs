@@ -18,9 +18,13 @@ namespace PlannerApp.Client.Components
         public IPlannerItemDataService PlannerItemDataService { get; set; }
         [Inject]
         public IPlannerItemService PlannerItemService { get; set; }
+        [Inject]
+        public ICategoryDataService CategoryDataService { get; set; }
       
         public DateTime ViewingWeekOf { get; set; } = DateTimeHelper.GetMostRecentDayOfWeek(DateTime.Today, DayOfWeek.Sunday);
         protected ICollection<PlannerItemDTO> Items;
+
+        private IEnumerable<CategoryDTO> categories;
 
         private async Task LoadItems()
         {
@@ -29,6 +33,7 @@ namespace PlannerApp.Client.Components
 
         protected override async Task OnInitializedAsync()
         {
+            categories = await CategoryDataService.LoadCategories();
             await LoadItems();
         }
 
@@ -45,6 +50,14 @@ namespace PlannerApp.Client.Components
         {
             var date = ViewingWeekOf.AddDays(daysFromSunday); // starts at midnight on sunday
             return date.AddHours(hour);
+        }
+
+        protected string GetCategoryColour(PlannerItemDTO item)
+        {
+            if (item.CategoryID.HasValue) {
+                return categories.First(c => c.ID == item.CategoryID).Colour;
+            }
+            return "";
         }
     }
 }

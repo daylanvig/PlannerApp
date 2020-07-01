@@ -30,7 +30,7 @@
                         {
                             @foreach (var item in PlannerItemService.FilterForInterval(Items, hour, (DayOfWeek)day))
                             {
-                                <PlannerEvent Item="item"></PlannerEvent>
+                                <PlannerEvent Colour="@(GetCategoryColour(item))" Item="item"></PlannerEvent>
                             }
                         }
                         <CalendarNowMarker ForDate="@GetDateForHourInterval(day, hour)"></CalendarNowMarker>

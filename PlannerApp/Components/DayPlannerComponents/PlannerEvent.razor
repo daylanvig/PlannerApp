@@ -1,7 +1,8 @@
 ﻿@inherits PlannerEventBase
 
 <div class="planner-event" style="height: @CalculateHeight(); top: @CalculateTop()">
-    <div class="notification has-cursor-pointer" @onclick="ClickCallback">
-        @Item.Description
+    <div class="notification has-cursor-pointer" @onclick="ClickCallback" style="background-color: @Colour">
+        <div>@Item.Description</div>
+        <div>@DateTimeHelper.FormatTime(Item.PlannedActionDate.Value) - @DateTimeHelper.FormatTime(Item.PlannedEndTime.Value)</div>
     </div>
 </div>
