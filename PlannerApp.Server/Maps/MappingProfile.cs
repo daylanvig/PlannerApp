@@ -4,11 +4,12 @@ using PlannerApp.Server.Models;
 
 namespace PlannerApp.Server.Maps
 {
-    public class PlannerItemMappingProfile : Profile
+    public class MappingProfile : Profile
     {
-        public PlannerItemMappingProfile()
+        public MappingProfile()
         {
             CreateMap<PlannerItemDTO, PlannerItem>().ReverseMap();
+            CreateMap<CategoryDTO, Category>().ReverseMap();
         }
     }
 }
