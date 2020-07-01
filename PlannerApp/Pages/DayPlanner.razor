@@ -30,9 +30,9 @@
                 <div class="day-planner__interval">
                     <div class="day-planner__time-display">@DateTimeHelper.FormatTime(new DateTime(2020, 1, 1, hour, 0, 0))</div>
                     <div class="day-planner__entries">
-                        @foreach (var itemInInterval in Items.Where(i => i.PlannedActionDate.Value.Hour == hour))
+                        @foreach ( var itemInInterval in PlannerItemService.FilterForInterval(Items, hour))
                         {
-                            <DayPlannerEntry Item="itemInInterval" ClickCallback="() => ShowModal(itemInInterval)"></DayPlannerEntry>
+                            <PlannerEvent Item="itemInInterval" ClickCallback="() => ShowModal(itemInInterval)"></PlannerEvent>
                         }
                     </div>
                 </div>

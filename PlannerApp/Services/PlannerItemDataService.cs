@@ -16,12 +16,16 @@ namespace PlannerApp.Client.Services
             this.client = client;
         }
 
-        public async Task<IEnumerable<PlannerItemDTO>> LoadItems(DateTime? date = null)
+        public async Task<IEnumerable<PlannerItemDTO>> LoadItems(DateTime? startDate = null, DateTime? endDate = null)
         {
             string url = "/api/PlannerItems?";
-            if (date.HasValue)
+            if (startDate.HasValue)
             {
-                url += $"Date={date.Value:yyyy-MM-dd}";
+                url += $"StartDate={startDate.Value:yyyy-MM-dd}";
+                if (endDate.HasValue)
+                {
+                    url += $"&EndDate={endDate.Value:yyyy-MM-dd}";
+                }
             }
             return await client.GetJsonAsync<List<PlannerItemDTO>>(url);
         }

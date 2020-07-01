@@ -23,6 +23,20 @@ namespace PlannerApp.UnitTests
             Assert.Equal("June 27, 2020", DateTimeHelper.FormatFullDate(date));
         }
 
+        [Fact]
+        public void ReturnProvidedSundayDate()
+        {
+            var date = new DateTime(2020, 6, 28, 0, 0, 0);
+            Assert.Equal(date.Date, DateTimeHelper.GetMostRecentDayOfWeek(date, DayOfWeek.Sunday));
+        }
+
+        [Fact]
+        public void ReturnDec302019()
+        {
+            var date = new DateTime(2020, 1, 3, 0, 0, 0);
+            Assert.Equal(new DateTime(2019, 12, 30, 0, 0, 0), DateTimeHelper.GetMostRecentDayOfWeek(date, DayOfWeek.Monday));
+        }
+
         [Theory]
         [MemberData(nameof(DateTimeHelperTestData.CalculateLengthData), MemberType = typeof(DateTimeHelperTestData))]
         public void CalculateLengthValues(DateTime startDate, DateTime endDate, double expected)

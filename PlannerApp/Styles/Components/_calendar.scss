@@ -1,0 +1,66 @@
+﻿.calendar {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    box-shadow: $shadow-1;
+    margin: 20px 40px 30px;
+    color: $grey;
+
+    &__header {
+        position: sticky;
+        display: flex;
+        top: 0;
+        z-index: 1;
+        padding: 20px;
+        background-color: $grey-lightest;
+    }
+
+    &__content {
+        display: flex;
+        flex-grow: 1;
+        margin: 0 40px;
+        overflow-y: auto;
+        padding-top: 20px;
+    }
+
+    &__header-label {
+        flex: 1;
+        text-align: center;
+    }
+
+    &__interval {
+        height: 80px;
+        position: relative;
+
+        &:not(.calendar__interval--time-scale) {
+            border-bottom: 1px solid $grey-lightest;
+
+            &:first-child {
+                border-top: 1px solid $grey-lightest;
+            }
+        }
+
+        &--time-scale {
+            transform: translateY(-13px); // offset to line up with scale hours
+        }
+    }
+
+    &__now-marker {
+        background-color: $primary;
+        height: 1px;
+
+        div {
+            @include circle(10px);
+            position: absolute;
+            transform: translateY(-5px);
+            background-color: inherit;
+        }
+    }
+    &__column {
+        flex: 1;
+    }
+
+    &__time-scale {
+        width: 50px;
+    }
+}

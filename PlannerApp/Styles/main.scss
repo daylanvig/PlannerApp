@@ -1,9 +1,17 @@
-﻿@import './Base/reset';
+﻿@import './Abstracts/variables';
+@import './Abstracts/mixins';
+
+@import './Base/reset';
+@import './Base/typography';
 @import 'node_modules/bulma/bulma.sass';
 @import 'node_modules/bulma-helpers/bulma-helpers.sass';
 
-@import './Base/typography';
+
+@import './Components/calendar';
 @import './Components/menu';
+@import './Components/planner-event';
+
 @import './Layout/day-planner';
+@import './Layout/layout';
 
 @import './AtomicHelpers/position';

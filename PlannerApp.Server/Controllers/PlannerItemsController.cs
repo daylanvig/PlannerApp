@@ -23,13 +23,20 @@ namespace PlannerApp.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<ICollection<PlannerItemDTO>> GetItems(DateTime? Date)
+        public async Task<ICollection<PlannerItemDTO>> GetItems(DateTime? startDate, DateTime? endDate)
         {
             IReadOnlyList<PlannerItem> items;
 
-            if (Date.HasValue)
+            if (startDate.HasValue)
             {
-                items = await plannerItemRepository.ListAsync(item => item.PlannedActionDate.Date == Date.Value.Date);
+                if (endDate.HasValue)
+                {
+                    items = await plannerItemRepository.ListAsync(item => item.PlannedActionDate.Date >= startDate.Value.Date && item.PlannedEndTime.Date <= endDate.Value.Date);
+                }
+                else
+                {
+                    items = await plannerItemRepository.ListAsync(item => item.PlannedActionDate.Date == startDate.Value.Date);
+                }
             }
             else
             {

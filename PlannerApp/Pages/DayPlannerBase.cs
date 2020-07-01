@@ -1,5 +1,6 @@
 ﻿using Blazorise;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using PlannerApp.Client.Services;
 using PlannerApp.Shared.Models;
 using System;
@@ -13,6 +14,8 @@ namespace PlannerApp.Client.Pages
     {
         [Inject]
         public IPlannerItemDataService PlannerItemDataService { get; set; }
+        [Inject]
+        public IPlannerItemService PlannerItemService { get; set; }
 
         protected ICollection<PlannerItemDTO> Items;
         [Parameter]

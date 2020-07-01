@@ -1,0 +1,43 @@
+﻿@inherits WeekCalendarBase
+
+<div class="calendar">
+    <div class="calendar__header">
+        <div class="calendar__time-scale">
+            @*Place holder to align scale*@
+        </div>
+        @for (var day = 0; day < 7; day++)
+        {
+            <label class="calendar__header-label">@Enum.GetName(typeof(DayOfWeek), day)</label>
+        }
+    </div>
+    <div class="calendar__content">
+        @* Display hours *@
+        <div class="calendar__time-scale">
+            @for (var hour = 0; hour <= 23; hour++)
+            {
+                <div class="calendar__interval calendar__interval--time-scale" id="interval-@hour">
+                    @DateTimeHelper.GetHoursAs12HourTime(new DateTime(2020, 1, 1, hour, 0, 0))
+                </div>
+            }
+        </div>
+        @for (var day = 0; day < 7; day++)
+        {
+            <div class="calendar__column">
+                @for (var hour = 0; hour < 23; hour++)
+                {
+                    <div class="calendar__interval">
+                        @if (Items != null)
+                        {
+                            @foreach (var item in PlannerItemService.FilterForInterval(Items, hour, (DayOfWeek)day))
+                            {
+                                <PlannerEvent Item="item"></PlannerEvent>
+                            }
+                        }
+                        <CalendarNowMarker ForDate="@GetDateForHourInterval(day, hour)"></CalendarNowMarker>
+                    </div>
+                }
+            </div>
+        }
+
+    </div>
+</div>

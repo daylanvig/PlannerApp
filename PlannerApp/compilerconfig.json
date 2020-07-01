@@ -2,9 +2,5 @@
   {
     "outputFile": "wwwroot/css/main.css",
     "inputFile": "Styles/main.scss"
-  },
-  {
-    "outputFile": "wwwroot/Scripts/datepicker.js",
-    "inputFile": "Scripts/datepicker.js"
   }
 ]

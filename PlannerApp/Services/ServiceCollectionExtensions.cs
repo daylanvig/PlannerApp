@@ -7,6 +7,7 @@ namespace PlannerApp.Client.Services
         public static IServiceCollection AddPlannerAppServices(this IServiceCollection services)
         {
             services.AddTransient<IPlannerItemDataService, PlannerItemDataService>();
+            services.AddTransient<IPlannerItemService, PlannerItemService>();
             return services;
         }
 
