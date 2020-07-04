@@ -1,7 +1,9 @@
 ﻿using Blazorise;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using PlannerApp.Client.Components;
 using PlannerApp.Client.Services;
+using PlannerApp.Shared.Common;
 using PlannerApp.Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -12,6 +14,8 @@ namespace PlannerApp.Client.Pages
 {
     public class DayPlannerBase : ComponentBase
     {
+        [Inject]
+        public AppState AppState { get; set; }
         [Inject]
         public IPlannerItemDataService PlannerItemDataService { get; set; }
         [Inject]
@@ -27,6 +31,7 @@ namespace PlannerApp.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            AppState.Title = DateTimeHelper.FormatFullDate(ViewingDate);
             Items = (await PlannerItemDataService.LoadItems(ViewingDate)).ToList();
         }
 
@@ -74,6 +79,7 @@ namespace PlannerApp.Client.Pages
         protected async Task ChangeViewingDate(ChangeEventArgs e)
         {
             ViewingDate = DateTime.Parse(e.Value.ToString());
+            AppState.Title = DateTimeHelper.FormatFullDate(ViewingDate);
             Items = (await PlannerItemDataService.LoadItems(ViewingDate)).ToList();
         }
     }

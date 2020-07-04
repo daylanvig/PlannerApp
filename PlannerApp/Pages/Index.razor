@@ -66,13 +66,15 @@
     </div>
 </section>
 @code {
-    public string Title = "Your Planner";
+    [Inject]
+    public AppState AppState { get; set; }
     public PlannerItemDTO NewItem { get; set; } = new PlannerItemDTO();
 
     private List<PlannerItemDTO> plannerItems;
 
     protected override async Task OnInitializedAsync()
     {
+        AppState.Title = "YourPlanner";
         plannerItems = (await PlannerItemDataService.LoadItems()).ToList();
     }
 

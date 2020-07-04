@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PlannerApp.Shared.Models;
+using System;
 
 namespace PlannerApp.Client.Components.DayPlannerComponents
 {
@@ -15,5 +16,12 @@ namespace PlannerApp.Client.Components.DayPlannerComponents
         protected string CalculateHeight() => UIComponentHelper.CalculateHeight(Item.PlannedActionDate.Value, Item.PlannedEndTime.Value);
 
         protected string CalculateTop() => UIComponentHelper.CalculateTop(Item.PlannedActionDate.Value);
+
+        protected string CalculateFontColour()
+        {
+            // fallback to treating the background as dark, since default background is grey
+            var colour = string.IsNullOrEmpty(Colour) ? "#000000" : Colour;
+            return UIComponentHelper.CalculateContrastingFontColour(colour);
+        }
     }
 }

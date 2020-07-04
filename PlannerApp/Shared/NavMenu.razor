@@ -1,33 +1,38 @@
-﻿<nav class="navbar">
-    <div class="navbar-brand">
-        <a href="#" class="navbar-item"></a>
-        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-        </a>
-    </div>
-    <div class="navbar-menu">
-        <div class="navbar-start">
-            <a href="/" class="navbar-item">Home</a>
-            <a href="/Day" class="navbar-item">Day Schedule</a>
-            <a href="/Calendar" class="navbar-item">Calendar</a>
+﻿@inherits NavMenuBase
+@*<nav class="navbar">
+        <div class="navbar-brand">
+            <a href="#" class="navbar-item"></a>
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
         </div>
-        <div class="navbar-end">
-            <div class="navbar-item">
-                <button class="button has-text-primary is-text">Sign Out</button>
+        <div class="navbar-menu">
+            <div class="navbar-start">
+                <a href="/" class="navbar-item">Home</a>
+                <a href="/Day" class="navbar-item">Day Schedule</a>
+                <a href="/Calendar" class="navbar-item">Calendar</a>
+            </div>
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <button class="button has-text-primary is-text">Sign Out</button>
+                </div>
             </div>
         </div>
+    </nav>*@
+
+<nav class="nav">
+    <div class="nav__title">@Title</div>
+    <div class="nav__spacer"></div>
+    <div class="nav__buttons">
+        <a class="nav__button @CheckButtonClassActiveStatus("")" href="/">Home</a>
+        <a class="nav__button @CheckButtonClassActiveStatus("Day")" href="/Day">Schedule</a>
+        <a class="nav__button @CheckButtonClassActiveStatus("Calendar")" href="/Calendar">Calendar</a>
+        <a class="nav__button"></a>
+    </div>
+    <div class="nav__footer">
+
     </div>
 </nav>
 
-@code {
-    private bool collapseNavMenu = true;
-
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}

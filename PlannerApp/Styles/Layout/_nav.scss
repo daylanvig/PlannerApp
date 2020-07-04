@@ -1,0 +1,44 @@
+﻿.nav {
+    width: 100%;
+    background-color: $primary;
+    color: $white-ter;
+    display: flex;
+    padding: 15px 40px;
+    flex-wrap: wrap;
+    box-shadow: $shadow-1;
+
+    @include from($widescreen) {
+       padding: 15px 70px;
+    }
+
+    &__title {
+        font-size: $size-4;
+    }
+
+    &__spacer {
+        flex-grow: 1;
+    }
+
+    &__buttons {
+        display: flex;
+        align-items: center;
+    }
+
+    &__button {
+        padding: 0 10px;
+        color: rgba($white-ter, .85);
+        font-size: $size-6;
+        font-weight: $weight-light;
+
+        &--active {
+            color: inherit;
+        }
+    }
+
+    &__footer {
+        background-color: $primary;
+        color: $white-ter;
+        width: 100%;
+        padding: 30px 0;
+    }
+}

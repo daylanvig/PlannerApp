@@ -13,6 +13,8 @@ namespace PlannerApp.Client.Components
     public class WeekCalendarBase : ComponentBase
     {
         [Inject]
+        public AppState AppState { get; set; }
+        [Inject]
         public IJSRuntime JSRuntime { get; set; }
         [Inject]
         public IPlannerItemDataService PlannerItemDataService { get; set; }
@@ -20,29 +22,25 @@ namespace PlannerApp.Client.Components
         public IPlannerItemService PlannerItemService { get; set; }
         [Inject]
         public ICategoryDataService CategoryDataService { get; set; }
-      
         public DateTime ViewingWeekOf { get; set; } = DateTimeHelper.GetMostRecentDayOfWeek(DateTime.Today, DayOfWeek.Sunday);
+        
         protected ICollection<PlannerItemDTO> Items;
 
         private IEnumerable<CategoryDTO> categories;
 
-        private async Task LoadItems()
-        {
-            Items = (await PlannerItemDataService.LoadItems(ViewingWeekOf, ViewingWeekOf.AddDays(7))).ToList();
-        }
-
         protected override async Task OnInitializedAsync()
         {
+            AppState.Title = $"Calendar {ViewingWeekOf:MMMM yyyy}";
+            Items = (await PlannerItemDataService.LoadItems(ViewingWeekOf, ViewingWeekOf.AddDays(7))).ToList();
             categories = await CategoryDataService.LoadCategories();
-            await LoadItems();
         }
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+        protected override void OnAfterRender(bool firstRender)
         {
             if (firstRender && DateTime.Now.Hour != 0)
             {
                 // scroll to display current time
-                await JSRuntime.InvokeVoidAsync("customScripts.scrollIntoView", $"#interval-{DateTime.Now.Hour - 1}");
+                ((IJSInProcessRuntime)JSRuntime).InvokeVoid("customScripts.scrollIntoView", $"#interval-{DateTime.Now.Hour - 1}");
             }
         }
 
