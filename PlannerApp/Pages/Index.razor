@@ -1,7 +1,7 @@
 ﻿@page "/"
 @inject PlannerApp.Client.Services.IPlannerItemDataService PlannerItemDataService
 @using PlannerApp.Shared.Common
-
+@attribute [Microsoft.AspNetCore.Authorization.Authorize]
 
 
 <section class="section">
