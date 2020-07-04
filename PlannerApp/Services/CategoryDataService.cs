@@ -8,21 +8,22 @@ using System.Threading.Tasks;
 
 namespace PlannerApp.Client.Services
 {
-    public class CategoryDataService : ICategoryDataService
+    public class CategoryDataService : DataService, ICategoryDataService
     {
-        private readonly HttpClient client;
-        public CategoryDataService(IAuthorizedHttpClientFactory authorizedHttpClientFactory)
+        public CategoryDataService(IAuthorizedHttpClientFactory authorizedHttpClientFactory) : base(authorizedHttpClientFactory)
         {
             
         }
 
         public async Task<IEnumerable<CategoryDTO>> LoadCategories()
         {
+            var client = await GetClient();
             return await client.GetJsonAsync<List<CategoryDTO>>("/api/Categories");
         }
 
         public async Task<CategoryDTO> AddItem(CategoryDTO category)
         {
+            var client = await GetClient();
             CategoryDTO createdCategory;
             try
             {
@@ -37,11 +38,13 @@ namespace PlannerApp.Client.Services
 
         public async Task<CategoryDTO> EditItem(CategoryDTO category)
         {
+            var client = await GetClient();
             return await client.PutJsonAsync<CategoryDTO>($"/api/Categories/{category.ID}", category);
         }
 
         public async Task DeleteItem(int categoryID)
         {
+            var client = await GetClient();
             var response = await client.DeleteAsync($"/api/Categories/{categoryID}");
             if (!response.IsSuccessStatusCode)
             {
