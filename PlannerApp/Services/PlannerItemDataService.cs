@@ -8,16 +8,17 @@ using System.Threading.Tasks;
 
 namespace PlannerApp.Client.Services
 {
-    public class PlannerItemDataService : IPlannerItemDataService
+    public class PlannerItemDataService : DataService, IPlannerItemDataService
     {
-        private readonly HttpClient client;
-        public PlannerItemDataService(HttpClient client)
+
+
+        public PlannerItemDataService(IAuthorizedHttpClientFactory authorizedHttpClientFactory) : base(authorizedHttpClientFactory)
         {
-            this.client = client;
         }
 
         public async Task<IEnumerable<PlannerItemDTO>> LoadItems(DateTime? startDate = null, DateTime? endDate = null)
         {
+            var client = await GetClient();
             string url = "/api/PlannerItems?";
             if (startDate.HasValue)
             {
@@ -33,6 +34,7 @@ namespace PlannerApp.Client.Services
         public async Task<PlannerItemDTO> AddItem(PlannerItemDTO plannerItem)
         {
             PlannerItemDTO createdItem;
+            var client = await GetClient();
             try
             {
                 createdItem = await client.PostJsonAsync<PlannerItemDTO>("/api/PlannerItems", plannerItem);
@@ -46,11 +48,13 @@ namespace PlannerApp.Client.Services
 
         public async Task<PlannerItemDTO> EditItem(PlannerItemDTO plannerItem)
         {
+            var client = await GetClient();
             return await client.PutJsonAsync<PlannerItemDTO>($"/api/PlannerItems/{plannerItem.ID}", plannerItem);
         }
 
         public async Task DeleteItem(int itemID)
         {
+            var client = await GetClient();
             var response = await client.DeleteAsync($"/api/PlannerItems/{itemID}");
             if (!response.IsSuccessStatusCode)
             {

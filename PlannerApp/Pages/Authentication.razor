@@ -4,9 +4,9 @@
 
 @if (ActionCased == "register")
 {
-    <RegisterForm GoToLoginAction="@(() => ChangePage("login"))"></RegisterForm>
+    <RegisterForm GoToLoginAction="@(() => ChangePage("signin"))"></RegisterForm>
 }
-else if (ActionCased == "login" || string.IsNullOrEmpty(ActionCased))
+else if (ActionCased == "signin" || string.IsNullOrEmpty(ActionCased))
 {
     <LoginForm GoToRegisterAction="@(() => ChangePage("register"))" ></LoginForm>
 }

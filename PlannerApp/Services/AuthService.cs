@@ -1,6 +1,7 @@
 ﻿using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using PlannerApp.Client.Pages;
 using PlannerApp.Shared.Models.Account;
 using System;
 using System.Collections.Generic;
@@ -18,10 +19,12 @@ namespace PlannerApp.Client.Services
         Task<LoginResult> Login(LoginModel loginModel);
         Task Logout();
         Task<RegisterResult> Register(RegisterModel registerModel);
+        Task<AuthenticationHeaderValue> GetAuthToken();
     }
 
     public class AuthService : IAuthService
     {
+        private const string tokenStore = "authToken";
         private readonly HttpClient _httpClient;
         private readonly AuthenticationStateProvider _authenticationStateProvider;
         private readonly ILocalStorageService _localStorage;
@@ -53,7 +56,7 @@ namespace PlannerApp.Client.Services
                 return loginResult;
             }
 
-            await _localStorage.SetItemAsync("authToken", loginResult.Token);
+            await _localStorage.SetItemAsync(tokenStore, loginResult.Token);
             ((ApiAuthStateProvider)_authenticationStateProvider).MarkUserAsAuthenticated(loginModel.Email);
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", loginResult.Token);
 
@@ -62,9 +65,15 @@ namespace PlannerApp.Client.Services
 
         public async Task Logout()
         {
-            await _localStorage.RemoveItemAsync("authToken");
+            await _localStorage.RemoveItemAsync(tokenStore);
             ((ApiAuthStateProvider)_authenticationStateProvider).MarkUserAsLoggedOut();
             _httpClient.DefaultRequestHeaders.Authorization = null;
+        }
+
+        public async Task<AuthenticationHeaderValue> GetAuthToken()
+        {
+            var tokenValue = await _localStorage.GetItemAsync<string>(tokenStore);
+            return new AuthenticationHeaderValue("bearer", tokenValue);
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.WebUtilities;
+using PlannerApp.Client.Services;
 using PlannerApp.Shared.Common;
 using System;
 using System.Collections.Generic;
@@ -13,9 +15,15 @@ namespace PlannerApp.Client.Pages
         private string redirectUrl;
         [Inject]
         public NavigationManager NavigationManager { get; set; }
-
+        [Inject]
+        public IAuthService AuthService { get; set; }
+        [CascadingParameter]
+        private Task<AuthenticationState> AuthenticationStateTask { get; set; } 
         [Parameter]
         public string Action { get; set; }
+        /// <summary>
+        /// Current set to lowercase
+        /// </summary>
         protected string ActionCased
         {
             get
@@ -28,13 +36,6 @@ namespace PlannerApp.Client.Pages
             }
         }
 
-        protected void ChangePage(string pageChangeTo)
-        {
-            Console.WriteLine(pageChangeTo);
-            Action = pageChangeTo;
-            StateHasChanged();
-        }
-
         protected override void OnInitialized()
         {
             if (QueryHelpers.ParseQuery(NavigationManager.ToAbsoluteUri(NavigationManager.Uri).Query).TryGetValue("returnUrl", out var returnUrl))
@@ -45,6 +46,26 @@ namespace PlannerApp.Client.Pages
             {
                 redirectUrl = "";
             }
+        }
+
+        protected override async Task OnParametersSetAsync()
+        {
+            if (ActionCased == "signout")
+            {
+                await AuthService.Logout();
+                NavigationManager.NavigateTo("/authentication/signin");
+            }
+            var authState = await AuthenticationStateTask;
+            if (authState.User.Identity.IsAuthenticated)
+            {
+                NavigationManager.NavigateTo("/");
+            }
+        }
+
+        protected void ChangePage(string pageChangeTo)
+        {
+            Action = pageChangeTo;
+            StateHasChanged();
         }
 
     }

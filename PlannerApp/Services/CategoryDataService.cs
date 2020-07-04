@@ -11,9 +11,9 @@ namespace PlannerApp.Client.Services
     public class CategoryDataService : ICategoryDataService
     {
         private readonly HttpClient client;
-        public CategoryDataService(HttpClient client)
+        public CategoryDataService(IAuthorizedHttpClientFactory authorizedHttpClientFactory)
         {
-            this.client = client;
+            
         }
 
         public async Task<IEnumerable<CategoryDTO>> LoadCategories()
