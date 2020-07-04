@@ -23,7 +23,7 @@ namespace PlannerApp.Server.Data
 
         public async Task<IReadOnlyList<T>> ListAllAsync()
         {
-            return await context.Set<T>().ToListAsync();
+            return await context.Set<T>().AsQueryable().ToListAsync();
         }
 
         public async Task<IReadOnlyList<T>> ListAsync(Expression<Func<T, bool>> whereCondition)

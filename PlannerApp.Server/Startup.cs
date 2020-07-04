@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.ApiAuthorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,8 @@ using PlannerApp.Server.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
+using AspNet.Security.OpenIdConnect.Primitives;
+using PlannerApp.Server.Extensions;
 
 namespace PlannerApp.Server
 {
@@ -31,28 +34,28 @@ namespace PlannerApp.Server
 
         public IConfiguration Configuration { get; }
 
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // stops app engine from redirecting infinitely
             services.Configure<ForwardedHeadersOptions>(o =>
             {
                 o.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
                 o.ForwardLimit = 2;
             });
+
             services.AddDbContext<PlannerContext>(o =>
             {
-                o.UseMySql(Configuration.GetConnectionString("Local"));
+                o.UseMySql(Configuration.GetConnectionString("PlannerContext"));
             });
-            //services.AddAuthentication(o =>
-            //{
-            //    o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //}).AddJwtBearer(o =>
-            //{
-            //    o.Authority = $"https://{Configuration["Auth0:Domain"]}/";
-            //    o.Audience = Configuration["Auth0:Audience"];
-            //});
-            //services.AddAuthorizationCore();
+
+            services.AddDbContext<UserContext>(o =>
+            {
+                o.UseMySql(Configuration.GetConnectionString("UserContext"));
+            });
+
+            services.ConfigurePlannerAppIdentity();
             services.AddHttpsRedirection(o =>
             {
                 o.HttpsPort = 443;
@@ -62,7 +65,7 @@ namespace PlannerApp.Server
             services.AddRazorPages();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
-            
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -74,17 +77,20 @@ namespace PlannerApp.Server
             }
             else
             {
+                app.UseHsts();
+                app.UseHttpsRedirection();
                 app.UseForwardedHeaders(new ForwardedHeadersOptions() { ForwardedHeaders = ForwardedHeaders.XForwardedProto });
             }
-            app.UseAuthentication();
-            app.UseHttpsRedirection();
+            
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
             app.UseRouting();
-            
+
+            app.UseIdentityServer();
+            app.UseAuthentication();
             app.UseAuthorization();
-            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
