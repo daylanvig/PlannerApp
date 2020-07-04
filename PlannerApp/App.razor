@@ -1,12 +1,18 @@
-
+<CascadingAuthenticationState>
     <Router AppAssembly="@typeof(Program).Assembly">
         <Found Context="routeData">
-            <RouteView RouteData="@routeData" DefaultLayout="typeof(MainLayout)"></RouteView>
-            @*<Microsoft.AspNetCore.Components.Authorization.AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="typeof(MainLayout)">
                 <NotAuthorized>
-                    <RedirectToLogin />
+                    @if (!context.User.Identity.IsAuthenticated)
+                    {
+                        <RedirectToLogin></RedirectToLogin>
+                    }
+                    else
+                    {
+                        <p>You do not have sufficient permissions to view this.</p>
+                    }
                 </NotAuthorized>
-            </Microsoft.AspNetCore.Components.Authorization.AuthorizeRouteView>*@
+            </AuthorizeRouteView>
         </Found>
         <NotFound>
             <div>Helelo</div>
@@ -15,3 +21,4 @@
             </LayoutView>
         </NotFound>
     </Router>
+</CascadingAuthenticationState>

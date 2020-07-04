@@ -1,30 +1,41 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using PlannerApp.Server.Data;
 using PlannerApp.Server.Models.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
 namespace PlannerApp.Server.Extensions
 {
     public static class ServiceCollectionExtensions
     {
 
-        public static IServiceCollection ConfigurePlannerAppIdentity(this IServiceCollection services)
+        public static IServiceCollection ConfigurePlannerAppIdentity(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDefaultIdentity<PlannerAppUser>()
                     .AddRoles<PlannerAppRole>()
                     .AddEntityFrameworkStores<UserContext>();
 
-            services.AddIdentityServer()
-                .AddApiAuthorization<PlannerAppUser, UserContext>();
+            //services.AddIdentityServer()
+            //    .AddApiAuthorization<PlannerAppUser, UserContext>()
+            //    .AddSigningCredentials();
 
-            services.AddAuthentication()
-                .AddIdentityServerJwt();
-
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = configuration["JwtIssuer"],
+                        ValidAudience = configuration["JwtAudience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtSecurityKey"]))
+                    };
+                });
+            
             return services;
         }
     }

@@ -1,16 +1,17 @@
 ﻿@inherits CategoryFormBase
 
-
-<EditForm Model="Category" OnValidSubmit="SaveForm">
-    <Field>
-        <FieldLabel>Description</FieldLabel>
-        <TextEdit @bind-Text="Category.Description" />
-        <ValidationMessage For="@(()=> Category.Description)"></ValidationMessage>
-    </Field>
-    <Field Class="has-width-50">
-        <input class="input" type="color" @bind="Category.Colour" />
-    </Field>
-    <Field>
-        <Button Class="is-pulled-right" Color="Color.Success" Type="ButtonType.Submit">Save</Button>
-    </Field>
-</EditForm>
+<div class="box">
+    <EditForm Model="Category" OnValidSubmit="SaveForm">
+        <Field>
+            <FieldLabel>Description</FieldLabel>
+            <TextEdit @bind-Text="Category.Description" />
+            <ValidationMessage For="@(()=> Category.Description)"></ValidationMessage>
+        </Field>
+        <Field Class="has-width-50">
+            <input class="input" type="color" @bind="Category.Colour" />
+        </Field>
+        <Field>
+            <Button Class="is-pulled-right" Color="Color.Success" Type="ButtonType.Submit">Save</Button>
+        </Field>
+    </EditForm>
+</div>

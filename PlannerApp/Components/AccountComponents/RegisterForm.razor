@@ -1,0 +1,29 @@
+﻿@inherits RegisterFormBase
+
+
+<div class="box">
+    <h1 class="title is-5">Welcome back,</h1>
+    <h2 class="subtitle is-5 has-text-grey-light">sign in to continue.</h2>
+    <EditForm Model="RegisterModel" OnValidSubmit="RegisterUser">
+        <Field>
+            <FieldLabel>Email Address</FieldLabel>
+            <TextEdit @bind-Text="RegisterModel.Email"></TextEdit>
+            <ValidationMessage For="@(() => RegisterModel.Email)"></ValidationMessage>
+        </Field>
+        <Field>
+            <FieldLabel>Password</FieldLabel>
+            <TextEdit @bind-Text="RegisterModel.Password"></TextEdit>
+            <ValidationMessage For="@(() => RegisterModel.Password)"></ValidationMessage>
+        </Field>
+        <Field>
+            <FieldLabel>Confirm Password</FieldLabel>
+            <TextEdit @bind-Text="RegisterModel.ConfirmPassword"></TextEdit>
+            <ValidationMessage For="@(() => RegisterModel.ConfirmPassword)"></ValidationMessage>
+        </Field>
+        <Field Class="has-text-centered has-padding-top-20">
+            <Button Type="ButtonType.Submit" Class="has-width-200" Color="Color.Success" >Sign Up</Button>
+            <div class="has-padding-10">or</div>
+            <Button Class="has-width-200" Color="Color.Primary" Outline="true" @onclick="GoToLoginAction">Sign In</Button>
+        </Field>
+    </EditForm>
+</div>

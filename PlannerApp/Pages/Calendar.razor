@@ -1,11 +1,7 @@
 ﻿@page "/Calendar"
 @inherits CalendarBase
-    <WeekCalendar></WeekCalendar>
-    @*<AuthorizeView>
-        <Authorized>
-            
-        </Authorized>
-        <NotAuthorized>
-            Bad
-        </NotAuthorized>
-    </AuthorizeView>*@
+@attribute [Microsoft.AspNetCore.Authorization.Authorize]
+
+
+
+<WeekCalendar></WeekCalendar>

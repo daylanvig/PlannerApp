@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PlannerApp.Server.Data;
 using PlannerApp.Server.Models;
@@ -11,6 +12,7 @@ namespace PlannerApp.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PlannerItemsController : ControllerBase
     {
         private readonly IRepository<PlannerItem> plannerItemRepository;

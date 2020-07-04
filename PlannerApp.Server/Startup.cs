@@ -55,7 +55,7 @@ namespace PlannerApp.Server
                 o.UseMySql(Configuration.GetConnectionString("UserContext"));
             });
 
-            services.ConfigurePlannerAppIdentity();
+            services.ConfigurePlannerAppIdentity(Configuration);
             services.AddHttpsRedirection(o =>
             {
                 o.HttpsPort = 443;
@@ -86,8 +86,6 @@ namespace PlannerApp.Server
             app.UseStaticFiles();
 
             app.UseRouting();
-
-            app.UseIdentityServer();
             app.UseAuthentication();
             app.UseAuthorization();
 

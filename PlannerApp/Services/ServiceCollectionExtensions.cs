@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace PlannerApp.Client.Services
 {
@@ -9,6 +11,9 @@ namespace PlannerApp.Client.Services
             services.AddTransient<IPlannerItemDataService, PlannerItemDataService>();
             services.AddTransient<IPlannerItemService, PlannerItemService>();
             services.AddTransient<ICategoryDataService, CategoryDataService>();
+
+            services.AddScoped<AuthenticationStateProvider, ApiAuthStateProvider>();
+            services.AddScoped<IAuthService, AuthService>();
             return services;
         }
 
