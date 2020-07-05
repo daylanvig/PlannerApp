@@ -31,6 +31,14 @@
         color: $grey-dark;
     }
 
+    &__header-label, &__column {
+        min-width: 300px;
+
+        @media screen and (min-width: 500px){
+            min-width: 175px;
+        }
+    }
+
     &__interval {
         height: 80px;
         position: relative;
@@ -59,6 +67,7 @@
             background-color: inherit;
         }
     }
+
     &__column {
         flex: 1;
     }

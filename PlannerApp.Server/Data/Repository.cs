@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PlannerApp.Server.Models;
+using PlannerApp.Server.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,12 @@ namespace PlannerApp.Server.Data
     public class Repository<T> : IRepository<T> where T : Entity
     {
         protected readonly PlannerContext context;
+        protected readonly string tenantID;
 
-        public Repository(PlannerContext context)
+        public Repository(PlannerContext context, ITenantService tenantService)
         {
             this.context = context;
+            tenantID = tenantService.GetTenantID();
         }
         public virtual async Task<T> GetByIdAsync(int id)
         {
@@ -35,7 +38,6 @@ namespace PlannerApp.Server.Data
         {
             await context.Set<T>().AddAsync(entity);
             await context.SaveChangesAsync();
-
             return entity;
         }
 

@@ -4,7 +4,7 @@ namespace PlannerApp.Server.Models
 {
     public class Entity
     {
-        protected string tenantID;
+        public string tenantID { get; set; }
         public int ID { get; set; }
     }
 }

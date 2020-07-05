@@ -2,6 +2,7 @@ using Blazored.LocalStorage;
 using Blazorise;
 using Blazorise.Bulma;
 using Blazorise.Icons.FontAwesome;
+using Fluxor;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using PlannerApp.Client.Components;
@@ -27,6 +28,7 @@ namespace PlannerApp.Client
             builder.Services.AddSingleton<AppState>();
             builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddBlazoredLocalStorage();
+            builder.Services.AddFluxor(o => o.ScanAssemblies(typeof(Program).Assembly));
             builder.Services.AddAuthorizationCore();
             builder.Services.AddPlannerAppServices();
             var host = builder.Build();
