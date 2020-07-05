@@ -22,6 +22,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using AspNet.Security.OpenIdConnect.Primitives;
 using PlannerApp.Server.Extensions;
+using PlannerApp.Client.Services;
+using PlannerApp.Server.Services;
 
 namespace PlannerApp.Server
 {
@@ -45,23 +47,26 @@ namespace PlannerApp.Server
                 o.ForwardLimit = 2;
             });
 
+            services.AddDbContext<UserContext>(o =>
+            {
+                o.UseMySql(Configuration.GetConnectionString("UserContext"));
+            });
+            
             services.AddDbContext<PlannerContext>(o =>
             {
                 o.UseMySql(Configuration.GetConnectionString("PlannerContext"));
             });
 
-            services.AddDbContext<UserContext>(o =>
-            {
-                o.UseMySql(Configuration.GetConnectionString("UserContext"));
-            });
-
+            services.AddHttpContextAccessor();
             services.ConfigurePlannerAppIdentity(Configuration);
+            services.ConfigurePlannerAppCustomServices();
             services.AddHttpsRedirection(o =>
             {
                 o.HttpsPort = 443;
                 o.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
             });
             services.AddControllersWithViews();
+           
             services.AddRazorPages();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));

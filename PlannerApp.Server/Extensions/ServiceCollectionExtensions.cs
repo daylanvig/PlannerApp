@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using PlannerApp.Server.Data;
 using PlannerApp.Server.Models.Identity;
+using PlannerApp.Server.Services;
 using System.Text;
 
 namespace PlannerApp.Server.Extensions
@@ -16,11 +17,6 @@ namespace PlannerApp.Server.Extensions
             services.AddDefaultIdentity<PlannerAppUser>()
                     .AddRoles<PlannerAppRole>()
                     .AddEntityFrameworkStores<UserContext>();
-
-            //services.AddIdentityServer()
-            //    .AddApiAuthorization<PlannerAppUser, UserContext>()
-            //    .AddSigningCredentials();
-
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -36,6 +32,13 @@ namespace PlannerApp.Server.Extensions
                     };
                 });
             
+            return services;
+        }
+
+        public static IServiceCollection ConfigurePlannerAppCustomServices(this IServiceCollection services)
+        {
+            services.AddScoped<ITenantService, TenantService>();
+
             return services;
         }
     }

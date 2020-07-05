@@ -8,6 +8,7 @@ namespace PlannerApp.Server.Models.Identity
 {
     public class PlannerAppUser : IdentityUser<int>
     {
+        public string TenantID { get; set; }
     }
     
     public class PlannerAppRole : IdentityRole<int>

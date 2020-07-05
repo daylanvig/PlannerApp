@@ -83,7 +83,7 @@ namespace PlannerApp.Server.Data
 
     public class UserContext : KeyApiAuthorizationDbContext<PlannerAppUser, PlannerAppRole, int>
     {
-        public UserContext(DbContextOptions options, IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
+        public UserContext(DbContextOptions<UserContext> options, IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
 

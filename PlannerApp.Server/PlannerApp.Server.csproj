@@ -59,6 +59,10 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\Extensions\" />
+  </ItemGroup>
+
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <TypeScriptTarget>ES2017</TypeScriptTarget>
     <TypeScriptJSXEmit>React</TypeScriptJSXEmit>

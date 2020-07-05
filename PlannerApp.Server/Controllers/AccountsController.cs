@@ -35,6 +35,7 @@ namespace PlannerApp.Server.Controllers
             {
                 Email = registerModel.Email,
                 UserName = registerModel.Email,
+                TenantID = Guid.NewGuid().ToString()
             }, registerModel.Password);
 
             if (!result.Succeeded)
@@ -53,9 +54,11 @@ namespace PlannerApp.Server.Controllers
             {
                 return BadRequest(new LoginResult { IsSuccessful = false, Error = "Invalid Login Details" });
             }
+            var user = await userManager.FindByEmailAsync(loginModel.Email);
             var claims = new[]
             {
-                new Claim(ClaimTypes.Name, loginModel.Email)
+                new Claim(ClaimTypes.Name, loginModel.Email),
+                new Claim("tenantID", user.TenantID)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtSecurityKey"]));
