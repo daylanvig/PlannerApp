@@ -2,8 +2,11 @@
     display: flex;
     flex-direction: column;
     min-height: calc(100vh - 3.25rem); // navbar is 3.25rem
-    margin: 10px 40px;
-    @include from($widescreen){
+    @include from($tablet) {
+        margin: 10px 40px;
+    }
+
+    @include from($widescreen) {
         margin: 10px 70px;
     }
 }

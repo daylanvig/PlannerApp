@@ -6,14 +6,16 @@
     color: $grey;
     background-color: $white;
     transform: translateY(-74px);
+    overflow-x: auto;
 
     &__header {
         position: sticky;
         display: flex;
         top: 0;
         z-index: 2;
-        padding: 20px;
+        padding: 20px 40px;
         background-color: $grey-lightest;
+        min-width: fit-content;
     }
 
     &__content {
@@ -22,6 +24,7 @@
         margin: 0 40px;
         overflow-y: auto;
         padding-top: 20px;
+        min-width: fit-content;
     }
 
     &__header-label {
@@ -34,7 +37,7 @@
     &__header-label, &__column {
         min-width: 300px;
 
-        @media screen and (min-width: 500px){
+        @media screen and (min-width: 500px) {
             min-width: 175px;
         }
     }
@@ -42,6 +45,7 @@
     &__interval {
         height: 80px;
         position: relative;
+        border-right: 1px solid $grey-lightest;
 
         &:not(.calendar__interval--time-scale) {
             border-bottom: 1px solid $grey-lightest;
