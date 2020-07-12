@@ -21,8 +21,4 @@
     <ProjectReference Include="..\PlannerApp.Server\PlannerApp.Server.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Infrastructure\" />
-  </ItemGroup>
-
 </Project>

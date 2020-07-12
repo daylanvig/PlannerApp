@@ -10,9 +10,9 @@ namespace PlannerApp.Client.Components.AccountComponents
 {
     public class LoginFormBase : ComponentBase
     {
+        [Parameter]
         public LoginModel LoginModel { get; set; } = new LoginModel();
         [Parameter]
-
         public Action GoToRegisterAction { get; set; }
         [Inject]
         public IAuthService AuthService { get; set; }

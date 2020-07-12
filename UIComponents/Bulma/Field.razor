@@ -1,0 +1,19 @@
+﻿@inherits FieldBase
+<div class="field @CssClass">
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <label class="label">@Label</label>
+    }
+    <div class="control">
+        <CascadingValue Value="this">
+            @ControlContent
+            @ChildContent
+        </CascadingValue>
+    </div>
+    @if (ValidationContent != null)
+    {
+        <p class="help @(isFieldValid ? "" : "is-danger")">
+            @ValidationContent
+        </p>
+    }
+</div>

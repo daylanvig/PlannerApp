@@ -12,7 +12,7 @@ namespace PlannerApp.FunctionalTests
 {
     public class PlannerAppUserShould : IDisposable
     {
-        private const string rootUrl = "https://localhost:44328/";
+        private const string rootUrl = "http://localhost:44328/";
         public IWebDriver driver;
 
         public PlannerAppUserShould()

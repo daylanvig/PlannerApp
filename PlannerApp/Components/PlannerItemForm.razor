@@ -1,7 +1,8 @@
 ﻿@inherits PlannerItemFormBase
 
 <EditForm Model="Item" OnValidSubmit="OnValidCallback">
-    <Field>
+    <UIComponents.FluentValidator TValidator="PlannerApp.Shared.Validators.PlannerItemDTOValidator"></UIComponents.FluentValidator>
+    @*<Field La>
         <FieldLabel>Description</FieldLabel>
         <TextEdit @bind-Text="Item.Description" />
         <ValidationMessage For="@(()=> Item.Description)"></ValidationMessage>
@@ -26,8 +27,8 @@
                 <SelectItem Value="category.ID">@category.Description</SelectItem>
             }
         </Select>
-    </Field>
+    </Field>*@
     <Field>
-        <Button Class="is-pulled-right" Color="Color.Success" Type="ButtonType.Submit" id="saveChangesBtn">Update</Button>
+        <Button CssClass="is-pulled-right" Color="Color.Success" Type="ButtonType.Submit" id="saveChangesBtn">Update</Button>
     </Field>
 </EditForm>

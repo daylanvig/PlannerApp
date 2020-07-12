@@ -25,7 +25,7 @@
     <PackageReference Include="Blazorise" Version="0.9.1" />
     <PackageReference Include="Blazorise.Bulma" Version="0.9.1" />
     <PackageReference Include="Blazorise.Icons.FontAwesome" Version="0.9.1" />
-    <PackageReference Include="FluentValidation" Version="9.0.0-preview5" />
+    <PackageReference Include="FluentValidation" Version="8.6.2" />
     <PackageReference Include="Fluxor" Version="3.1.1" />
     <PackageReference Include="Fluxor.Blazor.Web" Version="3.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.DataAnnotations.Validation" Version="3.2.0-rc1.20223.4" />
@@ -52,8 +52,14 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PlannerApp.Core\PlannerApp.Shared.csproj" />
+    <ProjectReference Include="..\UIComponents\UIComponents.csproj" />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 </Project>

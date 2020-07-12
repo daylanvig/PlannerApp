@@ -7,8 +7,8 @@
 <section class="section">
     <div class="container">
         <h1 class="title is-5">Enter a New Item</h1>
-        <EditForm Model="@NewItem" OnValidSubmit="@SaveItem">
-            <DataAnnotationsValidator></DataAnnotationsValidator>
+        @*<EditForm Model="@NewItem" OnValidSubmit="@SaveItem">
+            <Fluent
             <Field>
                 <TextEdit name="Description" Size="Size.Medium" @bind-Text="NewItem.Description" Placeholder="What do you have to do?*"></TextEdit>
                 <ValidationMessage For="@(() => NewItem.Description)"></ValidationMessage>
@@ -24,7 +24,7 @@
             <Field>
                 <Button Class="is-pulled-right" Color="Color.Success" Type="ButtonType.Submit" id="saveNewItemBtn">Save</Button>
             </Field>
-        </EditForm>
+        </EditForm>*@
     </div>
 </section>
 <section class="section" id="plannerItems">

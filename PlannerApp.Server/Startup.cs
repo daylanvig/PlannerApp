@@ -82,7 +82,6 @@ namespace PlannerApp.Server
             }
             else
             {
-                app.UseHsts();
                 app.UseHttpsRedirection();
                 app.UseForwardedHeaders(new ForwardedHeadersOptions() { ForwardedHeaders = ForwardedHeaders.XForwardedProto });
             }

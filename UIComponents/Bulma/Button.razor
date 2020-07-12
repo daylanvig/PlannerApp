@@ -1,0 +1,11 @@
+﻿@inherits ButtonBase
+@using UIComponents.Bulma.Helpers
+ 
+<button 
+        @attributes="AdditionalAttributes" 
+        @onclick="OnClickCallback" 
+        disabled="@(IsDisabled ? "disabled" : null)" 
+        type="@Type" 
+        class="button @CssClass @(Colour?.ToClass())">
+        @ChildContent
+</button>

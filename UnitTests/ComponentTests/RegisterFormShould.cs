@@ -1,61 +1,106 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
-using Bunit;
-using PlannerApp.Client.Components.AccountComponents;
+﻿using Bunit;
 using Microsoft.Extensions.DependencyInjection;
-using PlannerApp.Client.Services;
 using Moq;
-using Blazorise;
-using Blazorise.Bulma;
-using Bunit.Mocking.JSInterop;
+using PlannerApp.Client.Components.AccountComponents;
+using PlannerApp.Client.Services;
+using PlannerApp.Shared.Models.Account;
+using PlannerApp.UnitTests.Infrastructure;
+using System;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace PlannerApp.UnitTests.ComponentTests
 {
-    public class RegisterFormShould
+    public class RegisterFormShould : IClassFixture<TestContextBuilder>
     {
+        TestContextBuilder fixture;
+        public RegisterFormShould(TestContextBuilder fixture)
+        {
+            this.fixture = fixture;
+        }
 
         [Fact]
         public void RenderCorrectly()
         {
             // Arrange
             using var ctx = new TestContext();
-            var authMock = Mock.Of<IAuthService>();
-            ctx.Services.AddSingleton<IAuthService>(authMock);
-            ctx.Services.AddBlazorise().AddBulmaProviders();
-            ctx.Services.AddMockJsRuntime();
+            fixture.AddAuth(ctx.Services);
+
             // Act
-            var html = ctx.RenderComponent<RegisterForm>();
+            var cut = ctx.RenderComponent<RegisterForm>();
 
             // Assert
-            html.MarkupMatches(@"<div class='box'>
-                                    <h1 class='title is-5'>Welcome,</h1>
-                                    <h2 class='subtitle is-5 has-text-grey-light'>the following is all that's required.</h2>
-                                    <form>
-                                        <div class='field' style=''>
-                                            <label class='field-label' style=''>Email Address</label>
-                                                <input id:ignore type='email' class='input' style=''>
-                                        </div>
-                                        <div class='field' style=''>
-                                            <label class='field-label' style=''>Password</label>
-                                            <input id:ignore type='password' class='input' style=''>   
-                                        </div>
-                                        <div class='field' style=''>
-                                            <label class='field-label' style=''>Confirm Password</label>
-                                            <input id:ignore type='password' class='input' style=''>
-                                        </div>
-                                        <div class='field has-text-centered has-padding-top-20' style=''>
-                                            <button id:ignore type='submit' class='button is-success has-width-200' style=''>
-                                                Sign Up
-                                            </button>
-                                            <div class='has-padding-10'>or</div>
-                                            <button id:ignore type='button' class='button is-primary is-outlined has-width-200' style=''>
-                                                Sign In
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>");
+            cut.MarkupMatches(@"<div class=""box"">
+                      <h1 class=""title is-5"">Welcome,</h1>
+                      <h2 class=""subtitle is-5 has-text-grey-light"">the following is all that's required.</h2>
+                      <form >
+                        <div class=""field "">
+                          <label class=""label"">Email Address</label>
+                          <div class=""control"">
+                            <input name=""Email"" type=""text"" class=""input valid"" >
+                          </div>
+                          <p class=""help "">
+                          </p>
+                        </div>
+                        <div class=""field "">
+                          <label class=""label"">Password</label>
+                          <div class=""control"">
+                            <input name=""Email"" type=""text"" class=""input valid"" >
+                          </div>
+                          <p class=""help "">
+                          </p>
+                        </div>
+                        <div class=""field "">
+                          <label class=""label"">Confirm Password</label>
+                          <div class=""control"">
+                            <input name=""ConfirmPassword"" type=""text"" class=""input valid"" >
+                          </div>
+                          <p class=""help "">
+                          </p>
+                        </div>
+                        <div class=""field has-text-centered has-padding-top-20"">
+                          <div class=""control"">
+                            <button type=""submit"" class=""button has-width-200 is-success"">
+                              Sign Up
+                            </button>
+                            <div class=""has-padding-10"">or</div>
+                            <button  type=""button"" class=""button has-width-200 is-outlined is-primary"">
+                              Sign In
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>");
+
+        }
+
+        [Fact]
+        public void SubmitRegistrationDetailsToTheAuthServiceWhenSaved()
+        {
+            // Arrange
+            using var ctx = new TestContext();
+            var spy = new Mock<IAuthService>();
+            spy.Setup(o => o.Register(It.IsAny<RegisterModel>())).Returns(Task.FromResult(new RegisterResult()));
+            ctx.Services.AddScoped<IAuthService>(o => spy.Object);
+            var accountDetails = new Shared.Models.Account.RegisterModel
+            {
+                Email = "testemail@gmail.com",
+                Password = "test123213123",
+                ConfirmPassword = "test123213123"
+            };
+            var cut = ctx.RenderComponent<RegisterForm>(parameters =>
+            {
+                parameters.Add(p => p.GoToLoginAction, Mock.Of<Action>());
+            });
+            cut.Instance.RegisterModel = accountDetails;
+            cut.Render();
+            var registerForm = cut.Find("form");
+
+            // Act
+            registerForm.Submit();
+
+            // Assert
+            spy.Verify(o => o.Register(It.IsAny<RegisterModel>()), Times.Once);
         }
     }
 }

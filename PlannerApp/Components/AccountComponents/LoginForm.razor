@@ -1,23 +1,33 @@
 ﻿@inherits LoginFormBase
-    
-    <div class="box">
-        <h1 class="title is-5">Welcome back,</h1>
-        <h2 class="subtitle is-5 has-text-grey-light">sign in to continue.</h2>
-        <EditForm Model="LoginModel" OnValidSubmit="LogInToAccount">
-            <Field>
-                <FieldLabel>Email Address</FieldLabel>
-                <TextEdit @bind-Text="LoginModel.Email"></TextEdit>
-                <ValidationMessage For="@(() => LoginModel.Email)"></ValidationMessage>
-            </Field>
-            <Field>
-                <FieldLabel>Password</FieldLabel>
-                <TextEdit @bind-Text="LoginModel.Password"></TextEdit>
-                <ValidationMessage For="@(() => LoginModel.Password)"></ValidationMessage>
-            </Field>
-            <Field Class="has-text-centered has-padding-top-20">
-                <Button Type="ButtonType.Submit" Class="has-width-200" Color="Color.Success">Sign In</Button>
+@using PlannerApp.Shared.Validators
+ 
+<div class="box">
+    <h1 class="title is-5">Welcome back,</h1>
+    <h2 class="subtitle is-5 has-text-grey-light">sign in to continue.</h2>
+    <EditForm Model="LoginModel" OnValidSubmit="LogInToAccount">
+        <UIComponents.FluentValidator TValidator="LoginModelValidator"></UIComponents.FluentValidator>
+        <Field Label="Email Address">
+            <ControlContent>
+                <InputField @bind-Value="LoginModel.Email"></InputField>
+            </ControlContent>
+            <ValidationContent>
+                <ValidationMessage For="() => LoginModel.Email"></ValidationMessage>
+            </ValidationContent>
+        </Field>
+        <Field Label="Password">
+            <ControlContent>
+                <InputField @bind-Value="LoginModel.Password" Type="password"></InputField>
+            </ControlContent>
+            <ValidationContent>
+                <ValidationMessage For="() => LoginModel.Password"></ValidationMessage>
+            </ValidationContent>
+        </Field>
+        <Field CssClass="has-text-centered has-padding-top-20">
+            <ControlContent>
+                <Button Type="submit" CssClass="has-width-200" Colour="ComponentColour.Success">Sign In</Button>
                 <div class="has-padding-10">or</div>
-                <Button Class="has-width-200" Color="Color.Primary" @onclick="GoToRegisterAction">Sign Up</Button>
-            </Field>
-        </EditForm>
-    </div>
+                <Button CssClass="has-width-200 is-outlined" Colour="ComponentColour.Primary" OnClickCallback="GoToRegisterAction">Sign Up</Button>
+            </ControlContent>
+        </Field>
+    </EditForm>
+</div>
