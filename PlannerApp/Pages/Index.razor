@@ -58,7 +58,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        AppState.Title = "YourPlanner";
+        AppState.UpdateTitle();
         plannerItems = (await PlannerItemDataService.LoadItems()).ToList();
     }
 

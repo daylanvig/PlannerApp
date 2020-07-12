@@ -13,7 +13,7 @@ namespace PlannerApp.UnitTests.ComponentTests
 {
     public class RegisterFormShould : IClassFixture<TestContextBuilder>
     {
-        TestContextBuilder fixture;
+        readonly TestContextBuilder fixture;
         public RegisterFormShould(TestContextBuilder fixture)
         {
             this.fixture = fixture;

@@ -10,11 +10,10 @@ namespace PlannerApp.Client.Components
     {
         [Inject]
         public ICategoryDataService CategoryDataService { get; set; }
-
         [Parameter]
         public CategoryDTO Category { get; set; }
         [Parameter]
-        public EventCallback OnSaveCallback { get; set; }
+        public EventCallback<CategoryDTO> OnSaveCallback { get; set; }
 
         protected async Task SaveForm()
         {

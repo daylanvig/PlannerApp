@@ -22,9 +22,6 @@
 
   <ItemGroup>
     <PackageReference Include="Blazored.LocalStorage" Version="2.1.6" />
-    <PackageReference Include="Blazorise" Version="0.9.1" />
-    <PackageReference Include="Blazorise.Bulma" Version="0.9.1" />
-    <PackageReference Include="Blazorise.Icons.FontAwesome" Version="0.9.1" />
     <PackageReference Include="FluentValidation" Version="8.6.2" />
     <PackageReference Include="Fluxor" Version="3.1.1" />
     <PackageReference Include="Fluxor.Blazor.Web" Version="3.1.1" />

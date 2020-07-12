@@ -1,0 +1,31 @@
+﻿@inherits ModalBase
+
+@if (IsVisible)
+{
+    <div class="modal is-active is-fixed">
+        <div class="modal-background" @onclick="HideModal"></div>
+        @if (Style == Helpers.ModalStyle.Card)
+        {
+            <aside class="modal-card" aria-modal="true">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">@Title</p>
+                    <button class="delete" aria-label="close" @onclick="HideModal"></button>
+                </header>
+                <section class="modal-card-body">
+                    @Body
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button" @onclick="HideModal">Cancel</button>
+                    <button class="button is-success">@SaveLabel</button>
+                </footer>
+            </aside>
+        }
+        else
+        {
+            <div class="modal-content">
+                @Body
+            </div>
+            <button class="modal-close is-large is-fixed" aria-label="close" @onclick="HideModal"></button>
+        }
+    </div>
+}

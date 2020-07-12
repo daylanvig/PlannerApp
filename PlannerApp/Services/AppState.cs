@@ -1,31 +1,23 @@
-﻿using PlannerApp.Client.Shared;
+﻿using PlannerApp.Client.Store.ChangePageUseCase;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using UIComponents.Bulma;
 
 namespace PlannerApp.Client.Components
 {
     public class AppState
     {
+        public TitleState Title { get; private set; } = new TitleState();
+        public event Action OnAppStateChange;
 
-        private string title = "PlannerApp";
-        public string Title 
-        { 
-            get=> title; 
-            set
-            {
-                title = value;
-                NotifyPageChange();
-            }
-        }
-
-        public event Action OnPageChange;
-        
-        
-        private void NotifyPageChange()
+        public void UpdateTitle(TitleState titleState = null)
         {
-            OnPageChange.Invoke();
+            Title = titleState ?? new TitleState();
+            NotifyStateChanged();
+        }
+        
+        private void NotifyStateChanged()
+        {
+            OnAppStateChange.Invoke();
         }
     }
 }

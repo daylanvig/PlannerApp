@@ -16,7 +16,7 @@
             <input type="date" class="input" value="@(DateTimeHelper.FormatDateInput(ViewingDate))" @onchange="ChangeViewingDate" />
         </menuitem>
         <menuitem class="menu-list">
-            <Button Color="Color.Info" @onclick="(() => ModalFormCategory = new CategoryDTO())">Add Category</Button>
+            <Button Colour="ComponentColour.Info" OnClickCallback="BeginAddingCategory">Add Category</Button>
         </menuitem>
     </menu>
     <main class="day-planner">
@@ -44,23 +44,3 @@
         }
     </main>
 </section>
-@if (ModalFormItem != null || ModalFormCategory != null)
-{
-    @*<Modal @ref="ModalRef" Class="is-fixed">
-        <ModalBackdrop />
-        <ModalContent Class="box" Dialog="false">
-            <CloseButton Class="is-pulled-right" Clicked="HideModal"></CloseButton>
-            <ModalBody>
-                @if (ModalFormItem != null)
-                {
-                    <PlannerItemForm Item="ModalFormItem" OnValidCallback="SavePlannerItem">
-                    </PlannerItemForm>
-                }
-                else
-                {
-                    <CategoryForm Category="ModalFormCategory" OnSaveCallback="HideModal"></CategoryForm>
-                }
-            </ModalBody>
-        </ModalContent>
-    </Modal>*@
-}

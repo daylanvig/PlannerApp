@@ -1,6 +1,6 @@
 ﻿@inherits CategoryFormBase
 
-<div class="box">
+<div class="box is-clipped">
     <EditForm Model="Category" OnValidSubmit="SaveForm">
         <UIComponents.FluentValidator TValidator="PlannerApp.Shared.Validators.CategoryValidator"></UIComponents.FluentValidator>
         <Field Label="Description">
@@ -11,9 +11,9 @@
                 <ValidationMessage For="@(()=> Category.Description)"></ValidationMessage>
             </ValidationContent>
         </Field>
-        <Field CssClass="has-width-50">
+        <Field CssClass="has-width-50" Label="Colour">
             <ControlContent>
-                <TextField @bind-Value="Category.Colour"></TextField>
+                <TextField @bind-Value="Category.Colour" Type="color"></TextField>
             </ControlContent>
             <ValidationContent>
                 <ValidationMessage For="@(()=> Category.Colour)"></ValidationMessage>

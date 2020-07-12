@@ -1,13 +1,7 @@
-﻿using Blazorise;
-using Blazorise.Bulma;
-using Bunit;
-using Bunit.Mocking.JSInterop;
+﻿using Bunit;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using PlannerApp.Client.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PlannerApp.UnitTests.Infrastructure
 {

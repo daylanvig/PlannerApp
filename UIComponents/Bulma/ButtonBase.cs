@@ -15,6 +15,6 @@ namespace UIComponents.Bulma
         [Parameter]
         public string Type { get; set; } = "button";
         [Parameter]
-        public RenderFragment ChildContent { get; set; }
+        public Microsoft.AspNetCore.Components.RenderFragment ChildContent { get; set; }
     }
 }

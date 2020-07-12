@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.WebUtilities;
+using PlannerApp.Client.Components;
 using PlannerApp.Client.Services;
 using PlannerApp.Shared.Common;
 using System;
@@ -13,6 +14,8 @@ namespace PlannerApp.Client.Pages
     public class AuthenticationBase : ComponentBase
     {
         private string redirectUrl;
+        [Inject]
+        public AppState AppState { get; set; }
         [Inject]
         public NavigationManager NavigationManager { get; set; }
         [Inject]
@@ -50,6 +53,7 @@ namespace PlannerApp.Client.Pages
 
         protected override async Task OnParametersSetAsync()
         {
+            AppState.UpdateTitle(new Store.ChangePageUseCase.TitleState());
             if (ActionCased == "signout")
             {
                 await AuthService.Logout();

@@ -11,7 +11,7 @@ namespace UIComponents.Bulma
         [Parameter]
         public Func<string, T> StringParser { get; set; }
         [Parameter]
-        public RenderFragment ChildContent { get; set; }
+        public Microsoft.AspNetCore.Components.RenderFragment ChildContent { get; set; }
 
         protected override void OnInitialized()
         {

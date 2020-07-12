@@ -1,23 +1,31 @@
 ﻿@inherits NavMenuBase
 
 <nav class="nav">
-    <div class="nav__title">@Title</div>
-    <div class="nav__spacer"></div>
-    <div class="nav__buttons">
-        @if (IsUserAuthenticated.HasValue)
-        {
-            if (IsUserAuthenticated.Value)
+    <div class="nav__body">
+        <div class="nav__title">@((MarkupString)Title)</div>
+        <div class="nav__spacer"></div>
+        <div class="nav__buttons">
+            @if (IsUserAuthenticated.HasValue)
             {
-                <a class="nav__button @CheckButtonClassActiveStatus("")" href="/">Home</a>
-                <a class="nav__button @CheckButtonClassActiveStatus("Day")" href="/Day">Schedule</a>
-                <a class="nav__button @CheckButtonClassActiveStatus("Calendar")" href="/Calendar">Calendar</a>
+                if (IsUserAuthenticated.Value)
+                {
+                    <a class="nav__button @CheckButtonClassActiveStatus("")" href="/">Home</a>
+                    <a class="nav__button @CheckButtonClassActiveStatus("Day")" href="/Day">Schedule</a>
+                    <a class="nav__button @CheckButtonClassActiveStatus("Calendar")" href="/Calendar">Calendar</a>
+                }
+                <LoginDisplay></LoginDisplay>
             }
-            <LoginDisplay></LoginDisplay>
-        }
-
+        </div>
     </div>
-    <div class="nav__footer">
+    @*If empty string, still render footer in case desired look is empty footer, otherwise collapse footer*@
+    @if (SubTitle != null)
+    {
+        <div class="nav__footer">
+            <div class="nav__left-foot">
+                @((MarkupString)SubTitle)
+            </div>
 
-    </div>
+        </div>
+    }
 </nav>
 

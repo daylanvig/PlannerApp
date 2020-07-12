@@ -19,7 +19,8 @@ namespace PlannerApp.Client.Components.AccountComponents
 
         public async Task LogInToAccount()
         {
-            var result = await AuthService.Login(LoginModel);
+            await AuthService.Login(LoginModel);
+            // auto navigates when auth state changes
         }
     }
 }

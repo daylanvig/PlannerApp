@@ -8,11 +8,11 @@ namespace UIComponents.Bulma
         public string Label { get; set; }
         // If no need for validation, can just use child content to save having to add <ControlContent> tag
         [Parameter]
-        public RenderFragment ChildContent { get; set; }
+        public Microsoft.AspNetCore.Components.RenderFragment ChildContent { get; set; }
         [Parameter]
-        public RenderFragment ControlContent { get; set; }
+        public Microsoft.AspNetCore.Components.RenderFragment ControlContent { get; set; }
         [Parameter]
-        public RenderFragment ValidationContent { get; set; }
+        public Microsoft.AspNetCore.Components.RenderFragment ValidationContent { get; set; }
         protected bool isFieldValid = true;
         public void Notify<T>(InputFieldBase<T> input)
         {
