@@ -2,33 +2,42 @@
 
 <EditForm Model="Item" OnValidSubmit="OnValidCallback">
     <UIComponents.FluentValidator TValidator="PlannerApp.Shared.Validators.PlannerItemDTOValidator"></UIComponents.FluentValidator>
-    @*<Field La>
-        <FieldLabel>Description</FieldLabel>
-        <TextEdit @bind-Text="Item.Description" />
-        <ValidationMessage For="@(()=> Item.Description)"></ValidationMessage>
+    <Field Label="Description">
+        <ControlContent>
+            <TextField @bind-Value="Item.Description"></TextField>
+        </ControlContent>
+        <ValidationContent>
+            <ValidationMessage For="@(()=> Item.Description)"></ValidationMessage>
+        </ValidationContent>
     </Field>
-    <Fields>
-        <Field>
-            <FieldLabel>From</FieldLabel>
-            <DateInput name="PlannedActionDate" @bind-Value="Item.PlannedActionDate"></DateInput>
+    <Field Label="From">
+        <ControlContent>
+            <DateField HasTime @bind-Value="Item.PlannedActionDate"></DateField>
+        </ControlContent>
+        <ValidationContent>
             <ValidationMessage For="@(() => Item.PlannedActionDate)"></ValidationMessage>
-        </Field>
-        <Field>
-            <FieldLabel>Until</FieldLabel>
-            <DateInput name="PlannedEndTime" @bind-Value="Item.PlannedEndTime"></DateInput>
+        </ValidationContent>
+    </Field>
+    <Field Label="Until">
+        <ControlContent>
+            <DateField HasTime @bind-Value="Item.PlannedEndTime"></DateField>
+        </ControlContent>
+        <ValidationContent>
             <ValidationMessage For="@(() => Item.PlannedEndTime)"></ValidationMessage>
-        </Field>
-    </Fields>
+        </ValidationContent>
+    </Field>
+    <Field Label="Category">
+        <ControlContent>
+            <SelectField class="select--full-width" TValType="int?" @bind-Value="Item.CategoryID" StringParser="UIComponents.Extensions.ParsingExtensions.ParseStringAsNullableInt">
+                <option></option>
+                @foreach (var category in Categories.OrderBy(c => c.Description))
+                {
+                    <option value="@category.ID">@category.Description</option>
+                }
+            </SelectField>
+        </ControlContent>
+    </Field>
     <Field>
-        <Select SelectedValue="Item.CategoryID.GetValueOrDefault(-1)" @onchange="SetCategory">
-            <SelectItem Value="-1"></SelectItem>
-            @foreach (var category in Categories)
-            {
-                <SelectItem Value="category.ID">@category.Description</SelectItem>
-            }
-        </Select>
-    </Field>*@
-    <Field>
-        <Button CssClass="is-pulled-right" Color="Color.Success" Type="ButtonType.Submit" id="saveChangesBtn">Update</Button>
+        <Button CssClass="is-pulled-right" Colour="ComponentColour.Success" Type="submit" id="saveChangesBtn">Update</Button>
     </Field>
 </EditForm>

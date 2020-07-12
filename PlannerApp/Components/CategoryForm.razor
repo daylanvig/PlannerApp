@@ -5,7 +5,7 @@
         <UIComponents.FluentValidator TValidator="PlannerApp.Shared.Validators.CategoryValidator"></UIComponents.FluentValidator>
         <Field Label="Description">
             <ControlContent>
-                <InputField @bind-Value="Category.Description" ></InputField>
+                <TextField @bind-Value="Category.Description" ></TextField>
             </ControlContent>
             <ValidationContent>
                 <ValidationMessage For="@(()=> Category.Description)"></ValidationMessage>
@@ -13,7 +13,7 @@
         </Field>
         <Field CssClass="has-width-50">
             <ControlContent>
-                <InputField @bind-Value="Category.Colour"></InputField>
+                <TextField @bind-Value="Category.Colour"></TextField>
             </ControlContent>
             <ValidationContent>
                 <ValidationMessage For="@(()=> Category.Colour)"></ValidationMessage>

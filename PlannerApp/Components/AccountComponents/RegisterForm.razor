@@ -8,7 +8,7 @@
         <UIComponents.FluentValidator TValidator="PlannerApp.Shared.Validators.RegisterModelValidator"></UIComponents.FluentValidator>
         <Field Label="Email Address">
             <ControlContent>
-                <InputField @bind-Value="RegisterModel.Email"></InputField>
+                <TextField @bind-Value="RegisterModel.Email"></TextField>
             </ControlContent>
             <ValidationContent>
                 <ValidationMessage For="@(() => RegisterModel.Email)"></ValidationMessage>
@@ -16,7 +16,7 @@
         </Field>
         <Field Label="Password">
             <ControlContent>
-                <InputField @bind-Value="RegisterModel.Password"></InputField>
+                <TextField Type="password" autocomplete="new-password" @bind-Value="RegisterModel.Password"></TextField>
             </ControlContent>
             <ValidationContent>
                 <ValidationMessage For="@(() => RegisterModel.Password)"></ValidationMessage>
@@ -24,7 +24,7 @@
         </Field>
         <Field Label="Confirm Password">
             <ControlContent>
-                <InputField @bind-Value="RegisterModel.ConfirmPassword"></InputField>
+                <TextField Type="password" autocomplete="new-password" @bind-Value="RegisterModel.ConfirmPassword"></TextField>
             </ControlContent>
             <ValidationContent>
                 <ValidationMessage For="@(() => RegisterModel.ConfirmPassword)"></ValidationMessage>

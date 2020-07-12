@@ -8,7 +8,7 @@
         <UIComponents.FluentValidator TValidator="LoginModelValidator"></UIComponents.FluentValidator>
         <Field Label="Email Address">
             <ControlContent>
-                <InputField @bind-Value="LoginModel.Email"></InputField>
+                <TextField @bind-Value="LoginModel.Email"></TextField>
             </ControlContent>
             <ValidationContent>
                 <ValidationMessage For="() => LoginModel.Email"></ValidationMessage>
@@ -16,7 +16,7 @@
         </Field>
         <Field Label="Password">
             <ControlContent>
-                <InputField @bind-Value="LoginModel.Password" Type="password"></InputField>
+                <TextField @bind-Value="LoginModel.Password" Type="password"></TextField>
             </ControlContent>
             <ValidationContent>
                 <ValidationMessage For="() => LoginModel.Password"></ValidationMessage>

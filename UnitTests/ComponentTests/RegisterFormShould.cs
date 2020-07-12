@@ -45,7 +45,7 @@ namespace PlannerApp.UnitTests.ComponentTests
                         <div class=""field "">
                           <label class=""label"">Password</label>
                           <div class=""control"">
-                            <input name=""Email"" type=""text"" class=""input valid"" >
+                            <input autocomplete=""new-password"" name=""Password"" type=""password"" class=""input valid"" >
                           </div>
                           <p class=""help "">
                           </p>
@@ -53,7 +53,7 @@ namespace PlannerApp.UnitTests.ComponentTests
                         <div class=""field "">
                           <label class=""label"">Confirm Password</label>
                           <div class=""control"">
-                            <input name=""ConfirmPassword"" type=""text"" class=""input valid"" >
+                            <input autocomplete=""new-password"" name=""ConfirmPassword"" type=""password"" class=""input valid"" >
                           </div>
                           <p class=""help "">
                           </p>

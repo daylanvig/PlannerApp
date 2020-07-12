@@ -10,8 +10,14 @@ namespace PlannerApp.Server.Maps
     {
         public MappingProfile()
         {
-            CreateMap<PlannerItemDTO, PlannerItem>().ReverseMap();
-            CreateMap<CategoryDTO, Category>().ReverseMap();
+            CreateMap<PlannerItemDTO, PlannerItem>()
+                .ForMember(d => d.tenantID, o => o.Ignore())
+                .ForMember(d => d.Category, o => o.Ignore())
+                .ReverseMap();
+            CreateMap<CategoryDTO, Category>()
+                .ForMember(d => d.PlannerItems, o => o.Ignore())
+                .ForMember(d => d.tenantID, o => o.Ignore())
+                .ReverseMap();
         }
     }
 }

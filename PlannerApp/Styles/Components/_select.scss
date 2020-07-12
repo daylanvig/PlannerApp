@@ -1,0 +1,9 @@
+﻿.select {
+    &--full-width {
+        // bulma structure is nested
+        width: 100%;
+        select {
+            width: 100%;
+        }
+    }
+}

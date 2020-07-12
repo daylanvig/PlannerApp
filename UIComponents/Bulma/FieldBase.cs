@@ -14,7 +14,7 @@ namespace UIComponents.Bulma
         [Parameter]
         public RenderFragment ValidationContent { get; set; }
         protected bool isFieldValid = true;
-        public void Notify<T>(InputBase<T> input)
+        public void Notify<T>(InputFieldBase<T> input)
         {
             isFieldValid = input.IsValid;
             StateHasChanged();

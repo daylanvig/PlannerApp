@@ -24,18 +24,5 @@ namespace PlannerApp.Client.Components
         {
             Categories = await CategoryDataService.LoadCategories();
         }
-
-        protected void SetCategory(ChangeEventArgs e)
-        {
-            var id = int.Parse(e.Value.ToString());
-            if (id == -1)
-            {
-                Item.CategoryID = null;
-            }
-            else
-            {
-                Item.CategoryID = id;
-            }
-        }
     }
 }

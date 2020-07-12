@@ -7,31 +7,32 @@ using System.Text;
 
 namespace UIComponents.Bulma
 {
-    public class InputBase<T> : InputText
+
+    public abstract class InputFieldBase<T> : Microsoft.AspNetCore.Components.Forms.InputBase<T>
     {
+        private T value;
         [CascadingParameter] 
         protected FieldBase Field { get; set; }
         [Parameter]
-        public string Type { get; set; } = "text";
+        public virtual string Type { get; set; } = "text";
 
         public bool IsValid { get; private set; }
         public string ValidationMessage { get; private set; }
         private List<Action> OnChangeLiseners { get; set; } = new List<Action>();
 
-        private string startValue;
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            startValue = CurrentValue;
+            value = CurrentValue;
             OnChangeLiseners.Add(() => Field.Notify(this));
         }
 
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
-            if(CurrentValue != startValue)
+            if(!EqualityComparer<T>.Default.Equals(value, CurrentValue))
             {
-                startValue = CurrentValue;
+                value = CurrentValue;
                 HandleChange();
             }
         }
@@ -41,9 +42,8 @@ namespace UIComponents.Bulma
             OnChangeLiseners.ForEach(action => action.Invoke());
         }
 
-        private void HandleChange()
+        protected virtual void HandleChange()
         {
-         //  EditContext.NotifyFieldChanged(FieldIdentifier);
             var errors = EditContext.GetValidationMessages(FieldIdentifier);
             if (errors.Any())
             {

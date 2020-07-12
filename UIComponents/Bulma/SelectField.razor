@@ -1,0 +1,8 @@
+﻿@typeparam TValType
+@inherits SelectFieldBase<TValType>
+
+<div class="select @CssClass">
+    <select @bind="CurrentValue" name="@FieldIdentifier.FieldName" @attributes="AdditionalAttributes">
+        @ChildContent
+    </select>
+</div>
