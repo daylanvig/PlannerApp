@@ -32,7 +32,7 @@ namespace UIComponents.Bulma
                 else if (Type == "datetime-local")
                 {
                     // html expected format
-                    return value.Value.ToString("yyyy-MM-ddThh:mm");
+                    return value.Value.ToString("yyyy-MM-ddTHH:mm");
                 }
                 else
                 {
