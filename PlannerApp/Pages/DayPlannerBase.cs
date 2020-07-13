@@ -35,19 +35,14 @@ namespace PlannerApp.Client.Pages
             Items = (await PlannerItemDataService.LoadItems(ViewingDate)).ToList();
         }
 
-        protected async Task SavePlannerItem(EditContext editContext)
+        protected void SavePlannerItem(PlannerItemDTO plannerItemDTO)
         {
-            // new item defaults to 0
-            if (ModalFormItem.ID == 0)
+            var existingItem = Items.FirstOrDefault(i => i.ID == plannerItemDTO.ID);
+            if(existingItem != null)
             {
-                Items.Add(await PlannerItemDataService.AddItem(ModalFormItem));
+                Items.Remove(existingItem);
             }
-            else
-            {
-                var updatedItem = await PlannerItemDataService.EditItem(ModalFormItem);
-                Items.Remove(ModalFormItem);
-                Items.Add(updatedItem);
-            }
+            Items.Add(plannerItemDTO);
             HideModal();
         }
 
@@ -61,7 +56,7 @@ namespace PlannerApp.Client.Pages
                 builder.AddAttribute(1, "style", "overflow-y: auto"); // todo move this elsewhere once done testing
                 builder.OpenComponent<PlannerItemForm>(1);
                 builder.AddAttribute(1, "Item", ModalFormItem);
-                builder.AddAttribute(2, "OnValidCallback", EventCallback.Factory.Create<EditContext>(this, SavePlannerItem));
+                builder.AddAttribute(2, "OnItemSaveCallback", EventCallback.Factory.Create<PlannerItemDTO>(this, SavePlannerItem));
                 builder.CloseComponent();
                 builder.CloseElement();
             });

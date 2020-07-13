@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UIComponents.Bulma;
+using UIComponents.Bulma.Helpers;
+using UIComponents.Services;
 
 namespace PlannerApp.Client.Components
 {
@@ -23,6 +26,8 @@ namespace PlannerApp.Client.Components
         public IPlannerItemService PlannerItemService { get; set; }
         [Inject]
         public ICategoryDataService CategoryDataService { get; set; }
+        [Inject]
+        public IModalService ModalService { get; set; }
         public DateTime ViewingWeekOf { get; set; } = DateTimeHelper.GetMostRecentDayOfWeek(DateTime.Today, DayOfWeek.Sunday);
 
         protected ICollection<PlannerItemDTO> Items;
@@ -67,6 +72,33 @@ namespace PlannerApp.Client.Components
                 return categories.First(c => c.ID == item.CategoryID).Colour;
             }
             return "";
+        }
+
+        private void UpdateItem(PlannerItemDTO item)
+        {
+            var existing = Items.FirstOrDefault(i => i.ID == item.ID);
+            if(existing != null)
+            {
+                Items.Remove(existing);
+            }
+            Items.Add(item);
+            ModalService.Close();
+        }
+
+        protected void ShowModal(PlannerItemDTO item)
+        {
+            var modalBody = new RenderFragment(builder =>
+            {
+                builder.OpenElement(0, "aside");
+                builder.AddAttribute(0, "class", "box");
+                builder.AddAttribute(1, "style", "overflow-y: auto"); // todo move this elsewhere once done testing
+                builder.OpenComponent<PlannerItemForm>(1);
+                builder.AddAttribute(1, "Item", item);
+                builder.AddAttribute(2, "OnItemSaveCallback", EventCallback.Factory.Create<PlannerItemDTO>(this, UpdateItem));
+                builder.CloseComponent();
+                builder.CloseElement();
+            });
+            ModalService.Show(new ModalParams(modalBody, style: ModalStyle.Normal));
         }
     }
 }

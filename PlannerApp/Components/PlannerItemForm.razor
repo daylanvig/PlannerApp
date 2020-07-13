@@ -1,6 +1,6 @@
 ﻿@inherits PlannerItemFormBase
 
-<EditForm Model="Item" OnValidSubmit="OnValidCallback">
+<EditForm Model="Item" OnValidSubmit="SavePlannerItem">
     <UIComponents.FluentValidator TValidator="PlannerApp.Shared.Validators.PlannerItemDTOValidator"></UIComponents.FluentValidator>
     <Field Label="Description">
         <ControlContent>
