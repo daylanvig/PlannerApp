@@ -70,12 +70,6 @@ namespace PlannerApp.Client.Components
             }
         }
 
-        protected DateTime GetDateForHourInterval(int daysFromSunday, int hour)
-        {
-            var date = ViewingWeekOf.AddDays(daysFromSunday); // starts at midnight on sunday
-            return date.AddHours(hour);
-        }
-
         protected string GetCategoryColour(PlannerItemDTO item)
         {
             if (item.CategoryID.HasValue)
@@ -96,6 +90,13 @@ namespace PlannerApp.Client.Components
             ModalService.Close();
         }
 
+        protected void AddItemAtTime(DateTime date, int startHour)
+        {
+            ShowModal(new PlannerItemDTO
+            {
+                PlannedActionDate = new DateTime(date.Year, date.Month, date.Day, startHour, 0, 0)
+            });
+        }
         protected void ShowModal(PlannerItemDTO item)
         {
             var modalBody = new RenderFragment(builder =>

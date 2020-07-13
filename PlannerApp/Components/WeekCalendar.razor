@@ -24,20 +24,22 @@
                 </div>
             }
         </div>
-        @for (var day = 0; day < 7; day++)
+        @foreach (var date in ViewingDates)
         {
             <div class="calendar__column">
                 @for (var hour = 0; hour < 23; hour++)
                 {
-                    <div class="calendar__interval" @onclick="@(() => ShowModal(new PlannerItemDTO()))">
+                    // this stops lambda from using last value in loop
+                    var h = hour;
+                    <div class="calendar__interval" @onclick="@(() => AddItemAtTime(date, h))">
                         @if (Items != null)
                         {
-                            @foreach (var item in PlannerItemService.FilterForInterval(Items, hour, (DayOfWeek)day))
+                            @foreach (var item in PlannerItemService.FilterForInterval(Items, hour, date.DayOfWeek))
                             {
                                 <PlannerEvent ClickCallback="@(()=> ShowModal(item))" Colour="@(GetCategoryColour(item))" Item="item"></PlannerEvent>
                             }
                         }
-                        <CalendarNowMarker ForDate="@GetDateForHourInterval(day, hour)"></CalendarNowMarker>
+                        <CalendarNowMarker ForDate="@(date.AddHours(hour))"></CalendarNowMarker>
                     </div>
                 }
             </div>
