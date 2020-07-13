@@ -28,7 +28,7 @@
     </Field>
     <Field Label="Category">
         <ControlContent>
-            <SelectField class="select--full-width" TValType="int?" @bind-Value="Item.CategoryID" StringParser="UIComponents.Extensions.ParsingExtensions.ParseStringAsNullableInt">
+            <SelectField class="is-fullwidth" ControlClass="is-expanded" TValType="int?" @bind-Value="Item.CategoryID" StringParser="UIComponents.Extensions.ParsingExtensions.ParseStringAsNullableInt">
                 <option></option>
                 @foreach (var category in Categories.OrderBy(c => c.Description))
                 {
@@ -37,6 +37,12 @@
             </SelectField>
         </ControlContent>
     </Field>
+    @if(Item.ID != 0)
+    {
+        <Field>
+
+        </Field>
+    }
     <Field>
         <Button CssClass="is-pulled-right" Colour="ComponentColour.Success" Type="submit" id="saveChangesBtn">Update</Button>
     </Field>

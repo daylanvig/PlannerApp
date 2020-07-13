@@ -5,12 +5,13 @@
         {
             <label class="label">@Label</label>
         }
-        <div class="control">
-
-            @ControlContent
-            @ChildContent
-
-        </div>
+        @ControlContent
+        @if (ChildContent != null)
+        {
+            <div class="control">
+                @ChildContent
+            </div>
+        }
         @if (ValidationContent != null)
         {
             <p class="help @(isFieldValid ? "" : "is-danger")">

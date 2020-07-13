@@ -15,7 +15,8 @@ namespace UIComponents.Bulma
         protected FieldBase Field { get; set; }
         [Parameter]
         public virtual string Type { get; set; } = "text";
-
+        [Parameter]
+        public string ControlClass { get; set; }
         public bool IsValid { get; private set; }
         public string ValidationMessage { get; private set; }
         private List<Action> OnChangeLiseners { get; set; } = new List<Action>();

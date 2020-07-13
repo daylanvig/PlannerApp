@@ -1,0 +1,5 @@
+﻿@inherits CheckBoxBase
+
+<div class="control">
+    <input type="checkbox" name="@(FieldIdentifier.FieldName)" checked="@(CurrentValue ? "checked" : null)" @onchange="HandleChange" />
+</div>

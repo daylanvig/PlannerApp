@@ -1,4 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Components.Forms
 @inherits TextFieldBase
 
-<input name="@(FieldIdentifier.FieldName)" @attributes="AdditionalAttributes" type="@Type" @bind="CurrentValue" class="@("input " + CssClass)">
+<div class="control">
+        <input name="@(FieldIdentifier.FieldName)" @attributes="AdditionalAttributes" type="@Type" @bind="CurrentValue" class="@("input " + CssClass)">
+</div>
