@@ -2,7 +2,7 @@
 @inherits SelectFieldBase<TValType>
     <div class="control @ControlClass">
         <div class="select @CssClass">
-            <select value="@(CurrentValue)" @onchange="HandleChange" name="@FieldIdentifier.FieldName" @attributes="AdditionalAttributes">
+            <select value="@(CurrentValueAsString)" @onchange="HandleChange" name="@FieldIdentifier.FieldName" @attributes="AdditionalAttributes">
                 @ChildContent
             </select>
         </div>

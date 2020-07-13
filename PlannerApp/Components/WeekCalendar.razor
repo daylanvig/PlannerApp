@@ -5,9 +5,13 @@
         <div class="calendar__time-scale">
             @*Place holder to align scale*@
         </div>
-        @for (var day = 0; day < 7; day++)
+        @foreach(var date in ViewingDates)
         {
-            <label class="calendar__header-label">@Enum.GetName(typeof(DayOfWeek), day)</label>
+            <div class="calendar__header-label">
+                <span class="is-hidden-mobile">@Enum.GetName(typeof(DayOfWeek), date.DayOfWeek)</span>
+                <span class="is-hidden-tablet">@(Enum.GetName(typeof(DayOfWeek), date.DayOfWeek).First())</span>
+                <div class="calendar__header-number">@date.Day</div>
+            </div>
         }
     </div>
     <div class="calendar__content">
@@ -25,7 +29,7 @@
             <div class="calendar__column">
                 @for (var hour = 0; hour < 23; hour++)
                 {
-                    <div class="calendar__interval">
+                    <div class="calendar__interval" @onclick="@(() => ShowModal(new PlannerItemDTO()))">
                         @if (Items != null)
                         {
                             @foreach (var item in PlannerItemService.FilterForInterval(Items, hour, (DayOfWeek)day))

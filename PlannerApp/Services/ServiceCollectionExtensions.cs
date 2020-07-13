@@ -1,8 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Net.Http;
 
 namespace PlannerApp.Client.Services
 {
@@ -16,7 +14,7 @@ namespace PlannerApp.Client.Services
             services.AddTransient<IPlannerItemDataService, PlannerItemDataService>();
             services.AddTransient<IPlannerItemService, PlannerItemService>();
             services.AddTransient<ICategoryDataService, CategoryDataService>();
-
+            services.AddScoped<ICacheService, CacheService>();
 
             return services;
         }

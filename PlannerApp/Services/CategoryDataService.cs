@@ -10,15 +10,23 @@ namespace PlannerApp.Client.Services
 {
     public class CategoryDataService : DataService, ICategoryDataService
     {
-        public CategoryDataService(IAuthorizedHttpClientFactory authorizedHttpClientFactory) : base(authorizedHttpClientFactory)
+        private readonly ICacheService cacheService;
+
+        public CategoryDataService(IAuthorizedHttpClientFactory authorizedHttpClientFactory, ICacheService cacheService) : base(authorizedHttpClientFactory)
         {
-            
+            this.cacheService = cacheService;
         }
 
         public async Task<IEnumerable<CategoryDTO>> LoadCategories()
         {
-            var client = await GetClient();
-            return await client.GetJsonAsync<List<CategoryDTO>>("/api/Categories");
+            var items = await cacheService.GetItem<IEnumerable<CategoryDTO>>(nameof(CategoryDataService));
+            if(items == null)
+            {
+                var client = await GetClient();
+                items = await client.GetJsonAsync<List<CategoryDTO>>("/api/Categories");
+                await cacheService.SetItem(nameof(CategoryDataService), items);
+            }
+            return items;
         }
 
         public async Task<CategoryDTO> AddItem(CategoryDTO category)

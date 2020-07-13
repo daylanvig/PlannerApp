@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using PlannerApp.Client.Services;
 using PlannerApp.Client.Store.ChangePageUseCase;
@@ -28,17 +30,26 @@ namespace PlannerApp.Client.Components
         public ICategoryDataService CategoryDataService { get; set; }
         [Inject]
         public IModalService ModalService { get; set; }
-        public DateTime ViewingWeekOf { get; set; } = DateTimeHelper.GetMostRecentDayOfWeek(DateTime.Today, DayOfWeek.Sunday);
+        public DateTime ViewingWeekOf = DateTimeHelper.GetMostRecentDayOfWeek(DateTime.Today, DayOfWeek.Sunday);
 
         protected ICollection<PlannerItemDTO> Items;
 
         private IEnumerable<CategoryDTO> categories;
+        protected List<DateTime> ViewingDates = new List<DateTime>();
+        protected override void BuildRenderTree(RenderTreeBuilder builder)
+        {
+            base.BuildRenderTree(builder);
+        }
 
         protected override async Task OnInitializedAsync()
         {
             SetTitle();
             Items = (await PlannerItemDataService.LoadItems(ViewingWeekOf, ViewingWeekOf.AddDays(7))).ToList();
             categories = await CategoryDataService.LoadCategories();
+            for(var i = 0; i < 7; i++)
+            {
+                ViewingDates.Add(ViewingWeekOf.AddDays(i));
+            }
         }
 
         private void SetTitle()

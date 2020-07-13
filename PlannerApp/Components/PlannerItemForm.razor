@@ -44,6 +44,8 @@
         </Field>
     }
     <Field>
-        <Button CssClass="is-pulled-right" Colour="ComponentColour.Success" Type="submit" id="saveChangesBtn">Update</Button>
+        <Button CssClass="is-pulled-right" Colour="ComponentColour.Success" Type="submit" id="saveChangesBtn">
+         @(Item.ID == 0 ? "Add Item" : "Update Item")
+        </Button>
     </Field>
 </EditForm>
