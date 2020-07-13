@@ -7,6 +7,7 @@ namespace PlannerApp.Server.Models
         public string Description { get; set; }
         public DateTime PlannedActionDate { get; set; }
         public DateTime PlannedEndTime { get; set; }
+        public DateTime? CompletionDate { get; set; }
         public int? CategoryID { get; set; }
         public Category Category { get; set; }
     }
