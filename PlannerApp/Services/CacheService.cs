@@ -25,6 +25,11 @@ namespace PlannerApp.Client.Services
             this.localStorage = localStorage;
         }
 
+        public async Task ClearCachedItem(string key)
+        {
+            await localStorage.RemoveItemAsync(key);
+        }
+
         public async Task<T> GetItem<T>(string key)
         {
             var item = await localStorage.GetItemAsync<CacheItem<T>>(key);

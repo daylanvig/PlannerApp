@@ -1,4 +1,5 @@
-﻿@inherits WeekCalendarBase
+﻿@using PlannerApp.Client.Components.CalendarComponents 
+@inherits WeekCalendarBase
 
 <div class="calendar">
     <div class="calendar__header">
@@ -7,11 +8,7 @@
         </div>
         @foreach(var date in ViewingDates)
         {
-            <div class="calendar__header-label">
-                <span class="is-hidden-mobile">@Enum.GetName(typeof(DayOfWeek), date.DayOfWeek)</span>
-                <span class="is-hidden-tablet">@(Enum.GetName(typeof(DayOfWeek), date.DayOfWeek).First())</span>
-                <div class="calendar__header-number">@date.Day</div>
-            </div>
+            <CalendarDateHeader Date="date"></CalendarDateHeader>
         }
     </div>
     <div class="calendar__content">
@@ -26,23 +23,9 @@
         </div>
         @foreach (var date in ViewingDates)
         {
-            <div class="calendar__column">
-                @for (var hour = 0; hour < 23; hour++)
-                {
-                    // this stops lambda from using last value in loop
-                    var h = hour;
-                    <div class="calendar__interval" @onclick="@(() => AddItemAtTime(date, h))">
-                        @if (Items != null)
-                        {
-                            @foreach (var item in PlannerItemService.FilterForInterval(Items, hour, date.DayOfWeek))
-                            {
-                                <PlannerEvent ClickCallback="@(()=> ShowModal(item))" Colour="@(GetCategoryColour(item))" Item="item"></PlannerEvent>
-                            }
-                        }
-                        <CalendarNowMarker ForDate="@(date.AddHours(hour))"></CalendarNowMarker>
-                    </div>
-                }
-            </div>
+            <CalendarColumn @key="date" Date="date" Events="Items.Where(i => i.PlannedActionDate.Value.Date == date.Date)"> 
+
+            </CalendarColumn>
         }
 
     </div>

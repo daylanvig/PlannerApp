@@ -10,5 +10,6 @@ namespace PlannerApp.Client.Services
         Task DeleteItem(int categoryID);
         Task<CategoryDTO> EditItem(CategoryDTO category);
         Task<IEnumerable<CategoryDTO>> LoadCategories();
+        Task<CategoryDTO> LoadCategory(int id);
     }
 }

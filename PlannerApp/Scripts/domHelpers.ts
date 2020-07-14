@@ -1,14 +1,19 @@
-﻿/**
- * Scroll to element
- * @param cssSelector
- */
-function scrollIntoView(cssSelector: string): void {
-    const element = document.querySelector(cssSelector);
-    if (element == null) {
-        throw new Error('Element not found');
+﻿
+const domHelpers = {
+    /**
+     * Scroll to element
+     * @param cssSelector
+     */
+    scrollIntoView: function scrollIntoView(cssSelector: string): void {
+        const element = document.querySelector(cssSelector);
+        if (element == null) {
+            throw new Error('Element not found');
+        }
+        element.scrollIntoView({ behavior: 'smooth' });
+    },
+    getBoundingClientRect: function getBounds(element: HTMLElement): DOMRect {
+        return element.getBoundingClientRect();
     }
-    element.scrollIntoView({ behavior: 'smooth' });
-}
+};
 
-
-window.customScripts.scrollIntoView = scrollIntoView;
+Object.assign(window.customScripts, domHelpers);

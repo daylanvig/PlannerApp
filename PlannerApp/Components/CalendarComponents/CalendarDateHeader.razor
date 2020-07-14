@@ -1,0 +1,8 @@
+﻿@inherits CalendarDateHeaderBase
+
+
+<div class="calendar__header-label @(Date.Date == DateTime.Today ? "calendar__header--label--today":null)">
+    <span class="is-hidden-mobile">@Enum.GetName(typeof(DayOfWeek), Date.DayOfWeek)</span>
+    <span class="is-hidden-tablet">@(Enum.GetName(typeof(DayOfWeek), Date.DayOfWeek).First())</span>
+    <div class="calendar__header-number">@Date.Day</div>
+</div>

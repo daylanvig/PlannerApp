@@ -21,7 +21,7 @@ namespace PlannerApp.Client.Components
         [Inject]
         public AppState AppState { get; set; }
         [Inject]
-        public IJSRuntime JSRuntime { get; set; }
+        public IDOMInteropService DOMService { get; set; }
         [Inject]
         public IPlannerItemDataService PlannerItemDataService { get; set; }
         [Inject]
@@ -32,7 +32,7 @@ namespace PlannerApp.Client.Components
         public IModalService ModalService { get; set; }
         public DateTime ViewingWeekOf = DateTimeHelper.GetMostRecentDayOfWeek(DateTime.Today, DayOfWeek.Sunday);
 
-        protected ICollection<PlannerItemDTO> Items;
+        protected ICollection<PlannerItemDTO> Items = new List<PlannerItemDTO>();
 
         private IEnumerable<CategoryDTO> categories;
         protected List<DateTime> ViewingDates
@@ -47,10 +47,6 @@ namespace PlannerApp.Client.Components
                 dates.Add(ViewingWeekOf.AddDays(i));
             }
             return dates;
-        }
-        protected override void BuildRenderTree(RenderTreeBuilder builder)
-        {
-            base.BuildRenderTree(builder);
         }
 
         protected override async Task OnInitializedAsync()
@@ -70,12 +66,12 @@ namespace PlannerApp.Client.Components
                 ));
         }
 
-        protected override void OnAfterRender(bool firstRender)
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender && DateTime.Now.Hour != 0)
             {
                 // scroll to display current time
-                ((IJSInProcessRuntime)JSRuntime).InvokeVoid("customScripts.scrollIntoView", $"#interval-{DateTime.Now.Hour - 1}");
+                await DOMService.ScrollIntoView($"#interval-{DateTime.Now.Hour - 1}");
             }
         }
 
@@ -106,6 +102,7 @@ namespace PlannerApp.Client.Components
                 PlannedActionDate = new DateTime(date.Year, date.Month, date.Day, startHour, 0, 0)
             });
         }
+
         protected void ShowModal(PlannerItemDTO item)
         {
             var modalBody = new RenderFragment(builder =>

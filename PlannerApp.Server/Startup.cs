@@ -46,7 +46,13 @@ namespace PlannerApp.Server
                 o.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
                 o.ForwardLimit = 2;
             });
-
+            services.AddHttpsRedirection(o => o.HttpsPort = 443);
+            services.AddHsts(o =>
+            {
+                o.Preload = true;
+                o.IncludeSubDomains = true;
+                o.MaxAge = TimeSpan.FromDays(60);
+            });
             services.AddDbContext<UserContext>(o =>
             {
                 o.UseMySql(Configuration.GetConnectionString("UserContext"));
@@ -60,11 +66,7 @@ namespace PlannerApp.Server
             services.AddHttpContextAccessor();
             services.ConfigurePlannerAppIdentity(Configuration);
             services.ConfigurePlannerAppCustomServices();
-            services.AddHttpsRedirection(o =>
-            {
-                o.HttpsPort = 443;
-                o.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
-            });
+            
             services.AddControllersWithViews();
            
             services.AddRazorPages();
@@ -82,8 +84,10 @@ namespace PlannerApp.Server
             }
             else
             {
-                app.UseHttpsRedirection();
                 app.UseForwardedHeaders(new ForwardedHeadersOptions() { ForwardedHeaders = ForwardedHeaders.XForwardedProto });
+                app.UseHsts();
+                app.UseHttpsRedirection();
+                
             }
             
             app.UseBlazorFrameworkFiles();

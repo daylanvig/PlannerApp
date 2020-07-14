@@ -1,0 +1,21 @@
+﻿@inherits CalendarColumnBase
+
+
+<div class="calendar__column">
+    @for (var hour = 0; hour < 23; hour++)
+    {
+        // this stops lambda from using last value in loop
+        var h = hour;
+    <div class="calendar__interval" @onclick="@((MouseEventArgs e) => AddItem(e, h))">
+        @*TODO https://github.com/aspnet/samples/blob/master/samples/aspnetcore/blazor/Virtualization/Shared/Virtualize.cs (Possibly)*@
+        @foreach (var item in GetItemsByHour(h))
+        {
+            <PlannerEvent @key="item" ClickCallback="@(()=> ShowModal(item))" Item="item"></PlannerEvent>
+        }
+        @if (Date.Date == DateTime.Today.Date)
+        {
+            <CalendarNowMarker ForDate="@(Date.AddHours(hour))"></CalendarNowMarker>
+        }
+    </div>
+    }
+</div>

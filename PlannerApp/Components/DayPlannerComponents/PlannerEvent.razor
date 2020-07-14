@@ -1,8 +1,6 @@
 ﻿@inherits PlannerEventBase
 
-<div @key="Item.ID" class="planner-event" style="height: @CalculateHeight(); top: @CalculateTop()">
-    <div class="notification has-cursor-pointer @CalculateFontColour()" @onclick="ClickCallback" @onclick:stopPropagation style="background-color: @Colour">
-        <div>@Item.Description</div>
-        <div class="is-size-6 has-text-weight-light">@DateTimeHelper.FormatTime(Item.PlannedActionDate.Value) - @DateTimeHelper.FormatTime(Item.PlannedEndTime.Value)</div>
-    </div>
+<div @onclick="ClickCallback" @onclick:stopPropagation class="planner-event @CalculateFontColour()" style="@CalculateCssStyle()">
+    <div class="planner-event__description">@Item.Description</div>
+    <div class="planner-event__time">@DateTimeHelper.FormatTime(Item.PlannedActionDate.Value) - @DateTimeHelper.FormatTime(Item.PlannedEndTime.Value)</div>
 </div>

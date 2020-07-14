@@ -11,20 +11,49 @@ namespace PlannerApp.Client.Services
     public class CategoryDataService : DataService, ICategoryDataService
     {
         private readonly ICacheService cacheService;
+        private const string CACHEKEY = nameof(CategoryDataService);
 
         public CategoryDataService(IAuthorizedHttpClientFactory authorizedHttpClientFactory, ICacheService cacheService) : base(authorizedHttpClientFactory)
         {
             this.cacheService = cacheService;
         }
 
+        private Task<IEnumerable<CategoryDTO>> LoadFromCache()
+        {
+            return cacheService.GetItem<IEnumerable<CategoryDTO>>(CACHEKEY);
+        }
+
+        private async Task CacheItems(IEnumerable<CategoryDTO> categories)
+        {
+            await cacheService.SetItem(CACHEKEY, categories);
+        }
+
+        public async Task<CategoryDTO> LoadCategory(int id)
+        {
+            CategoryDTO category = null;
+            var items = await LoadFromCache();
+            if(items != null)
+            {
+                category = items.FirstOrDefault(c => c.ID == id);
+            }
+
+            if (items == null || category == null)
+            {
+                await cacheService.ClearCachedItem(CACHEKEY);
+                items = await LoadCategories();
+                category = items.First(c => c.ID == id);
+            }
+            return category;
+        }
+
         public async Task<IEnumerable<CategoryDTO>> LoadCategories()
         {
-            var items = await cacheService.GetItem<IEnumerable<CategoryDTO>>(nameof(CategoryDataService));
+            var items = await LoadFromCache();
             if(items == null)
             {
                 var client = await GetClient();
                 items = await client.GetJsonAsync<List<CategoryDTO>>("/api/Categories");
-                await cacheService.SetItem(nameof(CategoryDataService), items);
+                await CacheItems(items);
             }
             return items;
         }
@@ -36,6 +65,7 @@ namespace PlannerApp.Client.Services
             try
             {
                 createdCategory = await client.PostJsonAsync<CategoryDTO>("/api/Categories", category);
+                await cacheService.ClearCachedItem(CACHEKEY);
             }
             catch
             {
@@ -47,6 +77,7 @@ namespace PlannerApp.Client.Services
         public async Task<CategoryDTO> EditItem(CategoryDTO category)
         {
             var client = await GetClient();
+            await cacheService.ClearCachedItem(CACHEKEY);
             return await client.PutJsonAsync<CategoryDTO>($"/api/Categories/{category.ID}", category);
         }
 
@@ -58,6 +89,7 @@ namespace PlannerApp.Client.Services
             {
                 throw new ArgumentException();
             }
+            await cacheService.ClearCachedItem(CACHEKEY);
         }
     }
 }

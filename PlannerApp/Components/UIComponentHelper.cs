@@ -1,17 +1,13 @@
 ﻿using PlannerApp.Shared.Common;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
 
 namespace PlannerApp.Client.Components
 {
     public static class UIComponentHelper
     {
-        private const int ROWHEIGHT = 80; // px
+        public const int ROWHEIGHT = 80; // px
         /// <summary>
         /// Calculate height in px
         /// </summary>
@@ -19,8 +15,8 @@ namespace PlannerApp.Client.Components
         public static string CalculateHeight(DateTime startDate, DateTime endDate)
         {
             var fractionsOfHour = DateTimeHelper.CalculateLength(startDate, endDate) / 60;
-
-            return $"{ROWHEIGHT * fractionsOfHour}px";
+            // display to at least take half a block for visibility
+            return $"{Math.Max(ROWHEIGHT/2, ROWHEIGHT * fractionsOfHour)}px";
         }
 
         /// <summary>

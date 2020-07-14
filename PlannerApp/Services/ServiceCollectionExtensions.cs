@@ -15,7 +15,7 @@ namespace PlannerApp.Client.Services
             services.AddTransient<IPlannerItemService, PlannerItemService>();
             services.AddTransient<ICategoryDataService, CategoryDataService>();
             services.AddScoped<ICacheService, CacheService>();
-
+            services.AddTransient<IDOMInteropService, DOMInteropService>();
             return services;
         }
 

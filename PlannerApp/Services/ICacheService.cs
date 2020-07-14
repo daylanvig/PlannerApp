@@ -6,5 +6,6 @@ namespace PlannerApp.Client.Services
     {
         Task<T> GetItem<T>(string key);
         Task SetItem<T>(string key, T item);
+        Task ClearCachedItem(string key);
     }
 }
