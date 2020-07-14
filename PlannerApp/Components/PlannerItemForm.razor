@@ -29,15 +29,15 @@
     <Field Label="Category">
         <ControlContent>
             <SelectField class="is-fullwidth" ControlClass="is-expanded" TValType="int?" @bind-Value="Item.CategoryID" StringParser="UIComponents.Extensions.ParsingExtensions.ParseStringAsNullableInt">
-                <option></option>
+                <SelectItem Value="null" TType="int?"></SelectItem>
                 @foreach (var category in Categories.OrderBy(c => c.Description))
                 {
-                    <option value="@category.ID">@category.Description</option>
+                    <SelectItem TType="int?" Value="@category.ID">@category.Description</SelectItem>
                 }
             </SelectField>
         </ControlContent>
     </Field>
-    @if(Item.ID != 0)
+    @if (Item.ID != 0)
     {
         <Field>
 
@@ -45,7 +45,7 @@
     }
     <Field>
         <Button CssClass="is-pulled-right" Colour="ComponentColour.Success" Type="submit" id="saveChangesBtn">
-         @(Item.ID == 0 ? "Add Item" : "Update Item")
+            @(Item.ID == 0 ? "Add Item" : "Update Item")
         </Button>
     </Field>
 </EditForm>

@@ -35,7 +35,19 @@ namespace PlannerApp.Client.Components
         protected ICollection<PlannerItemDTO> Items;
 
         private IEnumerable<CategoryDTO> categories;
-        protected List<DateTime> ViewingDates = new List<DateTime>();
+        protected List<DateTime> ViewingDates
+        {
+            get => GetViewingDates();
+        }
+        private List<DateTime> GetViewingDates()
+        {
+            var dates = new List<DateTime>();
+            for (var i = 0; i < 7; i++)
+            {
+                dates.Add(ViewingWeekOf.AddDays(i));
+            }
+            return dates;
+        }
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
             base.BuildRenderTree(builder);
@@ -46,10 +58,7 @@ namespace PlannerApp.Client.Components
             SetTitle();
             Items = (await PlannerItemDataService.LoadItems(ViewingWeekOf, ViewingWeekOf.AddDays(7))).ToList();
             categories = await CategoryDataService.LoadCategories();
-            for(var i = 0; i < 7; i++)
-            {
-                ViewingDates.Add(ViewingWeekOf.AddDays(i));
-            }
+           
         }
 
         private void SetTitle()

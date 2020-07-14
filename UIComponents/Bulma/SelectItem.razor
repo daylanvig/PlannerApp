@@ -1,0 +1,16 @@
+﻿@typeparam TType
+
+<option value="@Value"selected="@(EqualityComparer<TType>.Default.Equals(Value, SelectedValue) ? "selected" : null)" >@ChildContent</option>
+@code {
+    [Parameter]
+    public TType Value { get; set; }
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+    [CascadingParameter]
+    public TType SelectedValue { get; set; }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+    }
+}

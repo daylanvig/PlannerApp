@@ -11,11 +11,25 @@ namespace UIComponents.Bulma
         [Parameter]
         public Func<string, T> StringParser { get; set; }
         [Parameter]
-        public Microsoft.AspNetCore.Components.RenderFragment ChildContent { get; set; }
+        public RenderFragment ChildContent { get; set; }
 
         protected override void OnInitialized()
         {
             base.OnInitialized();
+        }
+
+        protected void HandleSelectChange(ChangeEventArgs e)
+        {
+            if(TryParseValueFromString(e.Value.ToString(), out T result, out var message))
+            {
+                CurrentValue = result;
+            }
+            else
+            {
+                CurrentValue = default;
+                Console.Error.WriteLine("Could not parse value");
+            }
+            base.HandleChange();
         }
 
         protected override bool TryParseValueFromString(string value, out T result, out string validationErrorMessage)
