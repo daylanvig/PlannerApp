@@ -11,7 +11,7 @@
             <CalendarDateHeader Date="date"></CalendarDateHeader>
         }
     </div>
-    <div class="calendar__content">
+    <div class="calendar__content" @ontouchstart="SwipeEvent.HandleTouchStart" @ontouchmove="SwipeEvent.HandleTouchMove">
         @* Display hours *@
         <div class="calendar__time-scale">
             @for (var hour = 0; hour <= 23; hour++)
