@@ -57,10 +57,11 @@ namespace PlannerApp.Client.Components
             {
                 ViewingWeekOf = ViewingWeekOf.AddDays(7);
             }
-            else
+            else if (direction == SwipeDirection.Right)
             {
                 ViewingWeekOf = ViewingWeekOf.AddDays(-7);
             }
+            // ignore up and down
         }
 
         private void SetTitle()

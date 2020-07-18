@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace UIComponents.Extensions.TouchSwipe
 {
@@ -57,14 +56,28 @@ namespace UIComponents.Extensions.TouchSwipe
                 var newX = e.Touches[0].ClientX;
                 var newY = e.Touches[0].ClientY;
                 var diffX = initialX.Value - newX;
+                var absDiffX = Math.Abs(diffX);
                 var diffY = initialY.Value - newY;
+                var absDiffY = Math.Abs(diffY);
+                
                 // is horizontal swipe
-                if (Math.Abs(diffX) > Math.Abs(diffY))
+                if (absDiffX > absDiffY)
                 {
+                    if (absDiffX < 10)
+                    {
+                        // Reset initial position so slow drags dont count as swipes
+                        HandleTouchStart(e);
+                        return;
+                    }
                     direction = diffX > 0 ? SwipeDirection.Left : SwipeDirection.Right;
                 }
                 else
                 {
+                    if(absDiffY < 10)
+                    {
+                        HandleTouchStart(e);
+                        return;
+                    }
                     direction = diffY > 0 ? SwipeDirection.Up : SwipeDirection.Down;
                 }
                 touchStartTime = null;
