@@ -1,5 +1,5 @@
 ﻿using System;
-using UIComponents.Bulma;
+using UIComponents.Bulma.Modal;
 
 namespace UIComponents.Services
 {

@@ -9,6 +9,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using UIComponents.Bulma;
 using UIComponents.Bulma.Helpers;
+using UIComponents.Bulma.Modal;
 using UIComponents.Services;
 
 namespace PlannerApp.Client.Components.CalendarComponents
@@ -52,7 +53,7 @@ namespace PlannerApp.Client.Components.CalendarComponents
                 builder.CloseComponent();
                 builder.CloseElement();
             });
-            ModalService.Show(new ModalParams(modalBody, style: ModalStyle.Normal));
+            ModalService.Show(new ModalParams(modalBody, style: ModalStyle.Normal, modalClass: "is-fullscreen-mobile"));
         }
 
         protected IEnumerable<PlannerItemDTO> GetItemsByHour(int hour)

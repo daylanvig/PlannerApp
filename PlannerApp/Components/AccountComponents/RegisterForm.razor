@@ -12,7 +12,7 @@
             </ControlContent>
             <ValidationContent>
                 <ValidationMessage For="@(() => RegisterModel.Email)"></ValidationMessage>
-            </ValidationContent>            
+            </ValidationContent>
         </Field>
         <Field Label="Password">
             <ControlContent>
@@ -31,11 +31,9 @@
             </ValidationContent>
         </Field>
         <Field CssClass="has-text-centered has-padding-top-20">
-            <ControlContent>
-                <Button Type="submit" CssClass="has-width-200" Colour="ComponentColour.Success">Sign Up</Button>
-                <div class="has-padding-10">or</div>
-                <Button CssClass="has-width-200 is-outlined" Colour="ComponentColour.Primary" OnClickCallback="GoToLoginAction">Sign In</Button>
-            </ControlContent>
+            <Button Type="submit" CssClass="has-width-200" Colour="ComponentColour.Success">Sign Up</Button>
+            <div class="has-padding-10">or</div>
+            <Button CssClass="has-width-200 is-outlined" Colour="ComponentColour.Primary" OnClickCallback="GoToLoginAction">Sign In</Button>
         </Field>
     </EditForm>
 </div>

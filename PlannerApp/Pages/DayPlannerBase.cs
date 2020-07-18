@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Web;
 using PlannerApp.Client.Components;
 using PlannerApp.Client.Services;
 using PlannerApp.Client.Store.ChangePageUseCase;
@@ -10,8 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UIComponents.Bulma;
 using UIComponents.Bulma.Helpers;
+using UIComponents.Bulma.Modal;
 using UIComponents.Services;
 
 namespace PlannerApp.Client.Pages

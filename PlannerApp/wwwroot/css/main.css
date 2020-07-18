@@ -20482,6 +20482,17 @@ table.is-completely-borderless tr {
 .menu--side-menu {
   width: 200px; }
 
+@media screen and (max-width: 768px) {
+  .modal.is-fullscreen-mobile .modal-content {
+    max-height: 100vh; } }
+
+@media screen and (max-width: 768px) {
+  .modal.is-fullscreen-mobile .box {
+    padding-top: 2rem;
+    border-radius: 0;
+    height: 100vh;
+    width: 100vw; } }
+
 .planner-event {
   position: absolute;
   margin: 4px 2px;

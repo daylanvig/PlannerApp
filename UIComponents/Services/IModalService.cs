@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
-using System;
-using UIComponents.Bulma;
+﻿using System;
+using UIComponents.Bulma.Modal;
 
 namespace UIComponents.Services
 {

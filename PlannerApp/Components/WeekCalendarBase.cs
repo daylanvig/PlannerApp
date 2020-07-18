@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.JSInterop;
 using PlannerApp.Client.Services;
 using PlannerApp.Client.Store.ChangePageUseCase;
 using PlannerApp.Shared.Common;
@@ -10,9 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UIComponents.Bulma;
-using UIComponents.Bulma.Helpers;
-using UIComponents.Extensions;
+using UIComponents.Extensions.TouchSwipe;
 using UIComponents.Services;
 
 namespace PlannerApp.Client.Components

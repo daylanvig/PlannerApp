@@ -2,7 +2,7 @@
 
 @if (IsVisible)
 {
-    <div class="modal is-active is-fixed">
+    <div class="@ModalClass">
         <div class="modal-background" @onclick="HideModal"></div>
         @if (Style == Helpers.ModalStyle.Card)
         {

@@ -3,21 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace UIComponents.Extensions
+namespace UIComponents.Extensions.TouchSwipe
 {
-    public enum SwipeDirection
-    {
-        Left,
-        Right,
-        Up,
-        Down
-    }
-
-    public interface ISwipeEventSubscriber
-    {
-        void HandleSwipe(SwipeDirection direction);
-    }
-
     public class TouchSwipeEvent
     {
         private const int HOLD_TIMEOUT = 250; // ms
@@ -25,7 +12,6 @@ namespace UIComponents.Extensions
         private DateTime? touchStartTime;
         private double? initialX;
         private double? initialY;
-        private bool isFirstMove;
 
         public void Subscribe(ISwipeEventSubscriber subscriber)
         {
@@ -50,7 +36,6 @@ namespace UIComponents.Extensions
             touchStartTime = DateTime.Now;
             initialX = e.Touches[0].ClientX;
             initialY = e.Touches[0].ClientY;
-            isFirstMove = true;
         }
 
         public void HandleTouchMove(TouchEventArgs e)
@@ -60,7 +45,7 @@ namespace UIComponents.Extensions
             {
                 return;
             }
-            if (isFirstMove && IsPressAndHold())
+            if (IsPressAndHold())
             {
                 // No action should be taken if the user press and held without moving
                 // todo -> debug code

@@ -1,6 +1,6 @@
 ﻿@inherits LoginFormBase
 @using PlannerApp.Shared.Validators
- 
+
 <div class="box">
     <h1 class="title is-5">Welcome back,</h1>
     <h2 class="subtitle is-5 has-text-grey-light">sign in to continue.</h2>
@@ -23,11 +23,9 @@
             </ValidationContent>
         </Field>
         <Field CssClass="has-text-centered has-padding-top-20">
-            <ControlContent>
-                <Button Type="submit" CssClass="has-width-200" Colour="ComponentColour.Success">Sign In</Button>
-                <div class="has-padding-10">or</div>
-                <Button CssClass="has-width-200 is-outlined" Colour="ComponentColour.Primary" OnClickCallback="GoToRegisterAction">Sign Up</Button>
-            </ControlContent>
+            <Button Type="submit" CssClass="has-width-200" Colour="ComponentColour.Success">Sign In</Button>
+            <div class="has-padding-10">or</div>
+            <Button CssClass="has-width-200 is-outlined" Colour="ComponentColour.Primary" OnClickCallback="GoToRegisterAction">Sign Up</Button>
         </Field>
     </EditForm>
 </div>
