@@ -43,14 +43,26 @@
         @include from($tablet) {
             font-weight: $weight-medium;
         }
+
+        &--today {
+            .calendar__header-number {
+                background-color: $primary;
+            }
+        }
     }
 
     &__header-number {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
         color: $grey-dark;
         font-weight: $weight-semibold;
-    }
+        @include circle(30px);
 
-    &__header-label, &__column {
+        @include from($tablet) {
+            @include circle(40px);
+        }
     }
 
     &__interval {

@@ -20449,9 +20449,23 @@ table.is-completely-borderless tr {
     @media screen and (min-width: 769px) {
       .calendar__header-label {
         font-weight: 500; } }
+    .calendar__header-label--today .calendar__header-number {
+      background-color: #00cec9; }
   .calendar__header-number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
     color: #4a4a4a;
-    font-weight: 600; }
+    font-weight: 600;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px; }
+    @media screen and (min-width: 769px) {
+      .calendar__header-number {
+        border-radius: 50%;
+        height: 40px;
+        width: 40px; } }
   .calendar__interval {
     height: 80px;
     position: relative;
