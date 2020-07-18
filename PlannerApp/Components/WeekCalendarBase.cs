@@ -54,7 +54,6 @@ namespace PlannerApp.Client.Components
             SetTitle();
             Items = (await PlannerItemDataService.LoadItems(ViewingWeekOf, ViewingWeekOf.AddDays(7))).ToList();
             categories = await CategoryDataService.LoadCategories();
-           
         }
 
         private void SetTitle()
@@ -73,50 +72,6 @@ namespace PlannerApp.Client.Components
                 // scroll to display current time
                 await DOMService.ScrollIntoView($"#interval-{DateTime.Now.Hour - 1}");
             }
-        }
-
-        protected string GetCategoryColour(PlannerItemDTO item)
-        {
-            if (item.CategoryID.HasValue)
-            {
-                return categories.First(c => c.ID == item.CategoryID).Colour;
-            }
-            return "";
-        }
-
-        private void UpdateItem(PlannerItemDTO item)
-        {
-            var existing = Items.FirstOrDefault(i => i.ID == item.ID);
-            if(existing != null)
-            {
-                Items.Remove(existing);
-            }
-            Items.Add(item);
-            ModalService.Close();
-        }
-
-        protected void AddItemAtTime(DateTime date, int startHour)
-        {
-            ShowModal(new PlannerItemDTO
-            {
-                PlannedActionDate = new DateTime(date.Year, date.Month, date.Day, startHour, 0, 0)
-            });
-        }
-
-        protected void ShowModal(PlannerItemDTO item)
-        {
-            var modalBody = new RenderFragment(builder =>
-            {
-                builder.OpenElement(0, "aside");
-                builder.AddAttribute(0, "class", "box");
-                builder.AddAttribute(1, "style", "overflow-y: auto"); // todo move this elsewhere once done testing
-                builder.OpenComponent<PlannerItemForm>(1);
-                builder.AddAttribute(1, "Item", item);
-                builder.AddAttribute(2, "OnItemSaveCallback", EventCallback.Factory.Create<PlannerItemDTO>(this, UpdateItem));
-                builder.CloseComponent();
-                builder.CloseElement();
-            });
-            ModalService.Show(new ModalParams(modalBody, style: ModalStyle.Normal));
         }
     }
 }

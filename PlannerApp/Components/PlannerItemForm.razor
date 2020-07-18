@@ -39,9 +39,27 @@
     </Field>
     @if (Item.ID != 0)
     {
-        <Field>
+        if (Item.CompletionDate.HasValue)
+        {
+            <Field Label="Completed On">
+                <ControlContent>
+                    <DateField HasTime @bind-Value="Item.CompletionDate"></DateField>
+                </ControlContent>
+                <ValidationContent>
+                    <ValidationMessage For="@(() => Item.CompletionDate)"></ValidationMessage>
+                </ValidationContent>
+            </Field>
+        }
+        else
+        {
+            <Field>
+                <Button Colour="ComponentColour.Primary" OnClickCallback="MarkComplete" CssClass="is-outlined">
+                    <span class="icon"><i class="fas fa-check"></i></span>
+                    <span>Complete</span>
+                </Button>
+            </Field>
+        }
 
-        </Field>
     }
     <Field>
         <Button CssClass="is-pulled-right" Colour="ComponentColour.Success" Type="submit" id="saveChangesBtn">

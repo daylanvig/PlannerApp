@@ -4,7 +4,7 @@
     <ShowAllFiles>false</ShowAllFiles>
   </PropertyGroup>
   <ItemGroup>
-    <TypeScriptCompile Update="Scripts\domHelpers.ts">
+    <TypeScriptCompile Update="wwwroot\src\Scripts\domHelpers.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
   </ItemGroup>

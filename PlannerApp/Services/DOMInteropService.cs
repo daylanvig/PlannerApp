@@ -19,7 +19,6 @@ namespace PlannerApp.Client.Services
         public async Task<DOMRect> GetBoundingClientRect(ElementReference element)
         {
             var box = await jsRuntime.InvokeAsync<DOMRect>("window.customScripts.getBoundingClientRect", element);
-            Console.WriteLine(box.Bottom);
             return box;
         }
 

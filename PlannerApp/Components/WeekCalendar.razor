@@ -1,4 +1,4 @@
-﻿@using PlannerApp.Client.Components.CalendarComponents 
+﻿@using PlannerApp.Client.Components.CalendarComponents
 @inherits WeekCalendarBase
 
 <div class="calendar">
@@ -6,7 +6,7 @@
         <div class="calendar__time-scale">
             @*Place holder to align scale*@
         </div>
-        @foreach(var date in ViewingDates)
+        @foreach (var date in ViewingDates)
         {
             <CalendarDateHeader Date="date"></CalendarDateHeader>
         }
@@ -23,7 +23,7 @@
         </div>
         @foreach (var date in ViewingDates)
         {
-            <CalendarColumn @key="date" Date="date" Events="Items.Where(i => i.PlannedActionDate.Value.Date == date.Date)"> 
+            <CalendarColumn @key="date" Date="date" Events="Items.Where(i => i.PlannedActionDate.Value.Date == date.Date)">
 
             </CalendarColumn>
         }

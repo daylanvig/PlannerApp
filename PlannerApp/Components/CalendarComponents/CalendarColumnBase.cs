@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using PlannerApp.Client.Services;
 using PlannerApp.Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -16,30 +17,26 @@ namespace PlannerApp.Client.Components.CalendarComponents
     {
         [Inject]
         public IModalService ModalService { get; set; }
+        [Inject]
+        public IDOMInteropService DOMService { get; set; }
         [Parameter]
         public IEnumerable<PlannerItemDTO> Events { get; set; }
         [Parameter]
         public DateTime Date { get; set; }
-        
-        protected void ShowModal(PlannerItemForm item)
+
+        protected ElementReference ColumnEl;
+        private List<PlannerItemDTO> events;
+
+        protected override void OnInitialized()
         {
-            var modalBody = new RenderFragment(builder =>
-            {
-                builder.OpenElement(0, "aside");
-                builder.AddAttribute(0, "class", "box");
-                builder.AddAttribute(1, "style", "overflow-y: auto"); // todo move this elsewhere once done testing
-                builder.OpenComponent<PlannerItemForm>(1);
-                builder.AddAttribute(1, "Item", item);
-                builder.AddAttribute(2, "OnItemSaveCallback", EventCallback.Factory.Create<PlannerItemDTO>(this, UpdateItem));
-                builder.CloseComponent();
-                builder.CloseElement();
-            });
-            ModalService.Show(new ModalParams(modalBody, style: ModalStyle.Normal));
+            base.OnInitialized();
+            events = Events.ToList();
         }
 
-        protected IEnumerable<PlannerItemDTO> GetItemsByHour(int hour)
+        protected override void OnParametersSet()
         {
-            return Events.Where(e => e.PlannedActionDate.Value.Hour == hour);
+            base.OnParametersSet();
+            events = Events.ToList();
         }
 
         protected void ShowModal(PlannerItemDTO item)
@@ -58,16 +55,32 @@ namespace PlannerApp.Client.Components.CalendarComponents
             ModalService.Show(new ModalParams(modalBody, style: ModalStyle.Normal));
         }
 
+        protected IEnumerable<PlannerItemDTO> GetItemsByHour(int hour)
+        {
+            return events.Where(e => e.PlannedActionDate.Value.Hour == hour);
+        }
+
         protected void UpdateItem(PlannerItemDTO item)
         {
-            // todo
+            var existingEvent = events.FirstOrDefault(i => i.ID == item.ID);
+            if(existingEvent != null)
+            {
+                events.Remove(existingEvent);
+            }
+            events.Add(item);
+            ModalService.Close();
+            StateHasChanged();
         }
 
         protected void AddItem(MouseEventArgs e, int hour)
         {
-            Console.WriteLine(e.ScreenY);
-            Console.WriteLine(e.ClientY);
-            Console.WriteLine(JsonSerializer.Serialize(e));
+            var startOfInterval = new DateTime(Date.Year, Date.Month, Date.Day, hour, 0, 0);
+            var item = new PlannerItemDTO
+            {
+                PlannedActionDate = startOfInterval,
+                PlannedEndTime = startOfInterval.AddHours(1)
+            };
+            ShowModal(item);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿@inherits CalendarColumnBase
 
 
-<div class="calendar__column">
+<div class="calendar__column" @ref="ColumnEl">
     @for (var hour = 0; hour < 23; hour++)
     {
         // this stops lambda from using last value in loop

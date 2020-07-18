@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PlannerApp.Client.Services;
 using PlannerApp.Shared.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -37,6 +38,14 @@ namespace PlannerApp.Client.Components
                 newItem = await PlannerItemDataService.EditItem(Item);
             }
             await OnItemSaveCallback.InvokeAsync(newItem);
+        }
+
+        protected async Task MarkComplete()
+        {
+            Item.CompletionDate = DateTime.Now;
+            // don't invoke SavePlannerItem since it closes the modal.
+            // this function is only available when editing, so no need to handle create
+            await PlannerItemDataService.EditItem(Item);
         }
     }
 }

@@ -12,12 +12,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Scripts\domHelpers.ts" />
+    <None Remove="wwwroot\src\Scripts\domHelpers.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="bundleconfig.json" />
     <None Include="compilerconfig.json" />
+    <None Include="wwwroot\src\Styles\Abstracts\_mixins.scss" />
+    <None Include="wwwroot\src\Styles\Abstracts\_variables.scss" />
+    <None Include="wwwroot\src\Styles\AtomicHelpers\_position.scss" />
+    <None Include="wwwroot\src\Styles\Base\_reset.scss" />
+    <None Include="wwwroot\src\Styles\Base\_typography.scss" />
+    <None Include="wwwroot\src\Styles\Components\_calendar.scss" />
+    <None Include="wwwroot\src\Styles\Components\_menu.scss" />
+    <None Include="wwwroot\src\Styles\Components\_planner-event.scss" />
+    <None Include="wwwroot\src\Styles\Components\_select.scss" />
+    <None Include="wwwroot\src\Styles\Layout\_day-planner.scss" />
+    <None Include="wwwroot\src\Styles\Layout\_layout.scss" />
+    <None Include="wwwroot\src\Styles\Layout\_nav.scss" />
+    <None Include="wwwroot\src\Styles\main.scss" />
   </ItemGroup>
 
   <ItemGroup>
