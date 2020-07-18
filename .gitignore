@@ -1,7 +1,6 @@
 .vs/
 **/obj/*
 **/bin/*
-**/wwwroot/*
 **/node_modules/*
 **/appsettings.*.json
 **/appsettings.json
