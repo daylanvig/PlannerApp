@@ -38,7 +38,8 @@ namespace PlannerApp.Server.Extensions
         public static IServiceCollection ConfigurePlannerAppCustomServices(this IServiceCollection services)
         {
             services.AddScoped<ITenantService, TenantService>();
-
+            services.AddTransient<IDateTimeProvider, DateTimeProvider>();
+            services.AddScoped<IPlannerItemRepository, PlannerItemRepository>();
             return services;
         }
     }

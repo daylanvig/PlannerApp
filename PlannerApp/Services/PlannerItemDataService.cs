@@ -31,6 +31,12 @@ namespace PlannerApp.Client.Services
             return await client.GetJsonAsync<List<PlannerItemDTO>>(url);
         }
 
+        public async Task<IEnumerable<PlannerItemDTO>> LoadOverdueItems()
+        {
+            var client = await GetClient();
+            return await client.GetJsonAsync<List<PlannerItemDTO>>("/api/PlannerItems/Overdue");
+        }
+
         public async Task<PlannerItemDTO> AddItem(PlannerItemDTO plannerItem)
         {
             PlannerItemDTO createdItem;

@@ -13,12 +13,14 @@ namespace PlannerApp.Server.Data
     {
         protected readonly PlannerContext context;
         protected readonly string tenantID;
-
+        protected readonly DbSet<T> items;
         public Repository(PlannerContext context, ITenantService tenantService)
         {
             this.context = context;
             tenantID = tenantService.GetTenantID();
+            items = context.Set<T>();
         }
+
         public virtual async Task<T> GetByIdAsync(int id)
         {
             return await context.Set<T>().FindAsync(id);

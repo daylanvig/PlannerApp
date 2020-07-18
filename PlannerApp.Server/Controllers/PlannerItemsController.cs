@@ -6,6 +6,7 @@ using PlannerApp.Server.Models;
 using PlannerApp.Shared.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PlannerApp.Server.Controllers
@@ -15,10 +16,10 @@ namespace PlannerApp.Server.Controllers
     [Authorize]
     public class PlannerItemsController : ControllerBase
     {
-        private readonly IRepository<PlannerItem> plannerItemRepository;
+        private readonly IPlannerItemRepository plannerItemRepository;
         private readonly IMapper mapper;
 
-        public PlannerItemsController(IRepository<PlannerItem> plannerItemRepository, IMapper mapper)
+        public PlannerItemsController(IPlannerItemRepository plannerItemRepository, IMapper mapper)
         {
             this.plannerItemRepository = plannerItemRepository;
             this.mapper = mapper;
@@ -47,6 +48,13 @@ namespace PlannerApp.Server.Controllers
             
             var dtos = mapper.Map<PlannerItemDTO[]>(items);
             return dtos;
+        }
+
+        [HttpGet("Overdue")]
+        public async Task<IEnumerable<PlannerItemDTO>> OverDueItems()
+        {
+            var items = await plannerItemRepository.LoadOverdueItems();
+            return mapper.Map<PlannerItemDTO[]>(items);
         }
 
         // GET: /api/PlannerItems/5
