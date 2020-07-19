@@ -18,13 +18,13 @@ namespace UIComponents.Bulma
         public string ControlClass { get; set; }
         public bool IsValid { get; private set; }
         public string ValidationMessage { get; private set; }
-        private List<Action> OnChangeLiseners { get; set; } = new List<Action>();
+        private Action OnChange;
 
         protected override void OnInitialized()
         {
             base.OnInitialized();
             value = CurrentValue;
-            OnChangeLiseners.Add(() => Field.Notify(this));
+            OnChange += () => Field.Notify(this);
         }
 
         protected override void OnParametersSet()
@@ -39,7 +39,17 @@ namespace UIComponents.Bulma
 
         private void NotifyChange()
         {
-            OnChangeLiseners.ForEach(action => action.Invoke());
+            OnChange?.Invoke();
+        }
+
+        public void Subscribe(Action action)
+        {
+            OnChange += action;
+        }
+
+        public void Unsubscribe(Action action)
+        {
+            OnChange -= action;
         }
 
         protected virtual void HandleChange()

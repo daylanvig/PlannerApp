@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 using PlannerApp.Client.Components.CalendarComponents;
 using PlannerApp.Client.Models;
 using PlannerApp.Client.Services;
@@ -15,35 +16,30 @@ using UIComponents.Extensions.TouchSwipe;
 
 namespace PlannerApp.Client.Components
 {
-    public class WeekCalendarBase : ComponentBase, ISwipeEventSubscriber
+    public class CalendarBase : ComponentBase, ISwipeEventSubscriber
     {
         [Inject] IAppState AppState { get; set; }
         [Inject] IDOMInteropService DOMService { get; set; }
         [Inject] IPlannerItemDataService PlannerItemDataService { get; set; }
         [Inject] IDateTimeProvider DateTimeProvider { get; set; }
+
         protected readonly TouchSwipeEvent SwipeEvent = new TouchSwipeEvent();
-        private DateTime? viewingWeekOf;
-        public DateTime ViewingWeekOf
-        {
-            get {
-                return viewingWeekOf ?? DateTimeHelper.GetMostRecentDayOfWeek(DateTimeProvider.Now, DayOfWeek.Sunday);
-            }
-            set
-            {
-                viewingWeekOf = value;
-            }
-        }
+        private CalendarState state;
         protected ICollection<PlannerItemDTO> Items = new List<PlannerItemDTO>();
 
         protected List<DateTime> ViewingDates
         {
             get => GetViewingDates();
         }
-      
+
         protected override async Task OnInitializedAsync()
         {
+            state = new CalendarState
+            {
+                Date = DateTimeHelper.GetMostRecentDayOfWeek(DateTimeProvider.Now, DayOfWeek.Sunday)
+            };
             SetTitle();
-            Items = (await PlannerItemDataService.LoadItems(ViewingWeekOf, ViewingWeekOf.AddDays(6))).ToList();
+            Items = (await PlannerItemDataService.LoadItems(state.Date, state.Date.Value.AddDays(6))).ToList();
             SwipeEvent.Subscribe(this);
         }
 
@@ -63,34 +59,35 @@ namespace PlannerApp.Client.Components
         /// <param name="direction"></param>
         public void HandleSwipe(SwipeDirection direction)
         {
-            if(direction == SwipeDirection.Left)
+            if (direction == SwipeDirection.Left)
             {
-                ViewingWeekOf = ViewingWeekOf.AddDays(7);
+                state.Date = state.Date.Value.AddDays(7);
             }
             else if (direction == SwipeDirection.Right)
             {
-                ViewingWeekOf = ViewingWeekOf.AddDays(-7);
+                state.Date = state.Date.Value.AddDays(-7);
             }
             // ignore up and down
         }
 
+        private void HandleStateChange()
+        {
+            StateHasChanged();
+        }
+
         private void SetTitle()
         {
-            var state = new CalendarState
-            {
-                Date = ViewingWeekOf,
-                Mode = CalendarMode.Week
-            };
             var fragment = new RenderFragment(f =>
             {
                 f.OpenComponent<CalendarMenu>(1);
                 f.AddAttribute(1, nameof(CalendarMenu.State), state);
+                f.AddAttribute(2, nameof(CalendarMenu.OnStateChange), EventCallback.Factory.Create(this, HandleStateChange));
                 f.CloseComponent();
             });
             AppState.UpdateTitle(
                 new NavMenuState(
-                    $"<span class='has-text-weight-light has-padding-right-5'>Calendar</span><span class='has-text-weight-semibold'>{ViewingWeekOf:yyyy}</span>",
-                    $"<span class='has-text-weight-semibold'>{ViewingWeekOf:MMM}</span>",
+                    $"<span class='has-text-weight-light has-padding-right-5'>Calendar</span><span class='has-text-weight-semibold'>{state.Date:yyyy}</span>",
+                    $"<span class='has-text-weight-semibold'>{state.Date:MMM}</span>",
                     sheetParams: new SheetParams { Body = fragment }
                 ));
         }
@@ -100,7 +97,7 @@ namespace PlannerApp.Client.Components
             var dates = new List<DateTime>();
             for (var i = 0; i < 7; i++)
             {
-                dates.Add(ViewingWeekOf.AddDays(i));
+                dates.Add(state.Date.Value.AddDays(i));
             }
             return dates;
         }

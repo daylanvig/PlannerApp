@@ -31,7 +31,7 @@ namespace PlannerApp.UnitTests.ComponentTests
             SetupContext(ctx);
 
             // Act
-            var cut = ctx.RenderComponent<WeekCalendarBase>();
+            var cut = ctx.RenderComponent<CalendarBase>();
 
             // Assert
             Assert.Equal(new DateTime(2020, 5, 31, 15, 0, 0), cut.Instance.ViewingWeekOf);
@@ -43,7 +43,7 @@ namespace PlannerApp.UnitTests.ComponentTests
             // Arrange
             using var ctx = new TestContext();
             SetupContext(ctx);
-            var cut = ctx.RenderComponent<WeekCalendarBase>();
+            var cut = ctx.RenderComponent<CalendarBase>();
 
             // Act
             cut.Instance.HandleSwipe(UIComponents.Extensions.TouchSwipe.SwipeDirection.Right);
@@ -58,7 +58,7 @@ namespace PlannerApp.UnitTests.ComponentTests
             // Arrange
             using var ctx = new TestContext();
             SetupContext(ctx);
-            var cut = ctx.RenderComponent<WeekCalendarBase>();
+            var cut = ctx.RenderComponent<CalendarBase>();
 
             // Act
             cut.Instance.HandleSwipe(UIComponents.Extensions.TouchSwipe.SwipeDirection.Left);
@@ -78,7 +78,7 @@ namespace PlannerApp.UnitTests.ComponentTests
             ctx.Services.AddScoped<IPlannerItemDataService>(o => dataServiceMock.Object);
 
             // Act
-            var cut = ctx.RenderComponent<WeekCalendarBase>();
+            var cut = ctx.RenderComponent<CalendarBase>();
 
             // Assert
             dataServiceMock

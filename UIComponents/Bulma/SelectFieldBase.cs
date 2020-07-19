@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using UIComponents.Extensions;
 
@@ -26,6 +27,7 @@ namespace UIComponents.Bulma
             }
             else
             {
+                Console.WriteLine(e.Value);
                 CurrentValue = default;
                 Console.Error.WriteLine("Could not parse value");
             }
