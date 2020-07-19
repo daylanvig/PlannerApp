@@ -21,12 +21,12 @@
                 </div>
             }
         </div>
+
         @foreach (var date in ViewingDates)
         {
             <CalendarColumn @key="date" Date="date" Events="Items.Where(i => i.PlannedActionDate.Value.Date == date.Date)">
 
             </CalendarColumn>
         }
-
     </div>
 </div>

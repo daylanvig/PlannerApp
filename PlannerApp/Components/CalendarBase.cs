@@ -45,7 +45,10 @@ namespace PlannerApp.Client.Components
             }
             // if fell through 
         }
-
+        private async Task LoadData()
+        {
+            Items = (await PlannerItemDataService.LoadItems(state.Date, state.Date.Value.AddDays(GetDaysVisible() - 1))).ToList();
+        }
         protected override async Task OnInitializedAsync()
         {
             state = new CalendarState
@@ -53,7 +56,7 @@ namespace PlannerApp.Client.Components
                 Date = DateTimeHelper.GetMostRecentDayOfWeek(DateTimeProvider.Now, DayOfWeek.Sunday)
             };
             SetTitle();
-            Items = (await PlannerItemDataService.LoadItems(state.Date, state.Date.Value.AddDays(GetDaysVisible() - 1))).ToList();
+            await LoadData();
             SwipeEvent.Subscribe(this);
         }
 
@@ -84,8 +87,9 @@ namespace PlannerApp.Client.Components
             // ignore up and down
         }
 
-        private void HandleStateChange()
+        private async Task HandleStateChange()
         {
+            await LoadData();
             StateHasChanged();
         }
 
