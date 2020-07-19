@@ -11,20 +11,14 @@ using Xunit;
 
 namespace PlannerApp.UnitTests.ComponentTests
 {
-    public class RegisterFormShould : IClassFixture<TestContextBuilder>
+    public class RegisterFormShould 
     {
-        readonly TestContextBuilder fixture;
-        public RegisterFormShould(TestContextBuilder fixture)
-        {
-            this.fixture = fixture;
-        }
-
         [Fact]
         public void RenderCorrectly()
         {
             // Arrange
             using var ctx = new TestContext();
-            fixture.AddAuth(ctx.Services);
+            new TestContextBuilder(ctx).AddAuth();
 
             // Act
             var cut = ctx.RenderComponent<RegisterForm>();

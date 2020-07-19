@@ -12,21 +12,17 @@ using Xunit;
 
 namespace PlannerApp.UnitTests.ComponentTests
 {
-    public class LoginFormShould : IClassFixture<TestContextBuilder>
+    public class LoginFormShould
     {
-        private readonly TestContextBuilder builder;
-
-        public LoginFormShould(TestContextBuilder builder)
-        {
-            this.builder = builder;
-        }
+ 
 
         [Fact]
         public void RenderCorrectly()
         {
             // Arrange
             var ctx = new TestContext();
-            builder.AddAuth(ctx.Services);
+            var builder = new TestContextBuilder(ctx);
+            builder.AddAuth();
 
             // Act
             var cut = ctx.RenderComponent<LoginForm>();
