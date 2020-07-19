@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UIComponents.Bulma.Modal;
 using UIComponents.Extensions.TouchSwipe;
 using UIComponents.Services;
 
@@ -25,7 +26,7 @@ namespace PlannerApp.Client.Components
         [Inject]
         public ICategoryDataService CategoryDataService { get; set; }
         [Inject]
-        public IModalService ModalService { get; set; }
+        public IApplicationWideComponentService<ModalParams> ModalService { get; set; }
         protected readonly TouchSwipeEvent SwipeEvent = new TouchSwipeEvent();
         public DateTime ViewingWeekOf = DateTimeHelper.GetMostRecentDayOfWeek(DateTime.Today, DayOfWeek.Sunday);
         protected ICollection<PlannerItemDTO> Items = new List<PlannerItemDTO>();

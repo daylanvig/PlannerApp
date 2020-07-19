@@ -17,7 +17,7 @@ namespace PlannerApp.Client.Components.CalendarComponents
     public class CalendarColumnBase : ComponentBase
     {
         [Inject]
-        public IModalService ModalService { get; set; }
+        public IApplicationWideComponentService<ModalParams> ModalService { get; set; }
         [Inject]
         public IDOMInteropService DOMService { get; set; }
         [Parameter]

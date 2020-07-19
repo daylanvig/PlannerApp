@@ -1,14 +1,13 @@
 ﻿using System;
-using UIComponents.Bulma.Modal;
 
 namespace UIComponents.Services
 {
-    public class ModalService : IModalService
+    public class ApplicationWideComponentService<T> : IApplicationWideComponentService<T>
     {
-        public event Action<ModalParams> OnShow;
+        public event Action<T> OnShow;
         public event Action OnClose;
 
-        public void Show(ModalParams modalParams)
+        public void Show(T modalParams)
         {
             OnShow?.Invoke(modalParams);
         }

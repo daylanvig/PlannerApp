@@ -1,2 +1,19 @@
-﻿body {
+﻿$sheet-background: whitesmoke !default;
+$sheet-font-colour: inherit !default;
+
+.sheet {
+    color: $sheet-font-colour;
+    background-color: $sheet-background;
+    transition: transform .2s linear;
+    transform: scaleX(0);
+    transform-origin: right;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    padding: 5px 10px;
+
+    &--open {
+        transform: scaleX(1);
+    }
 }

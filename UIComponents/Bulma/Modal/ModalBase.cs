@@ -8,8 +8,7 @@ namespace UIComponents.Bulma.Modal
 {
     public class ModalBase : UIComponentBase, IDisposable
     {
-        [Inject] 
-        public IModalService ModalService { get; set; }
+        [Inject] IApplicationWideComponentService<ModalParams> ModalService { get; set; }
         protected ModalStyle Style;
         protected string Title;
         protected RenderFragment Body;

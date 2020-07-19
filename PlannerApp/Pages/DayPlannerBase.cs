@@ -18,7 +18,7 @@ namespace PlannerApp.Client.Pages
     {
         [Inject] AppState AppState { get; set; }
         [Inject] IPlannerItemDataService PlannerItemDataService { get; set; }
-        [Inject] IModalService ModalService { get; set; }
+        [Inject] IApplicationWideComponentService<ModalParams> ModalService { get; set; }
         [Inject]
         protected IPlannerItemService PlannerItemService { get; set; }
         protected ICollection<PlannerItemDTO> Items;

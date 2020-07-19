@@ -7,6 +7,7 @@ using PlannerApp.Client.Services;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using UIComponents.Bulma.Modal;
 using UIComponents.Services;
 
 namespace PlannerApp.Client
@@ -19,12 +20,12 @@ namespace PlannerApp.Client
             builder.RootComponents.Add<App>("app");
             builder.Services.AddSingleton<AppState>();
             builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            builder.Services.AddSingleton<IModalService, ModalService>();
             builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddFluxor(o => o.ScanAssemblies(typeof(Program).Assembly));
             builder.Services.AddAuthorizationCore();
+            builder.Services.AddUIComponentServices();
             builder.Services.AddPlannerAppServices();
-            
+
             var host = builder.Build();
             await host.RunAsync();
         }

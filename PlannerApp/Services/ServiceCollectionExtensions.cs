@@ -1,6 +1,9 @@
 ﻿
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.DependencyInjection;
+using UIComponents.Bulma.Modal;
+using UIComponents.Custom.SheetComponent;
+using UIComponents.Services;
 
 namespace PlannerApp.Client.Services
 {
@@ -16,6 +19,13 @@ namespace PlannerApp.Client.Services
             services.AddTransient<ICategoryDataService, CategoryDataService>();
             services.AddScoped<ICacheService, CacheService>();
             services.AddTransient<IDOMInteropService, DOMInteropService>();
+            return services;
+        }
+
+        public static IServiceCollection AddUIComponentServices(this IServiceCollection services)
+        {
+            services.AddSingleton<IApplicationWideComponentService<ModalParams>, ApplicationWideComponentService<ModalParams>>();
+            services.AddSingleton<IApplicationWideComponentService<SheetParams>, ApplicationWideComponentService<SheetParams>>();
             return services;
         }
 

@@ -1,1 +1,13 @@
-﻿
+﻿.sheet {
+  color: inherit;
+  background-color: whitesmoke;
+  transition: transform .2s linear;
+  transform: scaleX(0);
+  transform-origin: right;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  padding: 5px 10px; }
+  .sheet--open {
+    transform: scaleX(1); }
