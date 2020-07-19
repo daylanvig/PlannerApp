@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
-using System.Globalization;
 
 namespace UIComponents.Bulma
 {

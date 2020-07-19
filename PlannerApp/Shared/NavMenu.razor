@@ -19,9 +19,9 @@
                 <LoginDisplay></LoginDisplay>
             }
         </div>
-        @if (sheetParams != null)
+        @if (SheetParams != null)
         {
-            <div class="nav__sheet-button icon" role="button">
+            <div class="nav__sheet-button icon" role="button" @onclick="ShowSheet">
                 <i class="fas fa-ellipsis-v"></i>
             </div>
         }

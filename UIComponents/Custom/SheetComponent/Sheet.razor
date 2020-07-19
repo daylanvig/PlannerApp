@@ -1,5 +1,12 @@
 ﻿@inherits SheetBase
 
-<aside class="@GetCssClasses()">
-    content
+@if (IsOpen)
+{
+    <div class="sheet__background" @onclick="Hide"></div>
+}
+<aside class="@GetCssClasses()" role="menu" @attributes="AdditionalAttributes">
+    @if (IsOpen)
+    {
+        @Body
+    }
 </aside>

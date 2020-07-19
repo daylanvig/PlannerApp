@@ -1,0 +1,20 @@
+﻿@inherits CalendarMenuBase
+@using UIComponents.Custom.SheetComponent
+@using PlannerApp.Client.Models
+ 
+<SheetLabel>Display Mode</SheetLabel>
+<SheetItem>
+    @* Hack: Fields require edit context, using this to support interactions without making a completely separate component (for now) *@
+    <EditForm Model="State">
+        <Field>
+            <SelectField @bind-Value="State.Mode" ControlClass="is-expanded" class="is-fullwidth">
+                <SelectItem Value="CalendarMode.Day">Day</SelectItem>
+                <SelectItem Value="CalendarMode.Week">Week</SelectItem>
+                <SelectItem Value="CalendarMode.Month">Month</SelectItem>
+            </SelectField>
+        </Field>
+        <Field>
+            <DateField @bind-Value="State.Date"></DateField>
+        </Field>
+    </EditForm>
+</SheetItem>

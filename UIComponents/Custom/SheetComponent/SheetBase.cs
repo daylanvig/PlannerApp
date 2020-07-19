@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using UIComponents.Bulma.Custom;
 using UIComponents.Services;
 
@@ -20,7 +18,7 @@ namespace UIComponents.Custom.SheetComponent
     {
         [Inject] IApplicationWideComponentService<SheetParams> SheetService { get; set; }
         protected RenderFragment Body;
-        private bool isOpen = false;
+        protected bool IsOpen = false;
 
         protected override void OnInitialized()
         {
@@ -32,22 +30,24 @@ namespace UIComponents.Custom.SheetComponent
         private void Show(SheetParams sheetParams)
         {
             Body = sheetParams.Body;
+            IsOpen = true;
+            StateHasChanged();
         }
 
-        private void Hide()
+        protected void Hide()
         {
-            isOpen = false;
+            IsOpen = false;
             StateHasChanged();
         }
 
         protected string GetCssClasses()
         {
-            return $"sheet {CssClass} {(isOpen ? "sheet--open" : null)}";
+            return $"sheet {CssClass} {(IsOpen ? "sheet--open" : null)}";
         }
 
         public void ToggleState()
         {
-            isOpen = !isOpen;
+            IsOpen = !IsOpen;
             StateHasChanged();
         }
 

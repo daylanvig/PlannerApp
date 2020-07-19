@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
+using PlannerApp.Client.Components.CalendarComponents;
+using PlannerApp.Client.Models;
 using PlannerApp.Client.Services;
 using PlannerApp.Client.Store.ChangePageUseCase;
 using PlannerApp.Shared.Common;
@@ -8,9 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UIComponents.Bulma.Modal;
+using UIComponents.Custom.SheetComponent;
 using UIComponents.Extensions.TouchSwipe;
-using UIComponents.Services;
 
 namespace PlannerApp.Client.Components
 {
@@ -50,7 +51,7 @@ namespace PlannerApp.Client.Components
         {
             if (firstRender && DateTime.Now.Hour != 0)
             {
-                // scroll to display current time
+                // display current time
                 await DOMService.ScrollIntoView($"#interval-{DateTime.Now.Hour - 1}");
             }
         }
@@ -75,10 +76,22 @@ namespace PlannerApp.Client.Components
 
         private void SetTitle()
         {
+            var state = new CalendarState
+            {
+                Date = ViewingWeekOf,
+                Mode = CalendarMode.Week
+            };
+            var fragment = new RenderFragment(f =>
+            {
+                f.OpenComponent<CalendarMenu>(1);
+                f.AddAttribute(1, nameof(CalendarMenu.State), state);
+                f.CloseComponent();
+            });
             AppState.UpdateTitle(
                 new NavMenuState(
                     $"<span class='has-text-weight-light has-padding-right-5'>Calendar</span><span class='has-text-weight-semibold'>{ViewingWeekOf:yyyy}</span>",
-                    $"<span class='has-text-weight-semibold'>{ViewingWeekOf:MMM}</span>"
+                    $"<span class='has-text-weight-semibold'>{ViewingWeekOf:MMM}</span>",
+                    sheetParams: new SheetParams { Body = fragment }
                 ));
         }
 

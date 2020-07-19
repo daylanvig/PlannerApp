@@ -5,6 +5,7 @@ using PlannerApp.Client.Services;
 using System;
 using System.Threading.Tasks;
 using UIComponents.Custom.SheetComponent;
+using UIComponents.Services;
 
 namespace PlannerApp.Client.Shared
 {
@@ -12,13 +13,12 @@ namespace PlannerApp.Client.Shared
     {
         [CascadingParameter]
         private Task<AuthenticationState> AuthenticationStateTask { get; set; }
-        [Inject]
-        public IAppState AppState { get; set; }
-        [Inject]
-        public NavigationManager NavigationManager { get; set; }
+        [Inject] IAppState AppState { get; set; }
+        [Inject] NavigationManager NavigationManager { get; set; }
+        [Inject] IApplicationWideComponentService<SheetParams> SheetService { get; set; }
         protected string Title;
         protected string SubTitle;
-        protected SheetParams sheetParams;
+        protected SheetParams SheetParams;
         protected bool? IsUserAuthenticated { get; set; }
         protected override async Task OnInitializedAsync()
         {
@@ -38,14 +38,20 @@ namespace PlannerApp.Client.Shared
             {
                 IsUserAuthenticated = isAuthenticated;
                 StateHasChanged();
-            }  
+            }
         }
 
         private void UpdateTitle()
         {
             Title = AppState.Title.Title;
             SubTitle = AppState.Title.SubTitle;
+            SheetParams = AppState.Title.SheetParams;
             StateHasChanged();
+        }
+
+        protected void ShowSheet()
+        {
+            SheetService.Show(SheetParams);
         }
 
         protected string CheckButtonClassActiveStatus(string buttonUrl)

@@ -15,7 +15,5 @@ namespace UIComponents.Bulma
         public EventCallback<MouseEventArgs> OnClickCallback { get; set; }
         [Parameter]
         public string Type { get; set; } = "button";
-        [Parameter]
-        public RenderFragment ChildContent { get; set; }
     }
 }

@@ -19,5 +19,7 @@ namespace UIComponents.Bulma.Custom
                 return string.Empty;
             }
         }
+        [Parameter]
+        public RenderFragment ChildContent { get; set; }
     }
 }

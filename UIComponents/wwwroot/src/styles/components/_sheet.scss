@@ -12,8 +12,29 @@ $sheet-font-colour: inherit !default;
     right: 0;
     height: 100vh;
     padding: 5px 10px;
+    z-index: 4;
+    min-width: 200px;
+
+    &__background {
+        z-index: 3;
+        background-color: rgba(10, 10, 10, 0.76);
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        position: fixed;
+    }
 
     &--open {
         transform: scaleX(1);
+    }
+
+    &__label {
+        font-size: 1.3rem; // todo replace with bulma size-5
+        margin-bottom: 5px;
+    }
+
+    &__item {
+        margin-bottom: 5px;
     }
 }
