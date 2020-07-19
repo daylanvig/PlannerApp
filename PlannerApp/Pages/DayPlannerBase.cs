@@ -16,7 +16,7 @@ namespace PlannerApp.Client.Pages
 {
     public class DayPlannerBase : ComponentBase
     {
-        [Inject] AppState AppState { get; set; }
+        [Inject] IAppState AppState { get; set; }
         [Inject] IPlannerItemDataService PlannerItemDataService { get; set; }
         [Inject] IApplicationWideComponentService<ModalParams> ModalService { get; set; }
         [Inject]
@@ -29,7 +29,7 @@ namespace PlannerApp.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            AppState.UpdateTitle(new TitleState(DateTimeHelper.FormatFullDate(ViewingDate)));
+            AppState.UpdateTitle(new NavMenuState(DateTimeHelper.FormatFullDate(ViewingDate)));
             Items = (await PlannerItemDataService.LoadItems(ViewingDate)).ToList();
         }
 
@@ -85,7 +85,7 @@ namespace PlannerApp.Client.Pages
         protected async Task ChangeViewingDate(ChangeEventArgs e)
         {
             ViewingDate = DateTime.Parse(e.Value.ToString());
-            AppState.UpdateTitle(new TitleState(DateTimeHelper.FormatFullDate(ViewingDate)));
+            AppState.UpdateTitle(new NavMenuState(DateTimeHelper.FormatFullDate(ViewingDate)));
             Items = (await PlannerItemDataService.LoadItems(ViewingDate)).ToList();
         }
     }

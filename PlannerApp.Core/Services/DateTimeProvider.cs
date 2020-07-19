@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PlannerApp.Server.Services
+namespace PlannerApp.Shared.Services
 {
     public class DateTimeProvider : IDateTimeProvider
     {

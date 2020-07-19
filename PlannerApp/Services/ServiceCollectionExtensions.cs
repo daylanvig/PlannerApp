@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Components.Authorization;
+﻿using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using UIComponents.Bulma.Modal;
 using UIComponents.Custom.SheetComponent;
@@ -11,6 +10,7 @@ namespace PlannerApp.Client.Services
     {
         public static IServiceCollection AddPlannerAppServices(this IServiceCollection services)
         {
+            services.AddSingleton<IAppState, AppState>();
             services.AddScoped<AuthenticationStateProvider, ApiAuthStateProvider>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IAuthorizedHttpClientFactory, AuthorizedHttpClientFactory>();

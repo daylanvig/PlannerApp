@@ -1,20 +1,19 @@
 ﻿using PlannerApp.Client.Store.ChangePageUseCase;
 using System;
-using UIComponents.Bulma;
 
-namespace PlannerApp.Client.Components
+namespace PlannerApp.Client.Services
 {
-    public class AppState
+    public class AppState : IAppState
     {
-        public TitleState Title { get; private set; } = new TitleState();
+        public NavMenuState Title { get; private set; } = new NavMenuState();
         public event Action OnAppStateChange;
 
-        public void UpdateTitle(TitleState titleState = null)
+        public void UpdateTitle(NavMenuState titleState = null)
         {
-            Title = titleState ?? new TitleState();
+            Title = titleState ?? new NavMenuState();
             NotifyStateChanged();
         }
-        
+
         private void NotifyStateChanged()
         {
             OnAppStateChange.Invoke();

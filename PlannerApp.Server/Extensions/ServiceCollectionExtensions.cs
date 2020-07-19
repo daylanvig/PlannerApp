@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using PlannerApp.Server.Data;
 using PlannerApp.Server.Models.Identity;
 using PlannerApp.Server.Services;
+using PlannerApp.Shared.Services;
 using System.Text;
 
 namespace PlannerApp.Server.Extensions
@@ -35,10 +36,9 @@ namespace PlannerApp.Server.Extensions
             return services;
         }
 
-        public static IServiceCollection ConfigurePlannerAppCustomServices(this IServiceCollection services)
+        public static IServiceCollection AddPlannerAppServerServices(this IServiceCollection services)
         {
             services.AddScoped<ITenantService, TenantService>();
-            services.AddTransient<IDateTimeProvider, DateTimeProvider>();
             services.AddScoped<IPlannerItemRepository, PlannerItemRepository>();
             return services;
         }

@@ -1,6 +1,7 @@
 ﻿@page "/"
 @inject PlannerApp.Client.Services.IPlannerItemDataService PlannerItemDataService
 @using PlannerApp.Shared.Common
+@using PlannerApp.Client.Services 
 @attribute [Microsoft.AspNetCore.Authorization.Authorize]
 
 
@@ -51,7 +52,7 @@
 </section>
 @code {
     [Inject]
-    public AppState AppState { get; set; }
+    public IAppState AppState { get; set; }
     public PlannerItemDTO NewItem { get; set; } = new PlannerItemDTO();
 
     private List<PlannerItemDTO> plannerItems;

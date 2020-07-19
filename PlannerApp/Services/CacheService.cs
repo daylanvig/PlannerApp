@@ -1,15 +1,9 @@
 ﻿using Blazored.LocalStorage;
-using Microsoft.AspNetCore.Components;
-using PlannerApp.Shared.Exceptions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PlannerApp.Client.Services
 {
-
-
     public class CacheService : ICacheService
     {
         private class CacheItem<T>

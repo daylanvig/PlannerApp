@@ -19,9 +19,12 @@
                 <LoginDisplay></LoginDisplay>
             }
         </div>
-        <div class="nav__sheet-button icon" role="button">
-            <i class="fas fa-ellipsis-v"></i>
-        </div>
+        @if (sheetParams != null)
+        {
+            <div class="nav__sheet-button icon" role="button">
+                <i class="fas fa-ellipsis-v"></i>
+            </div>
+        }
     </div>
     @*If empty string, still render footer in case desired look is empty footer, otherwise collapse footer*@
     @if (SubTitle != null)

@@ -24,6 +24,7 @@ using AspNet.Security.OpenIdConnect.Primitives;
 using PlannerApp.Server.Extensions;
 using PlannerApp.Client.Services;
 using PlannerApp.Server.Services;
+using PlannerApp.Shared;
 
 namespace PlannerApp.Server
 {
@@ -64,13 +65,15 @@ namespace PlannerApp.Server
             });
 
             services.AddHttpContextAccessor();
+            
             services.ConfigurePlannerAppIdentity(Configuration);
-            services.ConfigurePlannerAppCustomServices();
+            services.AddPlannerAppServerServices();
             
             services.AddControllersWithViews();
            
             services.AddRazorPages();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddPlannerAppSharedServices();
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
 
         }

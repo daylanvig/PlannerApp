@@ -3,6 +3,7 @@ using PlannerApp.Client.Services;
 using PlannerApp.Client.Store.ChangePageUseCase;
 using PlannerApp.Shared.Common;
 using PlannerApp.Shared.Models;
+using PlannerApp.Shared.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,20 +16,22 @@ namespace PlannerApp.Client.Components
 {
     public class WeekCalendarBase : ComponentBase, ISwipeEventSubscriber
     {
-        [Inject]
-        public AppState AppState { get; set; }
-        [Inject]
-        public IDOMInteropService DOMService { get; set; }
-        [Inject]
-        public IPlannerItemDataService PlannerItemDataService { get; set; }
-        [Inject]
-        public IPlannerItemService PlannerItemService { get; set; }
-        [Inject]
-        public ICategoryDataService CategoryDataService { get; set; }
-        [Inject]
-        public IApplicationWideComponentService<ModalParams> ModalService { get; set; }
+        [Inject] IAppState AppState { get; set; }
+        [Inject] IDOMInteropService DOMService { get; set; }
+        [Inject] IPlannerItemDataService PlannerItemDataService { get; set; }
+        [Inject] IDateTimeProvider DateTimeProvider { get; set; }
         protected readonly TouchSwipeEvent SwipeEvent = new TouchSwipeEvent();
-        public DateTime ViewingWeekOf = DateTimeHelper.GetMostRecentDayOfWeek(DateTime.Today, DayOfWeek.Sunday);
+        private DateTime? viewingWeekOf;
+        public DateTime ViewingWeekOf
+        {
+            get {
+                return viewingWeekOf ?? DateTimeHelper.GetMostRecentDayOfWeek(DateTimeProvider.Now, DayOfWeek.Sunday);
+            }
+            set
+            {
+                viewingWeekOf = value;
+            }
+        }
         protected ICollection<PlannerItemDTO> Items = new List<PlannerItemDTO>();
 
         protected List<DateTime> ViewingDates
@@ -39,7 +42,7 @@ namespace PlannerApp.Client.Components
         protected override async Task OnInitializedAsync()
         {
             SetTitle();
-            Items = (await PlannerItemDataService.LoadItems(ViewingWeekOf, ViewingWeekOf.AddDays(7))).ToList();
+            Items = (await PlannerItemDataService.LoadItems(ViewingWeekOf, ViewingWeekOf.AddDays(6))).ToList();
             SwipeEvent.Subscribe(this);
         }
 
@@ -52,6 +55,11 @@ namespace PlannerApp.Client.Components
             }
         }
 
+        /// <summary>
+        /// Handle changing date based on user swiping page.
+        /// Allows user to move forwards/backwards by one week.
+        /// </summary>
+        /// <param name="direction"></param>
         public void HandleSwipe(SwipeDirection direction)
         {
             if(direction == SwipeDirection.Left)
@@ -68,7 +76,7 @@ namespace PlannerApp.Client.Components
         private void SetTitle()
         {
             AppState.UpdateTitle(
-                new TitleState(
+                new NavMenuState(
                     $"<span class='has-text-weight-light has-padding-right-5'>Calendar</span><span class='has-text-weight-semibold'>{ViewingWeekOf:yyyy}</span>",
                     $"<span class='has-text-weight-semibold'>{ViewingWeekOf:MMM}</span>"
                 ));

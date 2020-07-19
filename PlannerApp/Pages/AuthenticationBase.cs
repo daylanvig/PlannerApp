@@ -15,7 +15,7 @@ namespace PlannerApp.Client.Pages
     {
         private string redirectUrl;
         [Inject]
-        public AppState AppState { get; set; }
+        public IAppState AppState { get; set; }
         [Inject]
         public NavigationManager NavigationManager { get; set; }
         [Inject]
@@ -53,7 +53,7 @@ namespace PlannerApp.Client.Pages
 
         protected override async Task OnParametersSetAsync()
         {
-            AppState.UpdateTitle(new Store.ChangePageUseCase.TitleState());
+            AppState.UpdateTitle(new Store.ChangePageUseCase.NavMenuState());
             if (ActionCased == "signout")
             {
                 await AuthService.Logout();

@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using PlannerApp.Client.Components;
+using PlannerApp.Client.Services;
 using System;
 using System.Threading.Tasks;
+using UIComponents.Custom.SheetComponent;
 
 namespace PlannerApp.Client.Shared
 {
@@ -11,11 +13,12 @@ namespace PlannerApp.Client.Shared
         [CascadingParameter]
         private Task<AuthenticationState> AuthenticationStateTask { get; set; }
         [Inject]
-        public AppState AppState { get; set; }
+        public IAppState AppState { get; set; }
         [Inject]
         public NavigationManager NavigationManager { get; set; }
         protected string Title;
         protected string SubTitle;
+        protected SheetParams sheetParams;
         protected bool? IsUserAuthenticated { get; set; }
         protected override async Task OnInitializedAsync()
         {
