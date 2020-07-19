@@ -32,6 +32,20 @@ namespace PlannerApp.Client.Components
             get => GetViewingDates();
         }
 
+        private int GetDaysVisible()
+        {
+            switch (state.Mode)
+            {
+                case CalendarMode.Day:
+                    return 1;
+                case CalendarMode.Week:
+                    return 7;
+                default:
+                    return DateTime.DaysInMonth(state.Date.Value.Year, state.Date.Value.Month);
+            }
+            // if fell through 
+        }
+
         protected override async Task OnInitializedAsync()
         {
             state = new CalendarState
@@ -39,7 +53,7 @@ namespace PlannerApp.Client.Components
                 Date = DateTimeHelper.GetMostRecentDayOfWeek(DateTimeProvider.Now, DayOfWeek.Sunday)
             };
             SetTitle();
-            Items = (await PlannerItemDataService.LoadItems(state.Date, state.Date.Value.AddDays(6))).ToList();
+            Items = (await PlannerItemDataService.LoadItems(state.Date, state.Date.Value.AddDays(GetDaysVisible() - 1))).ToList();
             SwipeEvent.Subscribe(this);
         }
 
@@ -61,11 +75,11 @@ namespace PlannerApp.Client.Components
         {
             if (direction == SwipeDirection.Left)
             {
-                state.Date = state.Date.Value.AddDays(7);
+                state.Date = state.Date.Value.AddDays(GetDaysVisible());
             }
             else if (direction == SwipeDirection.Right)
             {
-                state.Date = state.Date.Value.AddDays(-7);
+                state.Date = state.Date.Value.AddDays(GetDaysVisible());
             }
             // ignore up and down
         }
@@ -95,7 +109,7 @@ namespace PlannerApp.Client.Components
         private List<DateTime> GetViewingDates()
         {
             var dates = new List<DateTime>();
-            for (var i = 0; i < 7; i++)
+            for (var i = 0; i < GetDaysVisible(); i++)
             {
                 dates.Add(state.Date.Value.AddDays(i));
             }
