@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using UIComponents.Bulma.Custom;
 using UIComponents.Bulma.Helpers;
 
 namespace UIComponents.Bulma
@@ -15,6 +16,6 @@ namespace UIComponents.Bulma
         [Parameter]
         public string Type { get; set; } = "button";
         [Parameter]
-        public Microsoft.AspNetCore.Components.RenderFragment ChildContent { get; set; }
+        public RenderFragment ChildContent { get; set; }
     }
 }

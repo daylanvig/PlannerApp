@@ -46,6 +46,7 @@
 
         &--today {
             .calendar__header-number {
+                color: $white-ter;
                 background-color: $primary;
             }
         }
@@ -55,8 +56,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 0 auto;
-        color: $grey-dark;
+        margin: 5px auto 0;
         font-weight: $weight-semibold;
         @include circle(30px);
 

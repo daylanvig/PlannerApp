@@ -2,8 +2,11 @@
 
 <nav class="nav">
     <div class="nav__body">
+        <div class="nav__toggle icon" role="button">
+            <i class="fas fa-bars" aria-hidden="true"></i>
+        </div>
         <div class="nav__title">@((MarkupString)Title)</div>
-        <div class="nav__spacer"></div>
+        <div class="nav__spacer" aria-hidden="true"></div>
         <div class="nav__buttons">
             @if (IsUserAuthenticated.HasValue)
             {
@@ -15,6 +18,9 @@
                 }
                 <LoginDisplay></LoginDisplay>
             }
+        </div>
+        <div class="nav__sheet-button icon" role="button">
+            <i class="fas fa-ellipsis-v"></i>
         </div>
     </div>
     @*If empty string, still render footer in case desired look is empty footer, otherwise collapse footer*@

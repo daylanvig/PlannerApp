@@ -11,7 +11,7 @@
                 <ValidationMessage For="@(()=> Category.Description)"></ValidationMessage>
             </ValidationContent>
         </Field>
-        <Field CssClass="has-width-50" Label="Colour">
+        <Field class="has-width-50" Label="Colour">
             <ControlContent>
                 <TextField @bind-Value="Category.Colour" Type="color"></TextField>
             </ControlContent>
@@ -21,7 +21,7 @@
         </Field>
         <Field>
             <ControlContent>
-                <Button CssClass="is-pulled-right" Colour="ComponentColour.Success" Type="submit">Save</Button>
+                <Button class="is-pulled-right" Colour="ComponentColour.Success" Type="submit">Save</Button>
             </ControlContent>
         </Field>
     </EditForm>

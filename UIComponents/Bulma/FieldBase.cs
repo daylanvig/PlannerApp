@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using UIComponents.Bulma.Custom;
 
 namespace UIComponents.Bulma
 {

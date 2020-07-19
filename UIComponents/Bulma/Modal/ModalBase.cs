@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
+using UIComponents.Bulma.Custom;
 using UIComponents.Bulma.Helpers;
 using UIComponents.Services;
 
