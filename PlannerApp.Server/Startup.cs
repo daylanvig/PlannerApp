@@ -37,8 +37,6 @@ namespace PlannerApp.Server
 
         public IConfiguration Configuration { get; }
 
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             // stops app engine from redirecting infinitely
@@ -63,9 +61,7 @@ namespace PlannerApp.Server
             {
                 o.UseMySql(Configuration.GetConnectionString("PlannerContext"));
             });
-
             services.AddHttpContextAccessor();
-            
             services.ConfigurePlannerAppIdentity(Configuration);
             services.AddPlannerAppServerServices();
             
@@ -90,7 +86,6 @@ namespace PlannerApp.Server
                 app.UseForwardedHeaders(new ForwardedHeadersOptions() { ForwardedHeaders = ForwardedHeaders.XForwardedProto });
                 app.UseHsts();
                 app.UseHttpsRedirection();
-                
             }
             
             app.UseBlazorFrameworkFiles();

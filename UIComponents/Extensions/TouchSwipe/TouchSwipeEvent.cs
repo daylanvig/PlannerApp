@@ -69,6 +69,7 @@ namespace UIComponents.Extensions.TouchSwipe
                         HandleTouchStart(e);
                         return;
                     }
+                    Console.WriteLine(diffX);
                     direction = diffX > 0 ? SwipeDirection.Left : SwipeDirection.Right;
                 }
                 else
@@ -83,6 +84,7 @@ namespace UIComponents.Extensions.TouchSwipe
                 touchStartTime = null;
                 initialX = null;
                 initialY = null;
+                Console.WriteLine(direction);
                 NotifySubscribers(direction);
             }
         }

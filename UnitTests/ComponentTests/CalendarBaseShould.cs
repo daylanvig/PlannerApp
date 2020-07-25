@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using PlannerApp.Client.Components;
+using PlannerApp.Client.Models;
 using PlannerApp.Client.Services;
 using PlannerApp.Shared.Models;
 using PlannerApp.UnitTests.Infrastructure;
@@ -12,14 +13,19 @@ using Xunit;
 
 namespace PlannerApp.UnitTests.ComponentTests
 {
-    public class WeekCalendarBaseShould
+    public class CalendarBaseShould
     {
+        private CalendarState state;
         private void SetupContext(TestContext ctx)
         {
             var testContextBuilder = new TestContextBuilder(ctx);
             testContextBuilder.AddCommon();
             var dataServiceMock = Mock.Of<IPlannerItemDataService>(o => o.LoadItems(It.IsAny<DateTime>(), It.IsAny<DateTime>()) == Task.FromResult<IEnumerable<PlannerItemDTO>>(Array.Empty<PlannerItemDTO>()));
             ctx.Services.AddScoped<IPlannerItemDataService>(o => dataServiceMock);
+            state = new CalendarState();
+            var calendarServiceMock = new Mock<ICalendarService>();
+            calendarServiceMock.Setup(c => c.State).Returns(state);
+            ctx.Services.AddScoped<ICalendarService>(o => calendarServiceMock.Object);
         }
 
         [Fact]
@@ -34,7 +40,7 @@ namespace PlannerApp.UnitTests.ComponentTests
             var cut = ctx.RenderComponent<CalendarBase>();
 
             // Assert
-            Assert.Equal(new DateTime(2020, 5, 31, 15, 0, 0), cut.Instance.ViewingWeekOf);
+            Assert.Equal(new DateTime(2020, 5, 31, 15, 0, 0), state.Date.Value);
         }
 
         [Fact]
@@ -49,7 +55,7 @@ namespace PlannerApp.UnitTests.ComponentTests
             cut.Instance.HandleSwipe(UIComponents.Extensions.TouchSwipe.SwipeDirection.Right);
 
             // Assert
-            Assert.Equal(new DateTime(2020, 5, 24, 15, 0, 0), cut.Instance.ViewingWeekOf);
+            Assert.Equal(new DateTime(2020, 5, 24, 15, 0, 0), state.Date.Value);
         }
 
         [Fact]
@@ -64,7 +70,7 @@ namespace PlannerApp.UnitTests.ComponentTests
             cut.Instance.HandleSwipe(UIComponents.Extensions.TouchSwipe.SwipeDirection.Left);
 
             // Assert
-            Assert.Equal(new DateTime(2020, 6, 7, 15, 0, 0), cut.Instance.ViewingWeekOf);
+            Assert.Equal(new DateTime(2020, 6, 7, 15, 0, 0), state.Date.Value);
         }
 
         [Fact]
@@ -76,6 +82,10 @@ namespace PlannerApp.UnitTests.ComponentTests
             var dataServiceMock = new Mock<IPlannerItemDataService>();
             dataServiceMock.Setup(o => o.LoadItems(It.IsAny<DateTime>(), It.IsAny<DateTime>())).Returns(Task.FromResult<IEnumerable<PlannerItemDTO>>(Array.Empty<PlannerItemDTO>()));
             ctx.Services.AddScoped<IPlannerItemDataService>(o => dataServiceMock.Object);
+            var calendarServiceMock = new Mock<ICalendarService>();
+            state = new CalendarState();
+            calendarServiceMock.Setup(c => c.State).Returns(state);
+            ctx.Services.AddScoped<ICalendarService>(o => calendarServiceMock.Object);
 
             // Act
             var cut = ctx.RenderComponent<CalendarBase>();

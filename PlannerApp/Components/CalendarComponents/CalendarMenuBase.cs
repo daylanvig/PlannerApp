@@ -14,8 +14,8 @@ namespace PlannerApp.Client.Components.CalendarComponents
     public class CalendarMenuBase : ComponentBase, IDisposable
     {
         [Inject] ICategoryDataService CategoryDataService { get; set; }
-        [Parameter]
-        public CalendarState State { get; set; }
+        [Inject] 
+        protected ICalendarService CalendarService { get; set; }
         [Parameter]
         public EventCallback OnStateChange { get; set; }
         protected SelectField<CalendarMode> ModeInput;
@@ -31,11 +31,11 @@ namespace PlannerApp.Client.Components.CalendarComponents
             CategoryFilters = categories.Select(c => new Filter<CategoryDTO>
             {
                 Model = c,
-                IsVisible = !State.HiddenCategoryIDs.Contains(c.ID)
+                IsVisible = !CalendarService.State.HiddenCategoryIDs.Contains(c.ID)
             }).ToList();
             NoCategoryFilter = new Filter<int?>
             {
-                IsVisible = !State.HiddenCategoryIDs.Contains(null),
+                IsVisible = !CalendarService.State.HiddenCategoryIDs.Contains(null),
                 Model = null
             };
         }
@@ -66,7 +66,7 @@ namespace PlannerApp.Client.Components.CalendarComponents
             {
                 hiddenFilters.Append(null);
             }
-            State.HiddenCategoryIDs = hiddenFilters;
+            CalendarService.State.HiddenCategoryIDs = hiddenFilters;
             callStateChange();
         }
 

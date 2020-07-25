@@ -20426,7 +20426,7 @@ table.is-completely-borderless tr {
   .calendar__header {
     position: sticky;
     display: flex;
-    top: 0;
+    top: 66px;
     z-index: 2;
     background-color: #ededed;
     min-width: fit-content;
@@ -20692,10 +20692,15 @@ table.is-completely-borderless tr {
       margin: 10px 70px; } }
 
 .nav {
+  z-index: 4;
   width: 100%;
   background-color: #393e46;
   color: whitesmoke;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); }
+  @media screen and (max-width: 768px) {
+    .nav {
+      position: sticky;
+      top: 0; } }
   .nav__toggle {
     cursor: pointer;
     margin-right: 10px; }

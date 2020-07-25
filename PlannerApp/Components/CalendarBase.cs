@@ -22,9 +22,8 @@ namespace PlannerApp.Client.Components
         [Inject] IDOMInteropService DOMService { get; set; }
         [Inject] IPlannerItemDataService PlannerItemDataService { get; set; }
         [Inject] IDateTimeProvider DateTimeProvider { get; set; }
-
+        [Inject] ICalendarService CalendarService { get; set; }
         protected readonly TouchSwipeEvent SwipeEvent = new TouchSwipeEvent();
-        private CalendarState state;
         protected ICollection<PlannerItemDTO> Items = new List<PlannerItemDTO>();
 
         protected List<DateTime> ViewingDates
@@ -34,28 +33,21 @@ namespace PlannerApp.Client.Components
 
         private int GetDaysVisible()
         {
-            switch (state.Mode)
+            return CalendarService.State.Mode switch
             {
-                case CalendarMode.Day:
-                    return 1;
-                case CalendarMode.Week:
-                    return 7;
-                default:
-                    return DateTime.DaysInMonth(state.Date.Value.Year, state.Date.Value.Month);
-            }
-            // if fell through 
+                CalendarMode.Day => 1,
+                CalendarMode.Week => 7,
+                _ => DateTime.DaysInMonth(CalendarService.State.Date.Value.Year, CalendarService.State.Date.Value.Month),
+            };
         }
         private async Task LoadData()
         {
-            var items = await PlannerItemDataService.LoadItems(state.Date, state.Date.Value.AddDays(GetDaysVisible() - 1));
-            Items = items.Where(item => !state.HiddenCategoryIDs.Contains(item.CategoryID)).ToList();
+            var items = await PlannerItemDataService.LoadItems(CalendarService.State.Date, CalendarService.State.Date.Value.AddDays(GetDaysVisible() - 1));
+            Items = items.Where(item => !CalendarService.State.HiddenCategoryIDs.Contains(item.CategoryID)).ToList();
         }
         protected override async Task OnInitializedAsync()
         {
-            state = new CalendarState
-            {
-                Date = DateTimeHelper.GetMostRecentDayOfWeek(DateTimeProvider.Now, DayOfWeek.Sunday)
-            };
+            CalendarService.State.Date = DateTimeHelper.GetMostRecentDayOfWeek(DateTimeProvider.Now, DayOfWeek.Sunday);
             SetTitle();
             await LoadData();
             SwipeEvent.Subscribe(this);
@@ -79,11 +71,11 @@ namespace PlannerApp.Client.Components
         {
             if (direction == SwipeDirection.Left)
             {
-                state.Date = state.Date.Value.AddDays(GetDaysVisible());
+                CalendarService.State.Date = CalendarService.State.Date.Value.AddDays(GetDaysVisible());
             }
             else if (direction == SwipeDirection.Right)
             {
-                state.Date = state.Date.Value.AddDays(GetDaysVisible());
+                CalendarService.State.Date = CalendarService.State.Date.Value.AddDays(-1 * GetDaysVisible());
             }
             // ignore up and down
         }
@@ -99,14 +91,13 @@ namespace PlannerApp.Client.Components
             var fragment = new RenderFragment(f =>
             {
                 f.OpenComponent<CalendarMenu>(1);
-                f.AddAttribute(1, nameof(CalendarMenu.State), state);
                 f.AddAttribute(2, nameof(CalendarMenu.OnStateChange), EventCallback.Factory.Create(this, HandleStateChange));
                 f.CloseComponent();
             });
             AppState.UpdateTitle(
                 new NavMenuState(
-                    $"<span class='has-text-weight-light has-padding-right-5'>Calendar</span><span class='has-text-weight-semibold'>{state.Date:yyyy}</span>",
-                    $"<span class='has-text-weight-semibold'>{state.Date:MMM}</span>",
+                    $"<span class='has-text-weight-light has-padding-right-5'>Calendar</span><span class='has-text-weight-semibold'>{CalendarService.State.Date:yyyy}</span>",
+                    $"<span class='has-text-weight-semibold'>{CalendarService.State.Date:MMM}</span>",
                     sheetParams: new SheetParams { Body = fragment }
                 ));
         }
@@ -116,7 +107,7 @@ namespace PlannerApp.Client.Components
             var dates = new List<DateTime>();
             for (var i = 0; i < GetDaysVisible(); i++)
             {
-                dates.Add(state.Date.Value.AddDays(i));
+                dates.Add(CalendarService.State.Date.Value.AddDays(i));
             }
             return dates;
         }

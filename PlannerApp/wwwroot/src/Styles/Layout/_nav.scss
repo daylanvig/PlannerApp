@@ -1,9 +1,13 @@
 ﻿.nav {
+    z-index: 4;
     width: 100%;
     background-color: $primary;
     color: $white-ter;
     box-shadow: $shadow-1;
-
+    @include until($tablet){
+        position: sticky;
+        top: 0;
+    }
     &__toggle {
         cursor: pointer;
         margin-right: 10px;
