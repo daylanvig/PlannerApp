@@ -59,6 +59,7 @@ namespace UIComponents.Bulma
             {
                 IsValid = false;
             }
+            Console.WriteLine(Value.ToString());
             NotifyChange();
         }
     }

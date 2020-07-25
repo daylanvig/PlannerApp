@@ -1,5 +1,7 @@
 ﻿@inherits CheckBoxBase
 
-<div class="control">
-    <input type="checkbox" name="@(FieldIdentifier.FieldName)" checked="@(CurrentValue ? "checked" : null)" @onchange="HandleChange" />
-</div>
+
+<label class="checkbox @CssClass">
+    <input type="checkbox" checked="@IsChecked"  @onchange="ChangeToggleState" />
+    @ChildContent
+</label>

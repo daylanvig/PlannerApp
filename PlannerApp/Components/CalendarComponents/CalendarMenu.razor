@@ -1,7 +1,7 @@
 ﻿@inherits CalendarMenuBase
 @using UIComponents.Custom.SheetComponent
 @using PlannerApp.Client.Models
- 
+
 <SheetLabel>Display Mode</SheetLabel>
 <SheetItem>
     @* Hack: Fields require edit context, using this to support interactions without making a completely separate component (for now) *@
@@ -17,4 +17,24 @@
             <DateField @ref="DateInput" @bind-Value="State.Date"></DateField>
         </Field>
     </EditForm>
+</SheetItem>
+<SheetLabel>Categories</SheetLabel>
+<SheetItem>
+    @if (CategoryFilters != null)
+    {
+        @foreach (var filter in CategoryFilters)
+        {
+            var categoryID = filter.Model.ID;
+            <Field>
+                <div class="control">
+                    <CheckBox Checked="filter.IsVisible" OnChange="() => UpdateCategoryFilters(categoryID)" @key="filter">@filter.Model.Description</CheckBox>
+                </div>
+            </Field>
+        }
+        <Field>
+            <div class="control">
+                <CheckBox OnChange="() => UpdateCategoryFilters(null)" Checked="NoCategoryFilter.IsVisible">No Category</CheckBox>
+            </div>
+        </Field>
+    }
 </SheetItem>

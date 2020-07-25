@@ -47,7 +47,8 @@ namespace PlannerApp.Client.Components
         }
         private async Task LoadData()
         {
-            Items = (await PlannerItemDataService.LoadItems(state.Date, state.Date.Value.AddDays(GetDaysVisible() - 1))).ToList();
+            var items = await PlannerItemDataService.LoadItems(state.Date, state.Date.Value.AddDays(GetDaysVisible() - 1));
+            Items = items.Where(item => !state.HiddenCategoryIDs.Contains(item.CategoryID)).ToList();
         }
         protected override async Task OnInitializedAsync()
         {

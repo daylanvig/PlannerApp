@@ -1,28 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.AspNetCore.Components;
+using System;
+using System.ComponentModel;
+using System.Threading.Tasks;
+using UIComponents.Bulma.Custom;
 
 namespace UIComponents.Bulma
 {
-    public class CheckBoxBase : InputFieldBase<bool>
+    public class CheckBoxBase : UIComponentBase
     {
-        protected override bool TryParseValueFromString(string value, out bool result, out string validationErrorMessage)
+        protected bool IsChecked;
+        [Parameter]
+        public EventCallback<ChangeEventArgs> OnChange { get; set; }
+        [Parameter]
+        public bool Checked { get => IsChecked; set { IsChecked = value; } }
+
+        protected async Task ChangeToggleState(ChangeEventArgs e)
         {
-            if (string.IsNullOrEmpty(value))
-            {
-                result = false;
-                validationErrorMessage = string.Empty;
-                return true;
-            }
-            if(bool.TryParse(value, out bool parsedValue))
-            {
-                result = parsedValue;
-                validationErrorMessage = string.Empty;
-                return true;
-            }
-            validationErrorMessage = "invalid format";
-            result = false;
-            return false;
+            IsChecked = !IsChecked;
+            await OnChange.InvokeAsync(e);
+            StateHasChanged();
         }
     }
 }
