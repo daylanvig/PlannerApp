@@ -63,9 +63,6 @@
     <ProjectReference Include="..\PlannerApp.Core\PlannerApp.Shared.csproj" />
     <ProjectReference Include="..\UIComponents\UIComponents.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Components\DayPlannerComponents\" />
-  </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
   </PropertyGroup>
