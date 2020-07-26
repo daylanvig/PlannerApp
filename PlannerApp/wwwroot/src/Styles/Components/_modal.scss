@@ -8,6 +8,14 @@
             }
         }
 
+        .modal-close {
+            &::before, &::after {
+                @include until($tablet){
+                    background-color: $grey;
+                }
+            }
+        }
+
         .box {
             @include until($tablet) {
                 padding-top: 2rem;

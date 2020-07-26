@@ -5,6 +5,8 @@ using PlannerApp.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
+using System.Threading.Tasks;
 using UIComponents.Bulma.Helpers;
 using UIComponents.Bulma.Modal;
 using UIComponents.Services;
@@ -53,15 +55,10 @@ namespace PlannerApp.Client.Components.CalendarComponents
             ModalService.Show(new ModalParams(modalBody, style: ModalStyle.Normal, modalClass: "is-fullscreen-mobile"));
         }
 
-        protected IEnumerable<PlannerItemDTO> GetItemsByHour(int hour)
-        {
-            return events.Where(e => e.PlannedActionDate.Value.Hour == hour);
-        }
-
         protected void UpdateItem(PlannerItemDTO item)
         {
             var existingEvent = events.FirstOrDefault(i => i.ID == item.ID);
-            if(existingEvent != null)
+            if (existingEvent != null)
             {
                 events.Remove(existingEvent);
             }
@@ -70,10 +67,17 @@ namespace PlannerApp.Client.Components.CalendarComponents
             StateHasChanged();
         }
 
-        protected void AddItem(MouseEventArgs e)
+        protected async Task AddItem(MouseEventArgs e)
         {
-            var hour = 3;
-            var startOfInterval = new DateTime(Date.Year, Date.Month, Date.Day, hour, 0, 0);
+            var columnBounds = await DOMService.GetBoundingClientRect(ColumnEl);
+            // for every 80px from top, time +=1 hour from midnight
+            var clickYRelativeToColumn = e.ClientY - columnBounds.Top;
+            var clickedTime = clickYRelativeToColumn / 80;
+            var clickedHour = Math.Truncate(clickedTime);
+            var partialMinutesClicked = clickedTime - clickedHour;
+            // if user clicks near the middle of the hour, use 30 minute as start. Otherwise use start of hour
+            var clickedMinute = partialMinutesClicked > .4 ? 30 : 0;
+            var startOfInterval = new DateTime(Date.Year, Date.Month, Date.Day, (int)clickedHour, clickedMinute, 0);
             var item = new PlannerItemDTO
             {
                 PlannedActionDate = startOfInterval,

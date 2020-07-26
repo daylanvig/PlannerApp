@@ -20515,6 +20515,10 @@ table.is-completely-borderless tr {
     max-height: 100vh; } }
 
 @media screen and (max-width: 768px) {
+  .modal.is-fullscreen-mobile .modal-close::before, .modal.is-fullscreen-mobile .modal-close::after {
+    background-color: #717171; } }
+
+@media screen and (max-width: 768px) {
   .modal.is-fullscreen-mobile .box {
     padding-top: 2rem;
     border-radius: 0;

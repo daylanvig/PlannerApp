@@ -7,7 +7,7 @@ namespace PlannerApp.Client.Components
 {
     public static class UIComponentHelper
     {
-        public const int ROWHEIGHT = 80; // px
+        public const int CALENDAR_INTERVAL_HEIGHT = 80; // px
         /// <summary>
         /// Calculate height in px
         /// </summary>
@@ -16,7 +16,7 @@ namespace PlannerApp.Client.Components
         {
             var fractionsOfHour = DateTimeHelper.CalculateLength(startDate, endDate) / 60;
             // display to at least take half a block for visibility
-            return $"{Math.Max(ROWHEIGHT/2, ROWHEIGHT * fractionsOfHour)}px";
+            return $"{Math.Max(CALENDAR_INTERVAL_HEIGHT/2, CALENDAR_INTERVAL_HEIGHT * fractionsOfHour)}px";
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace PlannerApp.Client.Components
         public static string CalculateTop(DateTime startDate)
         {
             var startMinuteFractions = (double)startDate.Minute / 60;
-            return $"{ROWHEIGHT * ((double)startDate.Hour + startMinuteFractions)}px";
+            return $"{CALENDAR_INTERVAL_HEIGHT * ((double)startDate.Hour + startMinuteFractions)}px";
         }
 
         /// <summary>
