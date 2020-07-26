@@ -4,9 +4,9 @@ using PlannerApp.Shared.Models;
 using System;
 using System.Threading.Tasks;
 
-namespace PlannerApp.Client.Components.DayPlannerComponents
+namespace PlannerApp.Client.Components.CalendarComponents
 {
-    public class PlannerEventBase : ComponentBase
+    public class CalendarEventBase : ComponentBase
     {
         [Inject] 
         public ICategoryDataService CategoryDataService { get; set; }

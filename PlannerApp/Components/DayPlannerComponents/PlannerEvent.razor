@@ -1,6 +1,0 @@
-﻿@inherits PlannerEventBase
-
-<div @onclick="ClickCallback" @onclick:stopPropagation class="planner-event @CalculateFontColour()" style="@CalculateCssStyle()">
-    <div class="planner-event__description">@Item.Description</div>
-    <div class="planner-event__time">@DateTimeHelper.FormatTime(Item.PlannedActionDate.Value) - @DateTimeHelper.FormatTime(Item.PlannedEndTime.Value)</div>
-</div>

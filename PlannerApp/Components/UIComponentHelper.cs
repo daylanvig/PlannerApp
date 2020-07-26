@@ -26,7 +26,7 @@ namespace PlannerApp.Client.Components
         public static string CalculateTop(DateTime startDate)
         {
             var startMinuteFractions = (double)startDate.Minute / 60;
-            return $"{ROWHEIGHT * startMinuteFractions}px";
+            return $"{ROWHEIGHT * ((double)startDate.Hour + startMinuteFractions)}px";
         }
 
         /// <summary>

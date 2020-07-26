@@ -23,7 +23,7 @@ namespace PlannerApp.Client.Components.CalendarComponents
         public DateTime Date { get; set; }
 
         protected ElementReference ColumnEl;
-        private List<PlannerItemDTO> events;
+        protected List<PlannerItemDTO> events;
 
         protected override void OnInitialized()
         {
@@ -70,8 +70,9 @@ namespace PlannerApp.Client.Components.CalendarComponents
             StateHasChanged();
         }
 
-        protected void AddItem(MouseEventArgs e, int hour)
+        protected void AddItem(MouseEventArgs e)
         {
+            var hour = 3;
             var startOfInterval = new DateTime(Date.Year, Date.Month, Date.Day, hour, 0, 0);
             var item = new PlannerItemDTO
             {

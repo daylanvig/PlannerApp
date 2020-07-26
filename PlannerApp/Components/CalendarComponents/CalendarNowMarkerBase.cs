@@ -11,17 +11,6 @@ namespace PlannerApp.Client.Components.DayPlannerComponents
         [Parameter]
         public DateTime ForDate { get; set; }
 
-        protected override bool ShouldRender()
-        {   
-            var now = DateTime.Now;
-            if (ForDate.Hour == now.Hour && ForDate.DayOfWeek == now.DayOfWeek)
-            {
-                // if looking at this week only
-                return ForDate.Date == now.Date;
-            }
-            return false;
-        }
-
         protected string GetTop() => UIComponentHelper.CalculateTop(DateTime.Now);
     }
 }

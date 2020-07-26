@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PlannerApp.Client.Pages
 {
-    public class CalendarBase : ComponentBase
+    public class EventCalendarBase : ComponentBase
     {
     }
 }
