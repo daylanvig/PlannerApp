@@ -47,8 +47,6 @@ namespace UIComponents.Extensions.TouchSwipe
             if (IsPressAndHold())
             {
                 // No action should be taken if the user press and held without moving
-                // todo -> debug code
-                Console.WriteLine("press and hold");
             }
             else
             {
@@ -69,7 +67,6 @@ namespace UIComponents.Extensions.TouchSwipe
                         HandleTouchStart(e);
                         return;
                     }
-                    Console.WriteLine(diffX);
                     direction = diffX > 0 ? SwipeDirection.Left : SwipeDirection.Right;
                 }
                 else
@@ -84,7 +81,6 @@ namespace UIComponents.Extensions.TouchSwipe
                 touchStartTime = null;
                 initialX = null;
                 initialY = null;
-                Console.WriteLine(direction);
                 NotifySubscribers(direction);
             }
         }

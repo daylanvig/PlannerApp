@@ -1,7 +1,7 @@
 {
   "name": "PlannerApp",
   "short_name": "PlannerApp",
-  "start_url": "./",
+  "start_url": "./Calendar",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#03173d",

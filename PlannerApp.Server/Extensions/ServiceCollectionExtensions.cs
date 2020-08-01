@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -12,7 +13,6 @@ namespace PlannerApp.Server.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-
         public static IServiceCollection ConfigurePlannerAppIdentity(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDefaultIdentity<PlannerAppUser>()
@@ -32,7 +32,7 @@ namespace PlannerApp.Server.Extensions
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtSecurityKey"]))
                     };
                 });
-            
+
             return services;
         }
 

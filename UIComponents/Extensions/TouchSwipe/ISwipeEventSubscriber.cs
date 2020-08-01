@@ -1,7 +1,9 @@
-﻿namespace UIComponents.Extensions.TouchSwipe
+﻿using System.Threading.Tasks;
+
+namespace UIComponents.Extensions.TouchSwipe
 {
     public interface ISwipeEventSubscriber
     {
-        void HandleSwipe(SwipeDirection direction);
+        Task HandleSwipe(SwipeDirection direction);
     }
 }

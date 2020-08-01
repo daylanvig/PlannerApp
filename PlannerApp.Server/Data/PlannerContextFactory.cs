@@ -1,23 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PlannerApp.Server.Data
 {
     public class PlannerContextFactory : IDesignTimeDbContextFactory<PlannerContext>
     {
+        private string GetEnvironmentName() => Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
         IConfiguration GetAppConfiguration()
         {
-            var environmentName =
-                      Environment.GetEnvironmentVariable(
-                          "ASPNETCORE_ENVIRONMENT");
-
+            var environmentName = GetEnvironmentName();
             var dir = Directory.GetParent(AppContext.BaseDirectory);
             do
                 dir = dir.Parent;
@@ -37,7 +31,7 @@ namespace PlannerApp.Server.Data
         public PlannerContext CreateDbContext(string[] args)
         {
             var options = new DbContextOptionsBuilder<PlannerContext>();
-            options.UseMySql(GetAppConfiguration().GetConnectionString("UserContext"));
+            options.UseSqlServer(GetAppConfiguration().GetConnectionString("PlannerContext"));
             return new PlannerContext(options.Options, null);
         }
     }

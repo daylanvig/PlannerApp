@@ -67,7 +67,7 @@ namespace PlannerApp.Client.Components
         /// Allows user to move forwards/backwards by one week.
         /// </summary>
         /// <param name="direction"></param>
-        public void HandleSwipe(SwipeDirection direction)
+        public async Task HandleSwipe(SwipeDirection direction)
         {
             if (direction == SwipeDirection.Left)
             {
@@ -78,6 +78,7 @@ namespace PlannerApp.Client.Components
                 CalendarService.State.Date = CalendarService.State.Date.Value.AddDays(-1 * GetDaysVisible());
             }
             // ignore up and down
+            await HandleStateChange();
         }
 
         private async Task HandleStateChange()

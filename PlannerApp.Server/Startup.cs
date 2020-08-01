@@ -1,30 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.ApiAuthorization;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using PlannerApp.Server.Data;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpOverrides;
-using AspNet.Security.OpenIdConnect.Primitives;
 using PlannerApp.Server.Extensions;
-using PlannerApp.Client.Services;
-using PlannerApp.Server.Services;
 using PlannerApp.Shared;
+using System;
+using System.Reflection;
 
 namespace PlannerApp.Server
 {
@@ -52,14 +38,16 @@ namespace PlannerApp.Server
                 o.IncludeSubDomains = true;
                 o.MaxAge = TimeSpan.FromDays(60);
             });
+
             services.AddDbContext<UserContext>(o =>
             {
-                o.UseMySql(Configuration.GetConnectionString("UserContext"));
+                o.UseSqlServer(Configuration.GetConnectionString("UserContext"));
             });
-            
+
             services.AddDbContext<PlannerContext>(o =>
             {
-                o.UseMySql(Configuration.GetConnectionString("PlannerContext"));
+
+                o.UseSqlServer(Configuration.GetConnectionString("PlannerContext"));
             });
             services.AddHttpContextAccessor();
             services.ConfigurePlannerAppIdentity(Configuration);
