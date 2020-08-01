@@ -14,13 +14,11 @@ namespace PlannerApp.UnitTests.ComponentTests
 {
     public class LoginFormShould
     {
- 
-
         [Fact]
         public void RenderCorrectly()
         {
             // Arrange
-            var ctx = new TestContext();
+            using var ctx = new TestContext();
             var builder = new TestContextBuilder(ctx);
             builder.AddAuth();
 
@@ -65,7 +63,7 @@ namespace PlannerApp.UnitTests.ComponentTests
         public void NotSubmitLoginRequestIfFormIsNotFilledIn()
         {
             // Arrange
-            var ctx = new TestContext();
+            using var ctx = new TestContext();
             var spy = new Mock<IAuthService>();
             ctx.Services.AddScoped<IAuthService>(o => spy.Object);
             var cut = ctx.RenderComponent<LoginForm>();
@@ -82,7 +80,7 @@ namespace PlannerApp.UnitTests.ComponentTests
         public void LoginWhenFormIsValidAndSaveIsClicked()
         {
             // Arrange
-            var ctx = new TestContext();
+            using var ctx = new TestContext();
             var spy = new Mock<IAuthService>();
             ctx.Services.AddScoped<IAuthService>(o => spy.Object);
             var cut = ctx.RenderComponent<LoginForm>(p =>

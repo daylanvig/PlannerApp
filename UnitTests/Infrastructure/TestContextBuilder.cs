@@ -12,9 +12,9 @@ namespace PlannerApp.UnitTests.Infrastructure
     public class TestContextBuilder
     {
         private readonly TestContext ctx;
-        public TestContextBuilder(TestContext ctx)
+        public TestContextBuilder(TestContext ctx = null)
         {
-            this.ctx = ctx;
+            this.ctx = ctx ?? new TestContext();
         }
 
         public TestContext Build()

@@ -15,7 +15,6 @@ namespace PlannerApp.Client.Services
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IAuthorizedHttpClientFactory, AuthorizedHttpClientFactory>();
             services.AddTransient<IPlannerItemDataService, PlannerItemDataService>();
-            services.AddTransient<IPlannerItemService, PlannerItemService>();
             services.AddTransient<ICategoryDataService, CategoryDataService>();
             services.AddScoped<ICacheService, CacheService>();
             services.AddScoped<ICalendarService, CalendarService>();

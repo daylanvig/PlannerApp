@@ -15,7 +15,7 @@ namespace PlannerApp.Client.Components.CalendarComponents
         [Parameter]
         public EventCallback ClickCallback { get; set; }
 
-        protected string Colour;
+        protected string Colour = "#b2bec3";
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
@@ -35,9 +35,7 @@ namespace PlannerApp.Client.Components.CalendarComponents
 
         protected string CalculateFontColour()
         {
-            // fallback to treating the background as dark, since default background is grey
-            var colour = string.IsNullOrEmpty(Colour) ? "#000000" : Colour;
-            return UIComponentHelper.CalculateContrastingFontColour(colour);
+            return UIComponentHelper.CalculateContrastingFontColour(Colour);
         }
 
         protected string CalculateCssStyle()
