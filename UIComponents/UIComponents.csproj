@@ -29,6 +29,7 @@
 
 
   <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
     <None Include="compilerconfig.json" />
   </ItemGroup>
 

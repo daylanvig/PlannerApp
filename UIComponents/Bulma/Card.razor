@@ -1,0 +1,23 @@
+﻿@inherits CardBase
+
+<div class="card @CssClass">
+    @if (CardHeader != null)
+    {
+        <div class="card-header">
+            @CardHeader
+        </div>
+    }
+    @CardContent
+    @if (ChildContent != null)
+    {
+        <div class="card-content">
+            @ChildContent
+        </div>
+    }
+    @if (CardFooter != null)
+    {
+        <div class="card-footer">
+            @CardFooter
+        </div>
+    }
+</div>

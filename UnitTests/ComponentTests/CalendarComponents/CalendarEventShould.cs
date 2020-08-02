@@ -16,9 +16,9 @@ namespace PlannerApp.UnitTests.ComponentTests.CalendarComponents
 {
     public class CalendarEventShould : IDisposable
     {
-        private CategoryDTO category;
+        private readonly CategoryDTO category;
         private readonly TestContext ctx;
-        private PlannerItemDTOBuilder itemBuilder;
+        private readonly PlannerItemDTOBuilder itemBuilder;
         public CalendarEventShould()
         {
             category = new CategoryDTO
