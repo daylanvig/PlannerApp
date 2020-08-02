@@ -15,10 +15,8 @@ namespace PlannerApp.Client.Components.CalendarComponents
 {
     public class CalendarColumnBase : ComponentBase
     {
-        [Inject]
-        public IApplicationWideComponentService<ModalParams> ModalService { get; set; }
-        [Inject]
-        public IDOMInteropService DOMService { get; set; }
+        [Inject] IPlannerItemService PlannerItemService { get; set; }
+        [Inject] IDOMInteropService DOMService { get; set; }
         [Parameter]
         public IEnumerable<PlannerItemDTO> Events { get; set; }
         [Parameter]
@@ -39,22 +37,6 @@ namespace PlannerApp.Client.Components.CalendarComponents
             events = Events.ToList();
         }
 
-        protected void ShowModal(PlannerItemDTO item)
-        {
-            var modalBody = new RenderFragment(builder =>
-            {
-                builder.OpenElement(0, "aside");
-                builder.AddAttribute(0, "class", "box");
-                builder.AddAttribute(1, "style", "overflow-y: auto"); // todo move this elsewhere once done testing
-                builder.OpenComponent<PlannerItemForm>(1);
-                builder.AddAttribute(1, "Item", item);
-                builder.AddAttribute(2, "OnItemSaveCallback", EventCallback.Factory.Create<PlannerItemDTO>(this, UpdateItem));
-                builder.CloseComponent();
-                builder.CloseElement();
-            });
-            ModalService.Show(new ModalParams(modalBody, style: ModalStyle.Normal, modalClass: "is-fullscreen-mobile"));
-        }
-
         protected void UpdateItem(PlannerItemDTO item)
         {
             var existingEvent = events.FirstOrDefault(i => i.ID == item.ID);
@@ -63,8 +45,12 @@ namespace PlannerApp.Client.Components.CalendarComponents
                 events.Remove(existingEvent);
             }
             events.Add(item);
-            ModalService.Close();
             StateHasChanged();
+        }
+
+        protected void EditItem(PlannerItemDTO item)
+        {
+            PlannerItemService.ShowAddEditModal(item, UpdateItem);
         }
 
         protected async Task AddItem(MouseEventArgs e)
@@ -83,7 +69,7 @@ namespace PlannerApp.Client.Components.CalendarComponents
                 PlannedActionDate = startOfInterval,
                 PlannedEndTime = startOfInterval.AddHours(1)
             };
-            ShowModal(item);
+            PlannerItemService.ShowAddEditModal(item, UpdateItem);
         }
     }
 }

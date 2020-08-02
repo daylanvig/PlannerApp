@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using PlannerApp.Client.Models;
 using PlannerApp.Client.Services;
 using PlannerApp.Shared.Models;
 using System;
@@ -8,14 +9,14 @@ namespace PlannerApp.Client.Components.CalendarComponents
 {
     public class CalendarEventBase : ComponentBase
     {
-        [Inject] 
+        [Inject]
         public ICategoryDataService CategoryDataService { get; set; }
         [Parameter]
         public PlannerItemDTO Item { get; set; }
         [Parameter]
         public EventCallback ClickCallback { get; set; }
 
-        protected string Colour = "#b2bec3";
+        protected string Colour = UIConstants.DEFAULT_CATEGORY_COLOUR;
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
@@ -25,7 +26,7 @@ namespace PlannerApp.Client.Components.CalendarComponents
             }
             else
             {
-                Colour = "#b2bec3";
+                Colour = UIConstants.DEFAULT_CATEGORY_COLOUR;
             }
         }
 

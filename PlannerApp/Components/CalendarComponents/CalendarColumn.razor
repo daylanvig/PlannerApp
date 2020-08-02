@@ -7,7 +7,7 @@
         @foreach (var item in events)
         {
             var currentItem = item;
-            <CalendarEvent @key="currentItem" ClickCallback="@(()=> ShowModal(currentItem))" Item="currentItem"></CalendarEvent>
+            <CalendarEvent @key="currentItem" ClickCallback="@(()=> EditItem(currentItem))" Item="currentItem"></CalendarEvent>
         }
     }
     @if (Date.Date == DateTime.Today.Date)
