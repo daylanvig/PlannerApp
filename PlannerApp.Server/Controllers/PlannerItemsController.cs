@@ -26,7 +26,7 @@ namespace PlannerApp.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<ICollection<PlannerItemDTO>> GetItems(DateTime? startDate, DateTime? endDate)
+        public async Task<IEnumerable<PlannerItemDTO>> GetItems(DateTime? startDate, DateTime? endDate)
         {
             IReadOnlyList<PlannerItem> items;
 
@@ -48,6 +48,13 @@ namespace PlannerApp.Server.Controllers
             
             var dtos = mapper.Map<PlannerItemDTO[]>(items);
             return dtos;
+        }
+
+        [HttpGet("Completed")]
+        public async Task<IEnumerable<PlannerItemDTO>> GetCompletedItems()
+        {
+            var items = await plannerItemRepository.ListAsync(p => p.CompletionDate.HasValue);
+            return mapper.Map<PlannerItemDTO[]>(items);
         }
 
         [HttpGet("Overdue")]
