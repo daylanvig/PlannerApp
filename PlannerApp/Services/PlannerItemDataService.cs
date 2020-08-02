@@ -10,12 +10,18 @@ namespace PlannerApp.Client.Services
 {
     public class PlannerItemDataService : DataService, IPlannerItemDataService
     {
-
-
         public PlannerItemDataService(IAuthorizedHttpClientFactory authorizedHttpClientFactory) : base(authorizedHttpClientFactory)
         {
         }
 
+        /// <summary>
+        /// Loads planner items.
+        /// If no date values are supplied, all items are loaded.
+        /// Otherwise items are loaded for the provided date range.
+        /// </summary>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<PlannerItemDTO>> LoadItems(DateTime? startDate = null, DateTime? endDate = null)
         {
             var client = await GetClient();
@@ -29,6 +35,12 @@ namespace PlannerApp.Client.Services
                 }
             }
             return await client.GetJsonAsync<List<PlannerItemDTO>>(url);
+        }
+
+        public async Task<IEnumerable<PlannerItemDTO>> LoadCompletedItems()
+        {
+            var client = await GetClient();
+            return await client.GetJsonAsync<List<PlannerItemDTO>>("/api/PlannerItems/Completed");
         }
 
         public async Task<IEnumerable<PlannerItemDTO>> LoadOverdueItems()
