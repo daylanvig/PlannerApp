@@ -1,0 +1,15 @@
+﻿@inherits OnTimeActionReportBase
+<Report Title="Overdue Items" IsLoading="@(OverdueItems == null)">
+    @if (OverdueItems != null)
+    {
+        foreach (var item in OverdueItems)
+        {
+            <Card class="has-margin-bottom-10">
+                <div>
+                    <div class="label">@item.Description</div>
+                    <div>@GetDaysOverdue(item)</div>
+                </div>
+            </Card>
+        }
+    }
+</Report>

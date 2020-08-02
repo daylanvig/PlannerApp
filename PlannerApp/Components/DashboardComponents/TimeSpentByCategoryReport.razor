@@ -1,0 +1,16 @@
+﻿@inherits TimeSpentByCategoryReportBase
+
+<Report Title="How your time is used" IsLoading="@(CategoryTimes == null)">
+    @if (CategoryTimes != null)
+    {
+        foreach (var pairing in CategoryTimes)
+        {
+            <Card class="has-margin-bottom-10">
+                <div>
+                    <div class="label">@pairing.Key.Description</div>
+                    <div style="width: @(CalculatePercentTotalWidth(pairing.Value)); background-color: @(pairing.Key.Colour)">@(pairing.Value) minutes</div>
+                </div>
+            </Card>
+        }
+    }
+</Report>

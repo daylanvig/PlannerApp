@@ -1,0 +1,13 @@
+﻿@inherits ReportBase
+
+<section class="section">
+    <h1 class="title is-size-3">@Title</h1>
+    @if (IsLoading)
+    {
+        <LoadingIcon></LoadingIcon>
+    }
+    else
+    {
+        @ChildContent
+    }
+</section>
