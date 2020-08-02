@@ -42,6 +42,7 @@ namespace PlannerApp.Client.Components.DashboardComponents
            {
                builder.OpenComponent<EventList>(0);
                builder.AddAttribute(1, nameof(EventListBase.Items), items);
+               builder.AddAttribute(2, nameof(EventListBase.Title), $"Completed Items - {category.Description}");
                builder.CloseComponent();
            });
             ModalService.Show(new ModalParams(body, style: ModalStyle.Normal, saveLabel: string.Empty));

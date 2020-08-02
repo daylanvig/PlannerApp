@@ -1,6 +1,10 @@
 ﻿@inherits EventListBase
 
 <div class="box is-flex is-flex-column">
+    @if (!string.IsNullOrEmpty(Title))
+    {
+        <h1 class="is-size-4 title">@Title</h1>
+    }
     @foreach (var item in Items.OrderBy(i => i.PlannedActionDate))
     {
         <div class="has-padding-5">

@@ -7,6 +7,8 @@ namespace PlannerApp.Client.Components.DashboardComponents
     public class EventListBase : ComponentBase
     {
         [Parameter]
+        public string Title { get; set; }
+        [Parameter]
         public IEnumerable<PlannerItemDTO> Items { get; set; }
     }
 }
