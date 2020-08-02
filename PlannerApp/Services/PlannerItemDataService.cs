@@ -37,6 +37,20 @@ namespace PlannerApp.Client.Services
             return await client.GetJsonAsync<List<PlannerItemDTO>>(url);
         }
 
+        public async Task<IEnumerable<PlannerItemDTO>> LoadCompletedItemsByCategoryID(int? id)
+        {
+            var items = await LoadCompletedItems();
+            if(id == 0)
+            {
+                items = items.Where(i => !i.CategoryID.HasValue);
+            }
+            else
+            {
+                items = items.Where(i => i.CategoryID == id);
+            }
+            return items;
+        }
+
         public async Task<IEnumerable<PlannerItemDTO>> LoadCompletedItems()
         {
             var client = await GetClient();

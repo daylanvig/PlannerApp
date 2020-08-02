@@ -1,0 +1,11 @@
+﻿@inherits EventListBase
+
+<div class="box is-flex is-flex-column">
+    @foreach (var item in Items.OrderBy(i => i.PlannedActionDate))
+    {
+        <div class="has-padding-5">
+            <span class="label">@item.Description</span>
+            <span>@DateTimeHelper.FormatFullDate(item.PlannedActionDate.Value) - @(DateTimeHelper.CalculateLength(item.PlannedActionDate.Value, item.PlannedEndTime.Value)) minutes</span>
+        </div>
+    }
+</div>

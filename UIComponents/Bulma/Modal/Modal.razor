@@ -16,7 +16,10 @@
                 </section>
                 <footer class="modal-card-foot">
                     <button class="button" @onclick="HideModal">Cancel</button>
-                    <button class="button is-success">@SaveLabel</button>
+                    @if (!string.IsNullOrEmpty(SaveLabel))
+                    {
+                        <button class="button is-success">@SaveLabel</button>
+                    }
                 </footer>
             </aside>
         }

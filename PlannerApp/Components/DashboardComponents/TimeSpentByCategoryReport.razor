@@ -3,14 +3,14 @@
 <Report Title="How your time is used" IsLoading="@(CategoryTimes == null)">
     @if (CategoryTimes != null)
     {
-        foreach (var pairing in CategoryTimes)
-        {
-            <Card class="has-margin-bottom-10">
-                <div>
-                    <div class="label">@pairing.Key.Description</div>
-                    <div style="width: @(CalculatePercentTotalWidth(pairing.Value)); background-color: @(pairing.Key.Colour)">@(pairing.Value) minutes</div>
+        <Card class="has-margin-bottom-10">
+            @foreach (var pairing in CategoryTimes)
+            {
+                var currentCategory = pairing.Key;
+                <div @onclick="() => ShowBreakDown(currentCategory)" class="has-margin-bottom-5 has-padding-5" style="width: @(CalculatePercentTotalWidth(pairing.Value)); background-color: @(currentCategory.Colour)">
+                    <div class="label">@currentCategory.Description</div>
                 </div>
-            </Card>
-        }
+            }
+        </Card>
     }
 </Report>

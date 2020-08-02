@@ -8,6 +8,7 @@ namespace PlannerApp.Client.Services
     public interface IPlannerItemDataService
     {
         Task<IEnumerable<PlannerItemDTO>> LoadItems(DateTime? startDate = null, DateTime? endDate = null);
+        Task<IEnumerable<PlannerItemDTO>> LoadCompletedItemsByCategoryID(int? id);
         Task<IEnumerable<PlannerItemDTO>> LoadCompletedItems();
         Task<IEnumerable<PlannerItemDTO>> LoadOverdueItems();
         Task<PlannerItemDTO> AddItem(PlannerItemDTO plannerItem);

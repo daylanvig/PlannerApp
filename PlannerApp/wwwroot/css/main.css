@@ -20613,3 +20613,6 @@ table.is-completely-borderless tr {
 
 .is-fixed {
   position: fixed; }
+
+.is-flex-column {
+  flex-direction: column; }
