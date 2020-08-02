@@ -47,6 +47,16 @@ namespace PlannerApp.Client.Components.CalendarComponents
             DateInput.Subscribe(callStateChange);
         }
 
+        protected void HandleCategoryAdded(CategoryDTO category)
+        {
+            CategoryFilters.Add(new Filter<CategoryDTO>
+            {
+                IsVisible = true,
+                Model = category
+            });
+            StateHasChanged();
+        }
+
         protected void UpdateCategoryFilters(int? changedCategoryID)
         {
             if (changedCategoryID.HasValue)

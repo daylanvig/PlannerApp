@@ -10,16 +10,33 @@ namespace PlannerApp.Client.Services
     {
         public static IServiceCollection AddPlannerAppServices(this IServiceCollection services)
         {
-            services.AddSingleton<IAppState, AppState>();
+            services.AddWebServices();
+            services.AddDataServices();
+            services.AddStateServices();
             services.AddScoped<AuthenticationStateProvider, ApiAuthStateProvider>();
             services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<IAuthorizedHttpClientFactory, AuthorizedHttpClientFactory>();
-            services.AddTransient<IPlannerItemDataService, PlannerItemDataService>();
-            services.AddTransient<ICategoryDataService, CategoryDataService>();
-            services.AddScoped<ICacheService, CacheService>();
-            services.AddScoped<ICalendarService, CalendarService>();
-            services.AddTransient<IDOMInteropService, DOMInteropService>();
+            services.AddScoped<IPlannerItemService, PlannerItemService>();
+            services.AddScoped<ICategoryService, CategoryService>();
             return services;
+        }
+
+        private static void AddStateServices(this IServiceCollection services)
+        {
+            services.AddSingleton<IAppState, AppState>();
+            services.AddScoped<ICalendarService, CalendarService>();
+        }
+
+        private static void AddWebServices(this IServiceCollection services)
+        {
+            services.AddScoped<ICacheService, CacheService>();
+            services.AddScoped<IAuthorizedHttpClientFactory, AuthorizedHttpClientFactory>();
+            services.AddTransient<IDOMInteropService, DOMInteropService>();
+        }
+
+        private static void AddDataServices(this IServiceCollection services)
+        {
+            services.AddScoped<ICategoryDataService, CategoryDataService>();
+            services.AddScoped<IPlannerItemDataService, PlannerItemDataService>();
         }
 
         public static IServiceCollection AddUIComponentServices(this IServiceCollection services)

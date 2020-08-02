@@ -17,6 +17,11 @@ namespace PlannerApp.Shared.Common
             return checkDate;
         }
 
+        public static double DaysBetween(DateTime startDate, DateTime endDate)
+        {
+            return startDate.Subtract(endDate).TotalDays;
+        }
+
         public static string GetHoursAs12HourTime(DateTime date)
         {
             var hours = date.Hour;
@@ -52,8 +57,5 @@ namespace PlannerApp.Shared.Common
         /// <param name="date"></param>
         /// <returns>12 hour time value</returns>
         public static string FormatTime(DateTime date) => date.ToString("h:mm tt");
-
-        public static string FormatDateTimeLocalInput(DateTime? date) => date.HasValue ? date.Value.ToString("yyyy-MM-ddTHH:mm") : "";
-        public static string FormatDateInput(DateTime? date) => date == null ? "" : date.Value.ToString("yyyy-MM-dd");
     }
 }
