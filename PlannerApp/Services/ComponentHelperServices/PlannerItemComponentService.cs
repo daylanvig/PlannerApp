@@ -6,26 +6,26 @@ using UIComponents.Bulma.Helpers;
 using UIComponents.Bulma.Modal;
 using UIComponents.Services;
 
-namespace PlannerApp.Client.Services
+namespace PlannerApp.Client.Services.ComponentHelperServices
 {
-    public class PlannerItemService : IPlannerItemService
+    public class PlannerItemComponentService : IPlannerItemComponentService
     {
         readonly IApplicationWideComponentService<ModalParams> modalService;
         private Action<PlannerItemDTO> onSaveCallback;
 
-        public PlannerItemService(IApplicationWideComponentService<ModalParams> modalService)
+        public PlannerItemComponentService(IApplicationWideComponentService<ModalParams> modalService)
         {
             this.modalService = modalService;
         }
 
         private void CloseAddEditModal(PlannerItemDTO item)
         {
-            if(onSaveCallback != null)
+            if (onSaveCallback != null)
             {
                 onSaveCallback.Invoke(item);
                 onSaveCallback = null;
             }
-            
+
             modalService.Close();
         }
 

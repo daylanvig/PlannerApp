@@ -6,6 +6,7 @@ namespace PlannerApp.Client.Services
     public interface IAppState
     {
         NavMenuState Title { get; }
+        string GetCurrentPath();
 
         event Action OnAppStateChange;
 

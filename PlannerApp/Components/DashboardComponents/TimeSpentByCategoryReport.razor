@@ -7,7 +7,7 @@
             @foreach (var pairing in CategoryTimes)
             {
                 var currentCategory = pairing.Key;
-                <div @onclick="() => ShowBreakDown(currentCategory)" class="has-margin-bottom-5 has-padding-5" style="width: @(CalculatePercentTotalWidth(pairing.Value)); background-color: @(currentCategory.Colour)">
+                <div @onclick="() => ShowBreakDown(currentCategory)" class="has-margin-bottom-5 has-padding-5 @(UIComponentHelper.CalculateContrastingFontColour(currentCategory.Colour))" style="width: @(CalculatePercentTotalWidth(pairing.Value)); background-color: @(currentCategory.Colour)">
                     <div class="label">@currentCategory.Description</div>
                 </div>
             }

@@ -1,21 +1,18 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using PlannerApp.Client.Services;
+using PlannerApp.Client.Services.ComponentHelperServices;
 using PlannerApp.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
-using UIComponents.Bulma.Helpers;
-using UIComponents.Bulma.Modal;
-using UIComponents.Services;
 
 namespace PlannerApp.Client.Components.CalendarComponents
 {
     public class CalendarColumnBase : ComponentBase
     {
-        [Inject] IPlannerItemService PlannerItemService { get; set; }
+        [Inject] IPlannerItemComponentService PlannerItemComponentService { get; set; }
         [Inject] IDOMInteropService DOMService { get; set; }
         [Parameter]
         public IEnumerable<PlannerItemDTO> Events { get; set; }
@@ -50,7 +47,7 @@ namespace PlannerApp.Client.Components.CalendarComponents
 
         protected void EditItem(PlannerItemDTO item)
         {
-            PlannerItemService.ShowAddEditModal(item, UpdateItem);
+            PlannerItemComponentService.ShowAddEditModal(item, UpdateItem);
         }
 
         protected async Task AddItem(MouseEventArgs e)
@@ -69,7 +66,7 @@ namespace PlannerApp.Client.Components.CalendarComponents
                 PlannedActionDate = startOfInterval,
                 PlannedEndTime = startOfInterval.AddHours(1)
             };
-            PlannerItemService.ShowAddEditModal(item, UpdateItem);
+            PlannerItemComponentService.ShowAddEditModal(item, UpdateItem);
         }
     }
 }

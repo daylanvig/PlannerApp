@@ -32,7 +32,7 @@ namespace PlannerApp.Client.Components.DashboardComponents
                 return "0%";
             }
             var relativeToMax = (double)itemTime / MaxTime;
-            return $"{relativeToMax * 100}%";
+            return $"{Math.Truncate(relativeToMax * 100)}%";
         }
 
         protected async Task ShowBreakDown(CategoryDTO category)

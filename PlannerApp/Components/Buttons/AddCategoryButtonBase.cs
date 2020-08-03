@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using PlannerApp.Client.Services;
+using PlannerApp.Client.Services.ComponentHelperServices;
 using PlannerApp.Shared.Models;
 using System;
 
@@ -7,13 +7,13 @@ namespace PlannerApp.Client.Components.Buttons
 {
     public class AddCategoryButtonBase : ComponentBase
     {
-        [Inject] ICategoryService CategoryService { get; set; }
+        [Inject] ICategoryComponentService CategoryComponentService { get; set; }
         [Parameter]
         public Action<CategoryDTO> OnSave { get; set; }
 
         protected void BeginAddingItem()
         {
-            CategoryService.BeginAddingCategory(OnSave);
+            CategoryComponentService.BeginAddingCategory(OnSave);
         }
     }
 }

@@ -12,8 +12,9 @@
             {
                 if (IsUserAuthenticated.Value)
                 {
-                    <a class="nav__button @CheckButtonClassActiveStatus("")" href="/">Home</a>
-                    <a class="nav__button @CheckButtonClassActiveStatus("Calendar")" href="/Calendar">Calendar</a>
+                    <NavButton Path="/" Label="Home"></NavButton>
+                    <NavButton Path="/Dashboard"></NavButton>
+                    <NavButton Path="/Calendar"></NavButton>
                 }
                 <LoginDisplay></LoginDisplay>
             }

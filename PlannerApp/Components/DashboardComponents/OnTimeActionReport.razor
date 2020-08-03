@@ -2,14 +2,22 @@
 <Report Title="Overdue Items" IsLoading="@(OverdueItems == null)">
     @if (OverdueItems != null)
     {
-        foreach (var item in OverdueItems)
+        if (OverdueItems.Any())
         {
-            <Card class="has-margin-bottom-10">
-                <div>
-                    <div class="label">@item.Description</div>
-                    <div>@GetDaysOverdue(item)</div>
-                </div>
-            </Card>
+            foreach (var item in OverdueItems)
+            {
+                var currentItem = item;
+                <Card class="has-margin-bottom-10" @onclick="() => EditItem(currentItem)">
+                    <div>
+                        <div class="label">@item.Description</div>
+                        <div>@GetDaysOverdue(item)</div>
+                    </div>
+                </Card>
+            }
+        }
+        else
+        {
+            <p class="is-medium">No overdue items! Well done!</p>
         }
     }
 </Report>
