@@ -45,13 +45,12 @@ namespace PlannerApp.Client.Components
             r = int.Parse(hexString.Substring(0, 2), NumberStyles.AllowHexSpecifier);
             g = int.Parse(hexString.Substring(2, 2), NumberStyles.AllowHexSpecifier);
             b = int.Parse(hexString.Substring(4, 2), NumberStyles.AllowHexSpecifier);
-
             return Color.FromArgb(r, g, b).GetBrightness();
         }
 
         public static string CalculateContrastingFontColour(string hexColourString)
         {
-            if(CalculateLuminance(hexColourString) < 0.5)
+            if(CalculateLuminance(hexColourString) < 0.4)
             {
                 return "has-text-grey";
             }

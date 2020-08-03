@@ -36,7 +36,7 @@ namespace PlannerApp.Client.Services.ComponentHelperServices
             {
                 builder.OpenElement(0, "aside");
                 builder.AddAttribute(0, "class", "box");
-                builder.AddAttribute(1, "style", "overflow-y: auto"); // todo move this elsewhere once done testing
+                builder.AddAttribute(1, "style", "overflow-y: auto");
                 builder.OpenComponent<PlannerItemForm>(1);
                 builder.AddAttribute(1, "Item", item);
                 builder.AddAttribute(2, "OnItemSaveCallback", EventCallback.Factory.Create<PlannerItemDTO>(this, CloseAddEditModal));

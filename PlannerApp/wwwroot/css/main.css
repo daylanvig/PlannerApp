@@ -20586,7 +20586,7 @@ table.is-completely-borderless tr {
     @media screen and (max-width: 768px) {
       .nav__button {
         flex: 1 1 auto; } }
-    .nav__button--active {
+    .nav__button.active {
       color: inherit;
       border-bottom: 1px solid currentColor; }
     .nav__button:hover {
@@ -20602,14 +20602,38 @@ table.is-completely-borderless tr {
         display: flex; } }
   .nav__left-foot {
     display: flex;
-    justify-content: center;
+    flex-direction: "row";
     align-items: center;
+    justify-content: center;
     width: 40px;
     height: 100%;
     font-size: 1.5rem; }
     @media screen and (min-width: 1216px) {
       .nav__left-foot {
         width: 70px; } }
+  .nav__bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #393e46; }
+    @media screen and (min-width: 769px) {
+      .nav__bottom {
+        display: none; } }
+  .nav__bottom-items {
+    display: flex;
+    justify-content: space-evenly; }
+  .nav__bottom-item {
+    flex: 1;
+    padding: 10px 0 8px; }
+    .nav__bottom-item a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: whitesmoke; }
+      .nav__bottom-item a.active {
+        color: #00d1b2; }
 
 .is-fixed {
   position: fixed; }

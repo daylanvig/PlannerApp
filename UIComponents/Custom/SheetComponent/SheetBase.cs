@@ -18,6 +18,7 @@ namespace UIComponents.Custom.SheetComponent
     {
         [Inject] IApplicationWideComponentService<SheetParams> SheetService { get; set; }
         protected RenderFragment Body;
+        protected SheetSide Side = SheetSide.Right;
         protected bool IsOpen = false;
 
         protected override void OnInitialized()
@@ -30,6 +31,7 @@ namespace UIComponents.Custom.SheetComponent
         private void Show(SheetParams sheetParams)
         {
             Body = sheetParams.Body;
+            Side = sheetParams.Side;
             IsOpen = true;
             StateHasChanged();
         }
@@ -42,7 +44,7 @@ namespace UIComponents.Custom.SheetComponent
 
         protected string GetCssClasses()
         {
-            return $"sheet {CssClass} {(IsOpen ? "sheet--open" : null)}";
+            return $"sheet {CssClass} {(IsOpen ? "sheet--open" : null)} {(Side == SheetSide.Left ? "sheet--left" : null)}";
         }
 
         public void ToggleState()

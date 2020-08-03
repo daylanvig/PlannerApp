@@ -1,0 +1,15 @@
+﻿<nav class="nav__bottom">
+    <ul class="nav__bottom-items">
+        @foreach(var item in NavItems.Items)
+        {
+            <li class="nav__bottom-item">
+                <NavLink href="@item.Path" Match="NavLinkMatch.All">
+                    <span class="icon is-small">
+                        <i class="@item.Icon"></i>
+                    </span>
+                    <span>@item.Label</span>
+                </NavLink>
+            </li>
+        }
+    </ul>
+</nav>

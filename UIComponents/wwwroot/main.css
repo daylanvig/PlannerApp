@@ -11,6 +11,10 @@
   padding: 5px 10px;
   z-index: 4;
   min-width: 200px; }
+  .sheet--left {
+    right: unset;
+    left: 0;
+    transform-origin: left; }
   .sheet__background {
     z-index: 4;
     background-color: rgba(10, 10, 10, 0.76);

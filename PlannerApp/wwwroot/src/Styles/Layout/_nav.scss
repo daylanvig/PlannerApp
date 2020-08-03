@@ -4,14 +4,17 @@
     background-color: $primary;
     color: $white-ter;
     box-shadow: $shadow-1;
-    @include until($tablet){
+
+    @include until($tablet) {
         position: sticky;
         top: 0;
     }
+
     &__toggle {
         cursor: pointer;
         margin-right: 10px;
-        @include from($tablet){
+
+        @include from($tablet) {
             display: none;
         }
     }
@@ -47,7 +50,8 @@
     &__buttons {
         display: flex;
         align-items: center;
-        @include until($tablet){
+
+        @include until($tablet) {
             display: none;
         }
     }
@@ -62,7 +66,7 @@
             flex: 1 1 auto;
         }
 
-        &--active {
+        &.active {
             color: inherit;
             border-bottom: 1px solid currentColor;
         }
@@ -85,15 +89,45 @@
     }
 
     &__left-foot {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @include flex-center();
         width: 40px;
         height: 100%;
         font-size: $size-4;
 
         @include from($widescreen) {
             width: 70px;
+        }
+    }
+
+
+    &__bottom {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: $primary;
+
+        @include from($tablet) {
+            display: none;
+        }
+    }
+
+    &__bottom-items {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    &__bottom-item {
+        flex: 1;
+        padding: 10px 0 8px;
+
+        a {
+            @include flex-center(column);
+            color: $white-ter;
+
+            &.active {
+                color: $accent;
+            }
         }
     }
 }

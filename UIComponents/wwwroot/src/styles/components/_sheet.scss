@@ -15,6 +15,12 @@ $sheet-font-colour: inherit !default;
     z-index: 4;
     min-width: 200px;
 
+    &--left {
+        right: unset;
+        left: 0;
+        transform-origin: left;
+    }
+
     &__background {
         z-index: 4;
         background-color: rgba(10, 10, 10, 0.76);

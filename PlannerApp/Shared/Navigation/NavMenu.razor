@@ -2,9 +2,6 @@
 
 <nav class="nav">
     <div class="nav__body">
-        <div class="nav__toggle icon" role="button">
-            <i class="fas fa-bars" aria-hidden="true"></i>
-        </div>
         <div class="nav__title">@((MarkupString)Title)</div>
         <div class="nav__spacer" aria-hidden="true"></div>
         <div class="nav__buttons">
@@ -12,9 +9,10 @@
             {
                 if (IsUserAuthenticated.Value)
                 {
-                    <NavButton Path="/" Label="Home"></NavButton>
-                    <NavButton Path="/Dashboard"></NavButton>
-                    <NavButton Path="/Calendar"></NavButton>
+                    foreach(var item in NavItems.Items)
+                    {
+                        <NavButton Path="@item.Path" Label="@item.Label"></NavButton>
+                    }
                 }
                 <LoginDisplay></LoginDisplay>
             }
@@ -33,7 +31,6 @@
             <div class="nav__left-foot">
                 @((MarkupString)SubTitle)
             </div>
-
         </div>
     }
 </nav>

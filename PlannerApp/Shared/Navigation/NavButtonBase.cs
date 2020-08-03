@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PlannerApp.Client.Services;
+using UIComponents.Bulma.Custom;
 
-namespace PlannerApp.Client.Shared
+namespace PlannerApp.Client.Shared.Navigation
 {
-    public class NavButtonBase : ComponentBase
+    public class NavButtonBase : UIComponentBase
     {
         [Inject] IAppState AppState { get; set; }
         [Parameter]
@@ -29,7 +30,7 @@ namespace PlannerApp.Client.Shared
         protected string GetClasses()
         {
             var navPath = Path.Replace("/", string.Empty);
-            return $"nav__button {(string.Equals(navPath, AppState.GetCurrentPath(), System.StringComparison.InvariantCultureIgnoreCase) ? "nav__button--active" : string.Empty)}";
+            return $"nav__button {(string.Equals(navPath, AppState.GetCurrentPath(), System.StringComparison.InvariantCultureIgnoreCase) ? "nav__button--active" : string.Empty)} {CssClass}";
         }
     }
 }

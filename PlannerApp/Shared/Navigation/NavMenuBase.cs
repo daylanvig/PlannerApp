@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using PlannerApp.Client.Components;
 using PlannerApp.Client.Services;
 using System;
 using System.Threading.Tasks;
 using UIComponents.Custom.SheetComponent;
 using UIComponents.Services;
 
-namespace PlannerApp.Client.Shared
+namespace PlannerApp.Client.Shared.Navigation
 {
     public class NavMenuBase : ComponentBase, IDisposable
     {
