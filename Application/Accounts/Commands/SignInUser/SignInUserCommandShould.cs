@@ -49,6 +49,7 @@ namespace Application.Accounts.Commands.SignInUser
             var result = sut.Execute(mocker.Create<SignInUserModel>()).Result;
             // Assert
             Assert.False(result.IsSuccessful);
+            Assert.NotNull(result.Error);
         }
 
         [Fact]
@@ -58,9 +59,10 @@ namespace Application.Accounts.Commands.SignInUser
         }
 
         [Fact]
-        public void SetTenantIDAndNameClaims()
+        public void SetTokenValueNotNull()
         {
-
+            var result = sut.Execute(fixture.Create<SignInUserModel>()).Result;
+            Assert.NotNull(result.Token);
         }
     }
 }
