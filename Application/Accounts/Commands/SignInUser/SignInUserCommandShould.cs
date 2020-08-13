@@ -14,8 +14,6 @@ namespace Application.Accounts.Commands.SignInUser
         private readonly Fixture fixture;
         private readonly AutoMoqer mocker;
         private SignInUserCommand sut;
-        
-        private readonly IConfiguration config;
         private readonly PlannerAppUser user;
 
         private const string EMAIL = "email@email.ca";
