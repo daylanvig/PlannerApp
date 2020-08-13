@@ -1,11 +1,11 @@
-﻿using Bunit;
+﻿using Application.PlannerItems.Queries.Common;
+using Bunit;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
-using PlannerApp.Client.Components;
-using PlannerApp.Client.Models;
-using PlannerApp.Client.Services;
-using PlannerApp.Shared.Models;
 using PlannerApp.UnitTests.Infrastructure;
+using PresentationClient.Components;
+using PresentationClient.Models;
+using PresentationClient.Services;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -20,7 +20,7 @@ namespace PlannerApp.UnitTests.ComponentTests
         {
             var testContextBuilder = new TestContextBuilder(ctx);
             testContextBuilder.AddCommon();
-            var dataServiceMock = Mock.Of<IPlannerItemDataService>(o => o.LoadItems(It.IsAny<DateTime>(), It.IsAny<DateTime>()) == Task.FromResult<IEnumerable<PlannerItemDTO>>(Array.Empty<PlannerItemDTO>()));
+            var dataServiceMock = Mock.Of<IPlannerItemDataService>(o => o.LoadItems(It.IsAny<DateTime>(), It.IsAny<DateTime>()) == Task.FromResult<IEnumerable<PlannerItemModel>>(Array.Empty<PlannerItemModel>()));
             ctx.Services.AddScoped<IPlannerItemDataService>(o => dataServiceMock);
             state = new CalendarState();
             var calendarServiceMock = new Mock<ICalendarService>();
@@ -80,7 +80,7 @@ namespace PlannerApp.UnitTests.ComponentTests
             using var ctx = new TestContext();
             new TestContextBuilder(ctx).AddCommon();
             var dataServiceMock = new Mock<IPlannerItemDataService>();
-            dataServiceMock.Setup(o => o.LoadItems(It.IsAny<DateTime>(), It.IsAny<DateTime>())).Returns(Task.FromResult<IEnumerable<PlannerItemDTO>>(Array.Empty<PlannerItemDTO>()));
+            dataServiceMock.Setup(o => o.LoadItems(It.IsAny<DateTime>(), It.IsAny<DateTime>())).Returns(Task.FromResult<IEnumerable<PlannerItemModel>>(Array.Empty<PlannerItemModel>()));
             ctx.Services.AddScoped<IPlannerItemDataService>(o => dataServiceMock.Object);
             var calendarServiceMock = new Mock<ICalendarService>();
             state = new CalendarState();

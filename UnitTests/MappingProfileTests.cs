@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using PlannerApp.Server.Maps;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using PresentationServer.Categories;
+using PresentationServer.PlannerItems;
 using Xunit;
 
 namespace PlannerApp.UnitTests
@@ -14,7 +12,17 @@ namespace PlannerApp.UnitTests
         {
             var config = new MapperConfiguration(c =>
             {
-                c.AddProfile<MappingProfile>();
+                c.AddProfile<PlannerItemsMappingProfile>();
+            });
+            config.AssertConfigurationIsValid();
+        }
+
+        [Fact]
+        public void CategoryMapValidation()
+        {
+            var config = new MapperConfiguration(c =>
+            {
+                c.AddProfile<CategoryMappingProfile>();
             });
             config.AssertConfigurationIsValid();
         }

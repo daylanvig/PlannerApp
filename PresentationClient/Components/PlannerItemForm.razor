@@ -1,0 +1,69 @@
+﻿@inherits PlannerItemFormBase
+
+<EditForm Model="Item" OnValidSubmit="SavePlannerItem">
+    <UIComponents.FluentValidator TValidator="Application.PlannerItems.Commands.Shared.PlannerItemCreateEditModelValidator"></UIComponents.FluentValidator>
+    <Field Label="Description">
+        <ControlContent>
+            <TextField @bind-Value="Item.Description"></TextField>
+        </ControlContent>
+        <ValidationContent>
+            <ValidationMessage For="@(()=> Item.Description)"></ValidationMessage>
+        </ValidationContent>
+    </Field>
+    <Field Label="From">
+        <ControlContent>
+            <DateField HasTime @bind-Value="Item.PlannedActionDate"></DateField>
+        </ControlContent>
+        <ValidationContent>
+            <ValidationMessage For="@(() => Item.PlannedActionDate)"></ValidationMessage>
+        </ValidationContent>
+    </Field>
+    <Field Label="Until">
+        <ControlContent>
+            <DateField HasTime @bind-Value="Item.PlannedEndTime"></DateField>
+        </ControlContent>
+        <ValidationContent>
+            <ValidationMessage For="@(() => Item.PlannedEndTime)"></ValidationMessage>
+        </ValidationContent>
+    </Field>
+    <Field Label="Category">
+        <ControlContent>
+            <SelectField class="is-fullwidth" ControlClass="is-expanded" TValType="int?" @bind-Value="Item.CategoryID" StringParser="UIComponents.Extensions.ParsingExtensions.ParseStringAsNullableInt">
+                <SelectItem Value="null" TType="int?"></SelectItem>
+                @foreach (var category in Categories.OrderBy(c => c.Description))
+                {
+                    <SelectItem TType="int?" Value="@category.ID">@category.Description</SelectItem>
+                }
+            </SelectField>
+        </ControlContent>
+    </Field>
+    @if (Item.ID != 0)
+    {
+        if (Item.CompletionDate.HasValue)
+        {
+            <Field Label="Completed On">
+                <ControlContent>
+                    <DateField HasTime @bind-Value="Item.CompletionDate"></DateField>
+                </ControlContent>
+                <ValidationContent>
+                    <ValidationMessage For="@(() => Item.CompletionDate)"></ValidationMessage>
+                </ValidationContent>
+            </Field>
+        }
+        else
+        {
+            <Field>
+                <Button Colour="ComponentColour.Primary" OnClickCallback="MarkComplete" class="is-outlined">
+                    <span class="icon"><i class="fas fa-check"></i></span>
+                    <span>Complete</span>
+                </Button>
+            </Field>
+        }
+
+    }
+    <Field>
+        <Button class="is-pulled-right" Colour="ComponentColour.Success" Type="submit" id="saveChangesBtn">
+            @(Item.ID == 0 ? "Add Item" : "Update Item")
+        </Button>
+    </Field>
+</EditForm>

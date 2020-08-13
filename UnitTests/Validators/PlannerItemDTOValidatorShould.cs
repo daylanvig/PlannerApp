@@ -1,6 +1,5 @@
-﻿using FluentValidation.TestHelper;
-using PlannerApp.Shared.Models;
-using PlannerApp.Shared.Validators;
+﻿using Application.PlannerItems.Commands.Shared;
+using FluentValidation.TestHelper;
 using System;
 using Xunit;
 
@@ -8,12 +7,12 @@ namespace PlannerApp.UnitTests.Validators
 {
     public class PlannerItemDTOValidatorShould
     {
-        private readonly PlannerItemDTOValidator sut;
-        private readonly PlannerItemDTO testDTO;
+        private readonly PlannerItemCreateEditModelValidator sut;
+        private readonly PlannerItemCreateEditModel testDTO;
         public PlannerItemDTOValidatorShould()
         {
-            sut = new PlannerItemDTOValidator();
-            testDTO = new PlannerItemDTO
+            sut = new PlannerItemCreateEditModelValidator();
+            testDTO = new PlannerItemCreateEditModel
             {
                 Description = "desc",
                 ID = 1,

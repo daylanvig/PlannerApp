@@ -1,0 +1,7 @@
+﻿@using PresentationClient.Components.DashboardComponents
+@page "/Dashboard"
+@inherits DashboardBase
+@attribute [Microsoft.AspNetCore.Authorization.Authorize]
+
+<OnTimeActionReport></OnTimeActionReport>
+<TimeSpentByCategoryReport></TimeSpentByCategoryReport>

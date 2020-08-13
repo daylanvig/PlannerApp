@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using PlannerApp.Shared.Services;
+using PlannerApp.Shared.Common;
 
 namespace PlannerApp.Shared
 {

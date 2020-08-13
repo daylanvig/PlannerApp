@@ -1,16 +1,13 @@
 ﻿using Bunit;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
-using PlannerApp.Client.Services;
+using PresentationClient.Components.CalendarComponents;
+using PresentationClient.Services;
 using PlannerApp.Shared.Models;
 using PlannerApp.UnitTests.Infrastructure;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-using AutoFixture;
-using PlannerApp.Client.Components.CalendarComponents;
 
 namespace PlannerApp.UnitTests.ComponentTests.CalendarComponents
 {

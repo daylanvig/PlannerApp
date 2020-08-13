@@ -1,13 +1,13 @@
 ﻿using Bunit;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
-using PlannerApp.Client.Components.AccountComponents;
-using PlannerApp.Client.Services;
-using PlannerApp.Shared.Models.Account;
+using PresentationClient.Components.AccountComponents;
+using PresentationClient.Services;
 using PlannerApp.UnitTests.Infrastructure;
 using System;
 using System.Threading.Tasks;
 using Xunit;
+using Application.Accounts.Commands.RegisterNewUser;
 
 namespace PlannerApp.UnitTests.ComponentTests
 {
@@ -76,7 +76,7 @@ namespace PlannerApp.UnitTests.ComponentTests
             var spy = new Mock<IAuthService>();
             spy.Setup(o => o.Register(It.IsAny<RegisterModel>())).Returns(Task.FromResult(new RegisterResult()));
             ctx.Services.AddScoped<IAuthService>(o => spy.Object);
-            var accountDetails = new Shared.Models.Account.RegisterModel
+            var accountDetails = new RegisterModel
             {
                 Email = "testemail@gmail.com",
                 Password = "test123213123",

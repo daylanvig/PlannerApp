@@ -1,13 +1,10 @@
-﻿using Bunit;
+﻿using Application.Accounts.Commands.SignInUser;
+using Bunit;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
-using PlannerApp.Client.Components.AccountComponents;
-using PlannerApp.Client.Services;
-using PlannerApp.Shared.Models.Account;
+using PresentationClient.Components.AccountComponents;
+using PresentationClient.Services;
 using PlannerApp.UnitTests.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace PlannerApp.UnitTests.ComponentTests
@@ -85,7 +82,7 @@ namespace PlannerApp.UnitTests.ComponentTests
             ctx.Services.AddScoped<IAuthService>(o => spy.Object);
             var cut = ctx.RenderComponent<LoginForm>(p =>
             {
-                p.Add(p => p.LoginModel, new LoginModel
+                p.Add(p => p.LoginModel, new SignInUserModel
                 {
                     Email = "testemail@testmail.test",
                     Password = "test123323"
@@ -97,7 +94,7 @@ namespace PlannerApp.UnitTests.ComponentTests
             form.Submit();
 
             // Assert
-            spy.Verify(o => o.Login(It.IsAny<LoginModel>()), Times.Once);
+            spy.Verify(o => o.Login(It.IsAny<SignInUserModel>()), Times.Once);
         }
     }
 }

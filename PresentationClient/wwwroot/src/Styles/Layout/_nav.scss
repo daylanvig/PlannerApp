@@ -1,0 +1,134 @@
+﻿.nav {
+    z-index: 4;
+    width: 100%;
+    background-color: $primary;
+    color: $white-ter;
+    box-shadow: $shadow-1;
+
+    @include until($tablet) {
+        position: sticky;
+        top: 0;
+    }
+
+    &__toggle {
+        cursor: pointer;
+        margin-right: 10px;
+
+        @include from($tablet) {
+            display: none;
+        }
+    }
+
+    &__sheet-button {
+        cursor: pointer;
+    }
+
+    &__body {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        padding: 15px 10px;
+
+        @include from($tablet) {
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+
+        @include from($widescreen) {
+            padding: 15px 70px;
+        }
+    }
+
+    &__title {
+        font-size: $size-4;
+    }
+
+    &__spacer {
+        flex-grow: 1;
+    }
+
+    &__buttons {
+        display: flex;
+        align-items: center;
+
+        @include until($tablet) {
+            display: none;
+        }
+    }
+
+    &__button {
+        padding: 5px 10px;
+        color: rgba($white-bis, .85);
+        font-size: $size-6;
+        font-weight: $weight-light;
+
+        @include until($tablet) {
+            flex: 1 1 auto;
+        }
+
+        &.active {
+            color: inherit;
+            border-bottom: 1px solid currentColor;
+        }
+
+        &:hover {
+            color: $grey-light;
+        }
+    }
+
+    &__footer {
+        background-color: $primary;
+        color: $white-ter;
+        width: 100%;
+        height: 60px;
+        display: none;
+
+        @include from($tablet) {
+            display: flex;
+        }
+    }
+
+    &__left-foot {
+        @include flex-center();
+        width: 40px;
+        height: 100%;
+        font-size: $size-4;
+
+        @include from($widescreen) {
+            width: 70px;
+        }
+    }
+
+
+    &__bottom {
+        z-index: 4;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: $primary;
+
+        @include from($tablet) {
+            display: none;
+        }
+    }
+
+    &__bottom-items {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    &__bottom-item {
+        flex: 1;
+        padding: 10px 0 8px;
+
+        a {
+            @include flex-center(column);
+            color: $white-ter;
+
+            &.active {
+                color: $accent;
+            }
+        }
+    }
+}

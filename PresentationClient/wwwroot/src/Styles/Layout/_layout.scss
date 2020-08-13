@@ -1,0 +1,11 @@
+﻿.body-content {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 3.25rem); // navbar is 3.25rem
+    padding-bottom: 60px;
+
+    @include from($tablet) {
+        padding-bottom: 0;
+        margin: 10px 70px;
+    }
+}
