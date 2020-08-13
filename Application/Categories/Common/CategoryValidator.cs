@@ -1,9 +1,9 @@
-﻿using FluentValidation;
-using PlannerApp.Shared.Models;
+﻿using Application.Categories.Queries.Common;
+using FluentValidation;
 
 namespace Application.Categories.Common
 {
-    public class CategoryValidator : AbstractValidator<CategoryDTO>
+    public class CategoryValidator : AbstractValidator<CategoryModel>
     {
         public CategoryValidator()
         {
