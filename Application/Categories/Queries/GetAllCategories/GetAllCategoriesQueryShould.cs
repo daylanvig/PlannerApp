@@ -3,7 +3,7 @@ using AutoFixture;
 using AutoFixture.AutoMoq;
 using AutoMoq;
 using Domain.Categories;
-using Shared.Common;
+using Shared.TestSupport;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;

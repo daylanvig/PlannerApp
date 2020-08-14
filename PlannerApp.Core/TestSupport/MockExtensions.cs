@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Shared.Common
+namespace Shared.TestSupport
 {
     public static class MockExtensions
     {

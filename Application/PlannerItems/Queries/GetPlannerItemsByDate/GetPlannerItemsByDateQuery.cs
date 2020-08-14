@@ -26,7 +26,7 @@ namespace Application.PlannerItems.Queries.GetPlannerItemsByDate
             IQueryable<PlannerItem> itemQuery;
             if (startDate.HasValue && endDate.HasValue)
             {
-                itemQuery = repository.GetAll().Where(item => item.PlannedActionDate.Date >= startDate.Value.Date && item.PlannedEndTime.Date <= endDate.Value.Date);
+                itemQuery = repository.GetAll().Where(item => item.PlannedActionDate.Date >= startDate.Value.Date && item.PlannedActionDate.Date <= endDate.Value.Date);
             }
             else if (startDate.HasValue)
             {
