@@ -16,19 +16,13 @@ namespace Application.PlannerItems.Queries.GetPlannerItemsByDate
     public class GetPlannerItemsByDateQueryShould : IClassFixture<PlannerItemsTestFixture>
     {
         private readonly GetPlannerItemsByDateQuery sut;
-        private readonly Fixture fixture;
-        private readonly List<PlannerItem> testItems;
+        private readonly PlannerItemsTestFixture fixture;
 
         private readonly DateTime STARTDATE = new DateTime(2019, 2, 2, 8, 0, 0);
         private readonly DateTime ENDDATE = new DateTime(2019, 2, 12, 8, 0, 0);
         public GetPlannerItemsByDateQueryShould(PlannerItemsTestFixture fixture)
         {
             this.fixture = fixture;
-            testItems = new List<PlannerItem>();
-            fixture.AddManyTo(testItems, 10);
-            var plannerRepoMock = fixture.Freeze<Mock<IPlannerItemRepository>>();
-            plannerRepoMock.Setup(p => p.GetAll())
-                .Returns(() => testItems.AsAsyncQueryable());
             sut = fixture.Create<GetPlannerItemsByDateQuery>();
         }
 
@@ -36,7 +30,7 @@ namespace Application.PlannerItems.Queries.GetPlannerItemsByDate
         public void ReturnAllItems() {
 
             var result = sut.Execute(null, null).Result;
-            Assert.Equal(testItems.Count, result.Count);
+            Assert.Equal(fixture.Items.Count, result.Count);
         }
 
         [Fact]
@@ -45,7 +39,7 @@ namespace Application.PlannerItems.Queries.GetPlannerItemsByDate
             // Arrange
             var item = fixture.Create<PlannerItem>();
             item.PlannedActionDate = STARTDATE;
-            testItems.Add(item);
+            fixture.Items.Add(item);
             // Act
             var result = sut.Execute(STARTDATE, null).Result;
             // Assert
@@ -57,19 +51,19 @@ namespace Application.PlannerItems.Queries.GetPlannerItemsByDate
         public void ReturnItemsWithinDateRange()
         {
             // Arrange
-            testItems[0].PlannedActionDate = STARTDATE;
-            testItems[1].PlannedActionDate = STARTDATE.AddDays(2);
-            testItems[2].PlannedActionDate = STARTDATE.AddDays(-1);
-            testItems[3].PlannedActionDate = ENDDATE;
-            for(var i = 4; i < testItems.Count(); i++)
+            fixture.Items[0].PlannedActionDate = STARTDATE;
+            fixture.Items[1].PlannedActionDate = STARTDATE.AddDays(2);
+            fixture.Items[2].PlannedActionDate = STARTDATE.AddDays(-1);
+            fixture.Items[3].PlannedActionDate = ENDDATE;
+            for(var i = 4; i < fixture.Items.Count(); i++)
             {
-                testItems[i].PlannedActionDate = ENDDATE.AddDays(1);
+                fixture.Items[i].PlannedActionDate = ENDDATE.AddDays(1);
             }
             var validIDs = new List<int>()
             {
-                testItems[0].ID,
-                testItems[1].ID,
-                testItems[3].ID,
+                fixture.Items[0].ID,
+                fixture.Items[1].ID,
+                fixture.Items[3].ID,
             };
             // Act
             var result = sut.Execute(STARTDATE, ENDDATE).Result;
