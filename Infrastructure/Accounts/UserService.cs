@@ -9,7 +9,7 @@ namespace Infrastructure.Accounts
     {
         private readonly UserManager<PlannerAppUser> userManager;
         private readonly SignInManager<PlannerAppUser> signInManager;
-
+        // todo -> move these to wrapper
         public UserService(UserManager<PlannerAppUser> userManager, SignInManager<PlannerAppUser> signInManager)
         {
             this.userManager = userManager;

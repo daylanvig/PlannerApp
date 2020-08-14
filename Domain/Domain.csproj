@@ -15,4 +15,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PlannerApp.Core\Shared.csproj" />
+  </ItemGroup>
+
 </Project>

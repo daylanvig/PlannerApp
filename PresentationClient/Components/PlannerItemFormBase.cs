@@ -1,7 +1,7 @@
 ﻿using Application.PlannerItems.Commands.Shared;
 using Application.PlannerItems.Queries.Common;
 using Microsoft.AspNetCore.Components;
-using PlannerApp.Application.Categories.Common;
+using Application.Categories.Common;
 using PresentationClient.Services;
 using PlannerApp.Shared.Models;
 using System;

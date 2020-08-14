@@ -2,7 +2,7 @@
 
 <div class="box is-clipped">
     <EditForm Model="Category" OnValidSubmit="SaveForm">
-        <UIComponents.FluentValidator TValidator="PlannerApp.Shared.Validators.CategoryValidator"></UIComponents.FluentValidator>
+        <UIComponents.FluentValidator TValidator="Application.Categories.Common.CategoryValidator"></UIComponents.FluentValidator>
         <Field Label="Description">
             <ControlContent>
                 <TextField @bind-Value="Category.Description" ></TextField>

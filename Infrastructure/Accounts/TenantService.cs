@@ -7,10 +7,10 @@ namespace Infrastructure.Accounts
 {
     public class TenantService : ITenantService
     {
-        private readonly UserManager<PlannerAppUser> userManager;
+        private readonly IUserManagerWrapper userManager;
         private readonly IHttpContextAccessor httpContextAccessor;
 
-        public TenantService(IHttpContextAccessor httpContextAccessor, UserManager<PlannerAppUser> userManager)
+        public TenantService(IHttpContextAccessor httpContextAccessor, IUserManagerWrapper userManager)
         {
             this.httpContextAccessor = httpContextAccessor;
             this.userManager = userManager;
@@ -18,8 +18,8 @@ namespace Infrastructure.Accounts
 
         public string GetTenantID()
         {
-            var identity = httpContextAccessor.HttpContext.User.Identity;
-            if (!identity.IsAuthenticated)
+            var identity = httpContextAccessor.HttpContext.User?.Identity;
+            if (identity == null || !identity.IsAuthenticated)
             {
                 return "";
             }
