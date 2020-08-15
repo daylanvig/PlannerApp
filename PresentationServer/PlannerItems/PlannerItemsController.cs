@@ -12,6 +12,7 @@ using Domain.PlannerItems;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Application.PlannerItems.Commands.EditPlannerItem;
 
 namespace PresentationServer.PlannerItems
 {
@@ -26,8 +27,9 @@ namespace PresentationServer.PlannerItems
         private readonly IGetOverdueItemsQuery getOverdueItemsQuery;
         private readonly IGetCompletedItemsQuery getCompletedItemsQuery;
         private readonly ICreatePlannerItemCommand createPlannerItemCommand;
+        private readonly IEditPlannerItemCommand editPlannerItemCommand;
 
-        public PlannerItemsController(IRepository<PlannerItem> plannerItemRepository, IMapper mapper, IGetPlannerItemsByDateQuery getPlannerItemsByDateQuery, IGetOverdueItemsQuery getOverdueItemsQuery, IGetCompletedItemsQuery getCompletedItemsQuery, ICreatePlannerItemCommand createPlannerItemCommand)
+        public PlannerItemsController(IRepository<PlannerItem> plannerItemRepository, IMapper mapper, IGetPlannerItemsByDateQuery getPlannerItemsByDateQuery, IGetOverdueItemsQuery getOverdueItemsQuery, IGetCompletedItemsQuery getCompletedItemsQuery, ICreatePlannerItemCommand createPlannerItemCommand, IEditPlannerItemCommand editPlannerItemCommand)
         {
             this.plannerItemRepository = plannerItemRepository;
             this.mapper = mapper;
@@ -35,6 +37,7 @@ namespace PresentationServer.PlannerItems
             this.getOverdueItemsQuery = getOverdueItemsQuery;
             this.getCompletedItemsQuery = getCompletedItemsQuery;
             this.createPlannerItemCommand = createPlannerItemCommand;
+            this.editPlannerItemCommand = editPlannerItemCommand;
         }
 
         [HttpGet]
@@ -50,7 +53,7 @@ namespace PresentationServer.PlannerItems
         }
 
         [HttpGet("Overdue")]
-        public async Task<IEnumerable<PlannerItemModel>> OverDueItems()
+        public async Task<IEnumerable<PlannerItemModel>> GetOverdueItems()
         {
             return await getOverdueItemsQuery.Execute();
         }
@@ -73,16 +76,18 @@ namespace PresentationServer.PlannerItems
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditItem(int id, [FromBody] PlannerItemCreateEditModel item)
+        public async Task<IActionResult> EditItem(int id, [FromBody] PlannerItemCreateEditModel editModel)
         {
-            var dbItem = await plannerItemRepository.GetByIdAsync(id);
-            if(dbItem == null)
+            PlannerItemModel item;
+            try
+            {
+                item = await editPlannerItemCommand.Execute(id, editModel);
+            }
+            catch (ArgumentException)
             {
                 return BadRequest();
             }
-            mapper.Map(item, dbItem);
-            await plannerItemRepository.UpdateAsync(dbItem);
-            return Ok(mapper.Map<PlannerItemCreateEditModel>(dbItem));
+            return Ok(item);
         }
 
         [HttpDelete("{id}")]

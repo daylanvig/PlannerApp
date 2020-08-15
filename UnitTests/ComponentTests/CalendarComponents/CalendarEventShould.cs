@@ -15,7 +15,7 @@ namespace PlannerApp.UnitTests.ComponentTests.CalendarComponents
     {
         private readonly CategoryDTO category;
         private readonly TestContext ctx;
-        private readonly PlannerItemDTOBuilder itemBuilder;
+        private readonly PlannerItemModelBuilder itemBuilder;
         public CalendarEventShould()
         {
             category = new CategoryDTO
@@ -27,7 +27,7 @@ namespace PlannerApp.UnitTests.ComponentTests.CalendarComponents
             ctx = new TestContext();
             var categoryMock = Mock.Of<ICategoryDataService>(m => m.LoadCategory(2) == Task.FromResult(category));
             ctx.Services.AddScoped<ICategoryDataService>(o => categoryMock);
-            itemBuilder = new PlannerItemDTOBuilder();
+            itemBuilder = new PlannerItemModelBuilder();
         }
 
         public void Dispose()

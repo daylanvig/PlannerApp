@@ -5,6 +5,7 @@ using Moq;
 using PlannerApp.UnitTests.Infrastructure;
 using PresentationClient.Components.DashboardComponents;
 using PresentationClient.Services;
+using PresentationClient.Services.ComponentHelperServices;
 using System.Collections.Generic;
 using Xunit;
 
@@ -18,10 +19,12 @@ namespace PlannerApp.UnitTests.ComponentTests.DashboardComponents
         public OnTimeActionReportShould()
         {
             var builder = new TestContextBuilder();
+            builder.AddDateProvider();
             items = new List<PlannerItemModel>();
             plannerItemDataServiceMock = new Mock<IPlannerItemDataService>();
             plannerItemDataServiceMock.Setup(o => o.LoadOverdueItems()).ReturnsAsync(items);
             ctx = builder.Build();
+            ctx.Services.AddScoped<IPlannerItemComponentService>(o => Mock.Of<IPlannerItemComponentService>());
             ctx.Services.AddScoped<IPlannerItemDataService>(o => plannerItemDataServiceMock.Object);
         }
 

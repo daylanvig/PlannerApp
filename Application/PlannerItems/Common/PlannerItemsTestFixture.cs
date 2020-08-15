@@ -5,12 +5,15 @@ using Domain.PlannerItems;
 using Moq;
 using Shared.TestSupport;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Application.PlannerItems.Common
 {
     public class PlannerItemsTestFixture : Fixture
     {
         public List<PlannerItem> Items = new List<PlannerItem>();
+
+        public readonly Mock<IPlannerItemRepository> repositoryMock;
         public PlannerItemsTestFixture() : base()
         {
             TestFixture.AddDefaults(this);
@@ -18,9 +21,15 @@ namespace Application.PlannerItems.Common
             var mapper = new Mapper(mapperConfig);
             this.Register<IMapper>(() => mapper);
             this.AddManyTo(Items, 10);
-            this.Freeze<Mock<IPlannerItemRepository>>()
-             .Setup(p => p.GetAll())
-             .Returns(() => Items.AsAsyncQueryable());
+            repositoryMock = this.Freeze<Mock<IPlannerItemRepository>>();
+
+             repositoryMock
+                .Setup(p => p.GetAll())
+                .Returns(() => Items.AsAsyncQueryable());
+
+            repositoryMock
+                .Setup(m => m.GetByIdAsync(It.IsAny<int>()))
+                .ReturnsAsync(Items.First());
         }
     }
 }
