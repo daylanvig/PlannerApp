@@ -1,9 +1,8 @@
-﻿using Application.PlannerItems.Commands.Shared;
+﻿using Application.Categories.Queries.Common;
+using Application.PlannerItems.Commands.Shared;
 using Application.PlannerItems.Queries.Common;
 using Microsoft.AspNetCore.Components;
-using Application.Categories.Common;
 using PresentationClient.Services;
-using PlannerApp.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -21,7 +20,7 @@ namespace PresentationClient.Components
         [Parameter]
         public EventCallback<PlannerItemModel> OnItemSaveCallback { get; set; }
 
-        protected IEnumerable<CategoryDTO> Categories = new List<CategoryDTO>();
+        protected IEnumerable<CategoryModel> Categories = new List<CategoryModel>();
 
         protected override async Task OnInitializedAsync()
         {

@@ -1,23 +1,19 @@
-﻿using ChartJs.Blazor.ChartJS.Common.Handlers.OnClickHandler;
+﻿using Application.Categories.Queries.Common;
+using ChartJs.Blazor.ChartJS.Common.Handlers.OnClickHandler;
 using ChartJs.Blazor.ChartJS.Common.Properties;
 using ChartJs.Blazor.ChartJS.PieChart;
 using ChartJs.Blazor.Charts;
-using ChartJs.Blazor.ChartJS.Common.Handlers;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using Newtonsoft.Json;
 using PresentationClient.Services;
-using PlannerApp.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using UIComponents.Bulma.Helpers;
 using UIComponents.Bulma.Modal;
 using UIComponents.Services;
-using Newtonsoft.Json.Linq;
 
 namespace PresentationClient.Components.DashboardComponents
 {
@@ -27,7 +23,7 @@ namespace PresentationClient.Components.DashboardComponents
         [Inject] IPlannerItemDataService PlannerItemDataService { get; set; }
         [Inject] IApplicationWideComponentService<ModalParams> ModalService { get; set; }
 
-        protected IDictionary<CategoryDTO, int> CategoryTimes;
+        protected IDictionary<CategoryModel, int> CategoryTimes;
         protected int MaxTime;
         protected ChartJsPieChart chart;
         protected override async Task OnInitializedAsync()
@@ -90,7 +86,7 @@ namespace PresentationClient.Components.DashboardComponents
             return config;
         }
 
-        protected async Task ShowBreakDown(CategoryDTO category)
+        protected async Task ShowBreakDown(CategoryModel category)
         {
             var items = await PlannerItemDataService.LoadCompletedItemsByCategoryID(category.ID);
             var body = new RenderFragment(builder =>

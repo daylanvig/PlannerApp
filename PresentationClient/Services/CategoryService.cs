@@ -1,6 +1,6 @@
-﻿using PresentationClient.Models;
+﻿using Application.Categories.Queries.Common;
 using PlannerApp.Shared.Common;
-using PlannerApp.Shared.Models;
+using PresentationClient.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,22 +19,22 @@ namespace PresentationClient.Services
             this.categoryDataService = categoryDataService;
         }
 
-        public async Task<IDictionary<CategoryDTO, int>> GetTotalMinutesByCategory()
+        public async Task<IDictionary<CategoryModel, int>> GetTotalMinutesByCategory()
         {
             var completedItems = await plannerItemDataService.LoadCompletedItems();
             var categories = await categoryDataService.LoadCategories();
-            var categorizedTime = new Dictionary<CategoryDTO, int>();
+            var categorizedTime = new Dictionary<CategoryModel, int>();
 
             foreach (var categoryGrouping in completedItems.GroupBy(c => c.CategoryID))
             {
-                CategoryDTO category;
+                CategoryModel category;
                 if (categoryGrouping.Key.HasValue)
                 {
                     category = categories.First(c => c.ID == categoryGrouping.Key.Value);
                 }
                 else
                 {
-                    category = new CategoryDTO
+                    category = new CategoryModel
                     {
                         Description = "Uncategorized",
                         Colour = UIConstants.DEFAULT_CATEGORY_COLOUR

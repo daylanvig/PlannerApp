@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Application.Categories.Queries.Common;
+using Microsoft.AspNetCore.Components;
 using PresentationClient.Services.ComponentHelperServices;
-using PlannerApp.Shared.Models;
 using System;
 
 namespace PresentationClient.Components.Buttons
@@ -9,7 +9,7 @@ namespace PresentationClient.Components.Buttons
     {
         [Inject] ICategoryComponentService CategoryComponentService { get; set; }
         [Parameter]
-        public Action<CategoryDTO> OnSave { get; set; }
+        public Action<CategoryModel> OnSave { get; set; }
 
         protected void BeginAddingItem()
         {

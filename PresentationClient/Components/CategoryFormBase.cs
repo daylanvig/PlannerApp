@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Application.Categories.Queries.Common;
+using Microsoft.AspNetCore.Components;
 using PresentationClient.Services;
-using PlannerApp.Shared.Models;
 using System;
 using System.Threading.Tasks;
 
@@ -11,9 +11,9 @@ namespace PresentationClient.Components
         [Inject]
         public ICategoryDataService CategoryDataService { get; set; }
         [Parameter]
-        public CategoryDTO Category { get; set; }
+        public CategoryModel Category { get; set; }
         [Parameter]
-        public EventCallback<CategoryDTO> OnSaveCallback { get; set; }
+        public EventCallback<CategoryModel> OnSaveCallback { get; set; }
 
         protected async Task SaveForm()
         {

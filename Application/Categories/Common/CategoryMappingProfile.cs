@@ -1,14 +1,14 @@
-﻿using AutoMapper;
+﻿using Application.Categories.Queries.Common;
+using AutoMapper;
 using Domain.Categories;
-using PlannerApp.Shared.Models;
 
-namespace PresentationServer.Categories
+namespace Application.Categories.Common
 {
     public class CategoryMappingProfile : Profile
     {
         public CategoryMappingProfile()
         {
-            CreateMap<CategoryDTO, Category>()
+            CreateMap<CategoryModel, Category>()
                 .ForMember(d => d.PlannerItems, o => o.Ignore())
                 .ForMember(d => d.TenantID, o => o.Ignore())
                 .ReverseMap();

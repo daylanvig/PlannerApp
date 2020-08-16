@@ -1,4 +1,4 @@
-﻿using PlannerApp.Shared.Models;
+﻿using Application.Categories.Queries.Common;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,10 +6,10 @@ namespace PresentationClient.Services
 {
     public interface ICategoryDataService
     {
-        Task<CategoryDTO> AddItem(CategoryDTO category);
+        Task<CategoryModel> AddItem(CategoryModel category);
         Task DeleteItem(int categoryID);
-        Task<CategoryDTO> EditItem(CategoryDTO category);
-        Task<IEnumerable<CategoryDTO>> LoadCategories();
-        Task<CategoryDTO> LoadCategory(int id);
+        Task<CategoryModel> EditItem(CategoryModel category);
+        Task<IEnumerable<CategoryModel>> LoadCategories();
+        Task<CategoryModel> LoadCategory(int id);
     }
 }

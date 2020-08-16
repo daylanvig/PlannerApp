@@ -1,6 +1,4 @@
-﻿using Application.PlannerItems.Commands.Shared;
-using Application.PlannerItems.Queries.Common;
-using PlannerApp.Shared.Models;
+﻿using Application.PlannerItems.Queries.Common;
 using System;
 
 namespace PlannerApp.UnitTests.Infrastructure

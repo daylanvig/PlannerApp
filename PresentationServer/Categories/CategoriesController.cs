@@ -1,8 +1,8 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Application.Categories.Queries.Common;
 using Application.Interfaces.Persistence;
+using AutoMapper;
 using Domain.Categories;
-using PlannerApp.Shared.Models;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,15 +24,15 @@ namespace PresentationServer.Categories
 
         // GET: api/Categories
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CategoryDTO>>> GetCategories()
+        public async Task<ActionResult<IEnumerable<CategoryModel>>> GetCategories()
         {
             var categories = await categoryRepository.ListAllAsync();
-            return categories.OrderBy(c => c.Description).Select(c => mapper.Map<CategoryDTO>(c)).ToList();
+            return categories.OrderBy(c => c.Description).Select(c => mapper.Map<CategoryModel>(c)).ToList();
         }
 
         // GET: api/Categories/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CategoryDTO>> GetCategory(int id)
+        public async Task<ActionResult<CategoryModel>> GetCategory(int id)
         {
             var category = await categoryRepository.GetByIdAsync(id);
 
@@ -41,7 +41,7 @@ namespace PresentationServer.Categories
                 return NotFound();
             }
 
-            return mapper.Map<CategoryDTO>(category);
+            return mapper.Map<CategoryModel>(category);
         }
 
         //// PUT: api/Categories/5
@@ -78,10 +78,10 @@ namespace PresentationServer.Categories
 
         // POST: api/Categories
         [HttpPost]
-        public async Task<ActionResult<CategoryDTO>> AddCategory(CategoryDTO categoryDTO)
+        public async Task<ActionResult<CategoryModel>> AddCategory(CategoryModel CategoryModel)
         {
-            var category = await categoryRepository.AddAsync(mapper.Map<Category>(categoryDTO));
-            return CreatedAtAction(nameof(CategoriesController.GetCategory), new { id = category.ID }, mapper.Map<CategoryDTO>(category));
+            var category = await categoryRepository.AddAsync(mapper.Map<Category>(CategoryModel));
+            return CreatedAtAction(nameof(CategoriesController.GetCategory), new { id = category.ID }, mapper.Map<CategoryModel>(category));
         }
 
         //// DELETE: api/Categories/5

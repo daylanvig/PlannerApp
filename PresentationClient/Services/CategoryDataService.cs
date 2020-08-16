@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
-using PlannerApp.Shared.Models;
+﻿using Application.Categories.Queries.Common;
+using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,19 +17,19 @@ namespace PresentationClient.Services
             this.cacheService = cacheService;
         }
 
-        private Task<IEnumerable<CategoryDTO>> LoadFromCache()
+        private Task<IEnumerable<CategoryModel>> LoadFromCache()
         {
-            return cacheService.GetItem<IEnumerable<CategoryDTO>>(CACHEKEY);
+            return cacheService.GetItem<IEnumerable<CategoryModel>>(CACHEKEY);
         }
 
-        private async Task CacheItems(IEnumerable<CategoryDTO> categories)
+        private async Task CacheItems(IEnumerable<CategoryModel> categories)
         {
             await cacheService.SetItem(CACHEKEY, categories);
         }
 
-        public async Task<CategoryDTO> LoadCategory(int id)
+        public async Task<CategoryModel> LoadCategory(int id)
         {
-            CategoryDTO category = null;
+            CategoryModel category = null;
             var items = await LoadFromCache();
             if(items != null)
             {
@@ -45,25 +45,25 @@ namespace PresentationClient.Services
             return category;
         }
 
-        public async Task<IEnumerable<CategoryDTO>> LoadCategories()
+        public async Task<IEnumerable<CategoryModel>> LoadCategories()
         {
             var items = await LoadFromCache();
             if(items == null)
             {
                 var client = await GetClient();
-                items = await client.GetJsonAsync<List<CategoryDTO>>("/api/Categories");
+                items = await client.GetJsonAsync<List<CategoryModel>>("/api/Categories");
                 await CacheItems(items);
             }
             return items;
         }
 
-        public async Task<CategoryDTO> AddItem(CategoryDTO category)
+        public async Task<CategoryModel> AddItem(CategoryModel category)
         {
             var client = await GetClient();
-            CategoryDTO createdCategory;
+            CategoryModel createdCategory;
             try
             {
-                createdCategory = await client.PostJsonAsync<CategoryDTO>("/api/Categories", category);
+                createdCategory = await client.PostJsonAsync<CategoryModel>("/api/Categories", category);
                 await cacheService.ClearCachedItem(CACHEKEY);
             }
             catch
@@ -73,11 +73,11 @@ namespace PresentationClient.Services
             return createdCategory;
         }
 
-        public async Task<CategoryDTO> EditItem(CategoryDTO category)
+        public async Task<CategoryModel> EditItem(CategoryModel category)
         {
             var client = await GetClient();
             await cacheService.ClearCachedItem(CACHEKEY);
-            return await client.PutJsonAsync<CategoryDTO>($"/api/Categories/{category.ID}", category);
+            return await client.PutJsonAsync<CategoryModel>($"/api/Categories/{category.ID}", category);
         }
 
         public async Task DeleteItem(int categoryID)

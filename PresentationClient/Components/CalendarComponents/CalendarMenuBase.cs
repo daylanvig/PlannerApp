@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Application.Categories.Queries.Common;
+using Microsoft.AspNetCore.Components;
 using PresentationClient.Models;
 using PresentationClient.Services;
-using PlannerApp.Shared.Models;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,7 +19,7 @@ namespace PresentationClient.Components.CalendarComponents
         public EventCallback OnStateChange { get; set; }
         protected SelectField<CalendarMode> ModeInput;
         protected DateField DateInput;
-        protected IList<Filter<CategoryDTO>> CategoryFilters;
+        protected IList<Filter<CategoryModel>> CategoryFilters;
         protected Filter<int?> NoCategoryFilter;
         private Action callStateChange;
 
@@ -28,7 +27,7 @@ namespace PresentationClient.Components.CalendarComponents
         {
             callStateChange = async () => await OnStateChange.InvokeAsync(null);
             var categories = await CategoryDataService.LoadCategories();
-            CategoryFilters = categories.Select(c => new Filter<CategoryDTO>
+            CategoryFilters = categories.Select(c => new Filter<CategoryModel>
             {
                 Model = c,
                 IsVisible = !CalendarService.State.HiddenCategoryIDs.Contains(c.ID)
@@ -47,9 +46,9 @@ namespace PresentationClient.Components.CalendarComponents
             DateInput.Subscribe(callStateChange);
         }
 
-        protected void HandleCategoryAdded(CategoryDTO category)
+        protected void HandleCategoryAdded(CategoryModel category)
         {
-            CategoryFilters.Add(new Filter<CategoryDTO>
+            CategoryFilters.Add(new Filter<CategoryModel>
             {
                 IsVisible = true,
                 Model = category

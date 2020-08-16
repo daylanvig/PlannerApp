@@ -25,15 +25,9 @@ namespace PresentationServer.Dependencies
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
 
-            var serverAssembly = Assembly.GetAssembly(typeof(Startup));
-            builder.RegisterAssemblyTypes(serverAssembly)
-              .Where(t => t.Name.EndsWith("Service"))
-              .AsImplementedInterfaces()
-              .InstancePerLifetimeScope();
-
             var infrastructureAssembly = Assembly.GetAssembly(typeof(Infrastructure.Config));
             builder.RegisterAssemblyTypes(infrastructureAssembly)
-                 .Where(t => t.Name.EndsWith("Service"))
+                 .Where(t => t.Name.EndsWith("Service") || t.Name.EndsWith("Wrapper"))
                  .AsImplementedInterfaces()
                  .InstancePerLifetimeScope();
         }

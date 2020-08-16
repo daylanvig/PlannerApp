@@ -1,4 +1,4 @@
-﻿using PlannerApp.Shared.Models;
+﻿using Application.Categories.Queries.Common;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,6 +6,6 @@ namespace PresentationClient.Services
 {
     public interface ICategoryService
     {
-        Task<IDictionary<CategoryDTO, int>> GetTotalMinutesByCategory();
+        Task<IDictionary<CategoryModel, int>> GetTotalMinutesByCategory();
     }
 }

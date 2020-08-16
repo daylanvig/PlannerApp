@@ -1,10 +1,10 @@
-﻿using Bunit;
+﻿using Application.Categories.Queries.Common;
+using Bunit;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
+using PlannerApp.UnitTests.Infrastructure;
 using PresentationClient.Components.CalendarComponents;
 using PresentationClient.Services;
-using PlannerApp.Shared.Models;
-using PlannerApp.UnitTests.Infrastructure;
 using System;
 using System.Threading.Tasks;
 using Xunit;
@@ -13,12 +13,12 @@ namespace PlannerApp.UnitTests.ComponentTests.CalendarComponents
 {
     public class CalendarEventShould : IDisposable
     {
-        private readonly CategoryDTO category;
+        private readonly CategoryModel category;
         private readonly TestContext ctx;
         private readonly PlannerItemModelBuilder itemBuilder;
         public CalendarEventShould()
         {
-            category = new CategoryDTO
+            category = new CategoryModel
             {
                 ID = 2,
                 Colour = "#03e8fc",
