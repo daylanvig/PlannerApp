@@ -3,9 +3,9 @@ using Bunit;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using PlannerApp.UnitTests.Infrastructure;
-using PresentationClient.Components.DashboardComponents;
-using PresentationClient.Services;
-using PresentationClient.Services.ComponentHelperServices;
+using ClientApp.Components.DashboardComponents;
+using ClientApp.Services;
+using ClientApp.Services.ComponentHelperServices;
 using System.Collections.Generic;
 using Xunit;
 

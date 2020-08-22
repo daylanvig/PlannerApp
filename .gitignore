@@ -8,3 +8,4 @@
 /OpenSSL
 /PlannerApp.Server/tempkey.rsa
 /TestResults
+/AcceptanceTests/Shared/App.config

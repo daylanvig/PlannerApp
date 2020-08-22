@@ -2,8 +2,8 @@
 using Bunit;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
-using PresentationClient.Components.AccountComponents;
-using PresentationClient.Services;
+using ClientApp.Components.AccountComponents;
+using ClientApp.Services;
 using PlannerApp.UnitTests.Infrastructure;
 using Xunit;
 

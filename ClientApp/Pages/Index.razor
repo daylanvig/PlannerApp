@@ -1,0 +1,85 @@
+﻿@page "/"
+@inject ClientApp.Services.IPlannerItemDataService PlannerItemDataService
+@using PlannerApp.Shared.Common
+@using ClientApp.Services 
+@using Application.PlannerItems.Commands.Shared
+@using Application.PlannerItems.Queries.Common  
+@attribute [Microsoft.AspNetCore.Authorization.Authorize]
+
+
+<section class="section">
+    <div class="container">
+        <h1 class="title is-5">Enter a New Item</h1>
+        <PlannerItemForm Item="NewItem" OnItemSaveCallback="SaveItem">
+        </PlannerItemForm>
+    </div>
+</section>
+<section class="section" id="plannerItems">
+    <div class="container">
+        @if (plannerItems == null)
+        {
+            <span class="has-text-centered">Loading Your Planner....</span>
+        }
+        else if (plannerItems.Count == 0)
+        {
+            <span class="has-text-centered">You don't have anything planned. Add something above!</span>
+        }
+        else
+        {
+            <h1 class="title is-5">Upcoming Events</h1>
+            @foreach (var daysEvents in plannerItems.Where(p => p.PlannedActionDate >= DateTime.Now).GroupBy(p => p.PlannedActionDate.Date).OrderBy(d => d.Key))
+            {
+                <h2 class="title is-5">@(DateTimeHelper.FormatFullDate(daysEvents.Key))</h2>
+                <div class="mb-5">
+                    @foreach (var item in daysEvents.OrderBy(e => e.PlannedActionDate.TimeOfDay))
+                    {
+                        var currentItem = item;
+                        <div class="notification" id="item-@(item.ID)">
+                            <button class="delete" @onclick="@(() => DeleteItem(currentItem))"></button>
+                            <div class="columns is-mobile is-gapless">
+                                <div class="column is-3-mobile is-2-tablet is-1-widescreen has-text-weight-semibold">
+                                    @(DateTimeHelper.FormatTime(item.PlannedActionDate))
+                                </div>
+                                <div class="column">@item.Description</div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            @if (!plannerItems.Any(p => p.PlannedActionDate >= DateTime.Now))
+            {
+                <p>You don't have any upcoming events.</p>
+            }
+        }
+    </div>
+</section>
+@code {
+    [Inject]
+    public IAppState AppState { get; set; }
+    public PlannerItemCreateEditModel NewItem { get; set; } = new PlannerItemCreateEditModel();
+
+    private List<PlannerItemModel> plannerItems;
+
+    protected override async Task OnInitializedAsync()
+    {
+        AppState.UpdateTitle();
+        plannerItems = (await PlannerItemDataService.LoadItems()).ToList();
+    }
+
+    private async Task SaveItem()
+    {
+        var createdItem = await PlannerItemDataService.AddItem(NewItem);
+        if (createdItem == null)
+        {
+            throw new Exception("TODO");
+        }
+        plannerItems.Add(createdItem);
+        NewItem = new PlannerItemCreateEditModel();
+    }
+
+    private async Task DeleteItem(PlannerItemModel item)
+    {
+        await PlannerItemDataService.DeleteItem(item.ID);
+        plannerItems.Remove(item);
+    }
+} 

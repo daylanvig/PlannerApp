@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Moq;
-using PresentationClient.Services;
+using ClientApp.Services;
 using PlannerApp.Shared.Common;
 using System;
 using System.Threading.Tasks;

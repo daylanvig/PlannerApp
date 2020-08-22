@@ -40,7 +40,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0-preview-20200812-03" />
     <PackageReference Include="OpenIddict" Version="3.0.0-beta1.20311.67" />
     <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="3.0.0-beta1.20311.67" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.1" />
@@ -53,10 +53,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
+    <ProjectReference Include="..\ClientApp\ClientApp.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\Persistence\Persistence.csproj" />
     <ProjectReference Include="..\PlannerApp.Core\Shared.csproj" />
-    <ProjectReference Include="..\PresentationClient\PresentationClient.csproj" />
+    <ProjectReference Include="..\PresentationClient\ClientApp.csproj" />
   </ItemGroup>
 
   <ItemGroup>

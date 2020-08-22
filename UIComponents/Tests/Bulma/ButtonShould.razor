@@ -1,0 +1,38 @@
+﻿@inherits TestComponentBase
+@using UIComponents.Bulma
+
+<SnapshotTest Description="Button Renders Correctly">
+    <TestInput>
+        <Button class="test" IsDisabled Colour="UIComponents.Bulma.Helpers.ComponentColour.Success">Label</Button>
+    </TestInput>
+    <ExpectedOutput>
+        <button class="button is-success test" disabled type="button">Label</button>
+    </ExpectedOutput>
+</SnapshotTest>
+
+<Fixture Test="ExecutesOnClickCallback">
+    <ComponentUnderTest>
+        <Button OnClickCallback="ExecuteClickCallback"></Button>
+    </ComponentUnderTest>
+</Fixture>
+
+@code {
+    bool isClickCallbackExecuted;
+
+    void ExecuteClickCallback(MouseEventArgs e)
+    {
+        isClickCallbackExecuted = true;
+    }
+
+    void ExecutesOnClickCallback(Fixture fixture)
+    {
+        // Arrange
+        isClickCallbackExecuted = false;
+        var buttonComponent = fixture.GetComponentUnderTest<Button>();
+        var button = buttonComponent.Find("button");
+        // Act
+        button.Click(new MouseEventArgs());
+        // Assert
+        Assert.True(isClickCallbackExecuted);
+    }
+}

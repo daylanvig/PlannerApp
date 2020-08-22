@@ -1,0 +1,32 @@
+﻿@using ClientApp.Components.CalendarComponents
+@inherits CalendarBase
+
+<div class="calendar">
+    <div class="calendar__header">
+        <div class="calendar__time-scale">
+            @*Place holder to align scale*@
+        </div>
+        @foreach (var date in ViewingDates)
+        {
+            <CalendarDateHeader Date="date"></CalendarDateHeader>
+        }
+    </div>
+    <div class="calendar__content" @ontouchstart="SwipeEvent.HandleTouchStart" @ontouchmove="SwipeEvent.HandleTouchMove">
+        @* Display hours *@
+        <div class="calendar__time-scale">
+            @for (var hour = 0; hour <= 23; hour++)
+            {
+                <div class="calendar__interval calendar__interval--time-scale" id="interval-@hour">
+                    @DateTimeHelper.GetHoursAs12HourTime(new DateTime(2020, 1, 1, hour, 0, 0))
+                </div>
+            }
+        </div>
+
+        @foreach (var date in ViewingDates)
+        {
+            <CalendarColumn @key="date" Date="date" Events="Items.Where(i => i.PlannedActionDate.Date == date.Date)">
+
+            </CalendarColumn>
+        }
+    </div>
+</div>
