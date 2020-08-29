@@ -16,6 +16,14 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
+    "Test": {
+      "commandName": "IISExpress",
+      "launchBrowser": false,
+      "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Test"
+      }
+    },
     "Production": {
       "commandName": "IISExpress",
       "launchBrowser": false,

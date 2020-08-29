@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Shared.Common;
 
 namespace Application.Accounts.Commands.RegisterNewUser
 {
-    public class RegisterResult
+    public class RegisterResult : ServerResponse
     {
         public bool IsSuccessful { get; set; }
-        public IEnumerable<string> Errors { get; set; }
     }
 }

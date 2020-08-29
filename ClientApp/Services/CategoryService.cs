@@ -40,7 +40,7 @@ namespace ClientApp.Services
                         Colour = UIConstants.DEFAULT_CATEGORY_COLOUR
                     };
                 }
-                var total = (int)Math.Round(categoryGrouping.Sum(g => DateTimeHelper.CalculateLength(g.PlannedActionDate, g.PlannedEndTime)));
+                var total = (int)Math.Round(categoryGrouping.Sum(g => DateTimeHelper.CalculateLength(g.PlannedActionDate.LocalDateTime, g.PlannedEndTime.LocalDateTime)));
                 categorizedTime.Add(category, total);
             }
             return categorizedTime;

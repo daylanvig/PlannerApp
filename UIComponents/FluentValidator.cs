@@ -2,40 +2,60 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System;
+using System.Collections.Generic;
 
 namespace UIComponents
 {
     public class FluentValidator<TValidator> : ComponentBase where TValidator : IValidator, new()
     {
+        private ValidationMessageStore messages;
         private readonly static char[] separators = new[] { '.', '[' };
         private TValidator validator;
 
         [CascadingParameter] 
         private EditContext EditContext { get; set; }
 
+
+        private void AddError(string propertyName, string message)
+        {
+            var identifier = ToFieldIdentifier(EditContext, propertyName);
+            messages.Add(identifier, message);
+            Console.WriteLine(propertyName);
+            Console.WriteLine(message);
+            Console.WriteLine(identifier.FieldName);
+        }
+
+        public void DisplayErrors(IEnumerable<KeyValuePair<string, string>> errors)
+        {
+            messages.Clear();
+            foreach(var error in errors)
+            {
+                AddError(error.Key, error.Value);
+            }
+            EditContext.NotifyValidationStateChanged();
+        }
         protected override void OnInitialized()
         {
             validator = new TValidator();
-            var messages = new ValidationMessageStore(EditContext);
+            messages = new ValidationMessageStore(EditContext);
 
             // Revalidate when any field changes, or if the entire form requests validation
             // (e.g., on submit)
 
             EditContext.OnFieldChanged += (sender, eventArgs)
-                => ValidateModel((EditContext)sender, messages);
+                => ValidateModel((EditContext)sender);
 
             EditContext.OnValidationRequested += (sender, eventArgs)
-                => ValidateModel((EditContext)sender, messages);
+                => ValidateModel((EditContext)sender);
         }
 
-        private void ValidateModel(EditContext editContext, ValidationMessageStore messages)
+        private void ValidateModel(EditContext editContext)
         {
             var validationResult = validator.Validate(editContext.Model);
             messages.Clear();
             foreach (var error in validationResult.Errors)
             {
-                var fieldIdentifier = ToFieldIdentifier(editContext, error.PropertyName);
-                messages.Add(fieldIdentifier, error.ErrorMessage);
+                AddError(error.PropertyName, error.ErrorMessage);
             }
             editContext.NotifyValidationStateChanged();
         }

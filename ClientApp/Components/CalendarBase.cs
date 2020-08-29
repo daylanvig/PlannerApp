@@ -44,7 +44,7 @@ namespace ClientApp.Components
         }
         protected override async Task OnInitializedAsync()
         {
-            CalendarService.State.Date = DateTimeHelper.GetMostRecentDayOfWeek(DateTimeProvider.Now, DayOfWeek.Sunday);
+            CalendarService.State.Date = DateTimeHelper.GetMostRecentDayOfWeek(DateTimeProvider.NowLocal, DayOfWeek.Sunday);
             SetTitle();
             await LoadData();
             SwipeEvent.Subscribe(this);

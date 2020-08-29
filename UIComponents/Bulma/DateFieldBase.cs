@@ -50,7 +50,7 @@ namespace UIComponents.Bulma
             }
             else if (DateTime.TryParse(value, out var parsedResult))
             {
-                result = parsedResult;
+                result = new DateTime(parsedResult.Ticks, DateTimeKind.Local);
                 validationErrorMessage = string.Empty;
             }
             else

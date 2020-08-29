@@ -44,6 +44,7 @@ namespace PlannerApp.Shared.Common
         /// <param name="endDate"></param>
         /// <returns></returns>
         public static double CalculateLength(DateTime startDate, DateTime endDate) => (endDate - startDate).TotalMinutes;
+        public static double CalculateLength(DateTimeOffset startDate, DateTimeOffset endDate) => (endDate - startDate).TotalMinutes;
         /// <summary>
         /// Format date as Month day, year
         /// e.g. June 27, 2020
@@ -51,11 +52,13 @@ namespace PlannerApp.Shared.Common
         /// <param name="date"></param>
         /// <returns></returns>
         public static string FormatFullDate(DateTime date) => date.ToString("MMMM d, yyyy");
+        public static string FormatFullDate(DateTimeOffset date) => date.LocalDateTime.ToString("MMMM d, yyyy");
         /// <summary>
         /// Return user formatted time value (12 hour time) from date
         /// </summary>
         /// <param name="date"></param>
         /// <returns>12 hour time value</returns>
         public static string FormatTime(DateTime date) => date.ToString("h:mm tt");
+        public static string FormatTime(DateTimeOffset dateOffset) => dateOffset.LocalDateTime.ToString("h:mm tt");
     }
 }

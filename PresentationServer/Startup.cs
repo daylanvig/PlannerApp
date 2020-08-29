@@ -1,8 +1,10 @@
+using Application;
 using Autofac;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,9 +13,9 @@ using Persistence;
 using PlannerApp.Server.Extensions;
 using PlannerApp.Shared;
 using PresentationServer.Dependencies;
+using PresentationServer.Extensions;
 using System;
 using System.Reflection;
-using Application;
 
 namespace PlannerApp.Server
 {
@@ -54,7 +56,14 @@ namespace PlannerApp.Server
             });
             services.AddHttpContextAccessor();
             services.ConfigurePlannerAppIdentity(Configuration);
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .ConfigureApiBehaviorOptions(options =>
+                {
+                    options.InvalidModelStateResponseFactory = c =>
+                    {
+                        return new BadRequestObjectResult(ActionContextExtensions.FormatModelResponse(c));
+                    };
+                });
             services.AddRazorPages();
             services.AddAutoMapper(Assembly.GetExecutingAssembly(), Assembly.GetAssembly(typeof(Config)));
             services.AddPlannerAppSharedServices();
@@ -67,7 +76,7 @@ namespace PlannerApp.Server
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.IsDevelopment() || env.EnvironmentName == "Test")
             {
                 app.UseDeveloperExceptionPage();
                 app.UseWebAssemblyDebugging();
@@ -78,7 +87,7 @@ namespace PlannerApp.Server
                 app.UseHsts();
                 app.UseHttpsRedirection();
             }
-            
+
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 

@@ -1,8 +1,10 @@
 ﻿using Application.Accounts.Commands.RegisterNewUser;
 using Application.Accounts.Commands.SignInUser;
 using Blazored.LocalStorage;
+using ClientApp.Extensions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -29,9 +31,9 @@ namespace ClientApp.Services
 
         public async Task<RegisterResult> Register(RegisterModel registerModel)
         {
-            var result = await _httpClient.PostJsonAsync<RegisterResult>("api/Accounts", registerModel);
-
-            return result;
+            
+            var result = await _httpClient.PostJSONAsync<RegisterModel, RegisterResult>("api/Accounts", registerModel);
+            return result.Response;
         }
 
         public async Task<SignInUserResult> Login(SignInUserModel loginModel)

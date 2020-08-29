@@ -29,8 +29,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientApp", "ClientApp\ClientApp.csproj", "{20FC2940-62B8-41B1-AA15-400DA8146A6D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UIComponentTests", "UIComponentTests\UIComponentTests.csproj", "{F508396F-3B4F-4E07-8E97-E19D0EB378D8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcceptanceTests", "AcceptanceTests\AcceptanceTests.csproj", "{2ED6586D-BA37-48AF-8DE0-E87505AD1F6C}"
 EndProject
 Global
@@ -75,10 +73,6 @@ Global
 		{20FC2940-62B8-41B1-AA15-400DA8146A6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20FC2940-62B8-41B1-AA15-400DA8146A6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20FC2940-62B8-41B1-AA15-400DA8146A6D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F508396F-3B4F-4E07-8E97-E19D0EB378D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F508396F-3B4F-4E07-8E97-E19D0EB378D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F508396F-3B4F-4E07-8E97-E19D0EB378D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F508396F-3B4F-4E07-8E97-E19D0EB378D8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2ED6586D-BA37-48AF-8DE0-E87505AD1F6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2ED6586D-BA37-48AF-8DE0-E87505AD1F6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2ED6586D-BA37-48AF-8DE0-E87505AD1F6C}.Release|Any CPU.ActiveCfg = Release|Any CPU

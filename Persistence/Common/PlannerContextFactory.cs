@@ -8,7 +8,7 @@ namespace Persistence
 {
     public class PlannerContextFactory : IDesignTimeDbContextFactory<PlannerContext>
     {
-        private string GetEnvironmentName() => Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+        private string GetEnvironmentName() => "Development";
         IConfiguration GetAppConfiguration()
         {
             var environmentName = GetEnvironmentName();

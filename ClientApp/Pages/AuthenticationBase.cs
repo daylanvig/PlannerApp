@@ -69,7 +69,7 @@ namespace ClientApp.Pages
         protected void ChangePage(string pageChangeTo)
         {
             Action = pageChangeTo;
-            StateHasChanged();
+            NavigationManager.NavigateTo($"/authentication/{pageChangeTo}");
         }
 
     }

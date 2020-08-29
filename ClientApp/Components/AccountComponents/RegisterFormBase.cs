@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Application.Accounts.Commands.RegisterNewUser;
 using ClientApp.Services;
-using Application.Accounts.Commands.RegisterNewUser;
+using Microsoft.AspNetCore.Components;
 using System;
 using System.Threading.Tasks;
+using UIComponents;
 
 namespace ClientApp.Components.AccountComponents
 {
@@ -13,7 +14,8 @@ namespace ClientApp.Components.AccountComponents
         [Inject]
         public IAuthService AuthService { get; set; }
         public RegisterModel RegisterModel { get; set; } = new RegisterModel();
- 
+
+        protected FluentValidator<RegisterModelValidator> Validator;
         protected async Task RegisterUser()
         {
             var result = await AuthService.Register(RegisterModel);
@@ -23,7 +25,7 @@ namespace ClientApp.Components.AccountComponents
             }
             else
             {
-                // todo
+                Validator.DisplayErrors(result.Errors);
             }
         }
     }

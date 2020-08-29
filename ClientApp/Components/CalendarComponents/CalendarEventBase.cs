@@ -29,9 +29,9 @@ namespace ClientApp.Components.CalendarComponents
             }
         }
 
-        private string CalculateHeight() => UIComponentHelper.CalculateHeight(Item.PlannedActionDate, Item.PlannedEndTime);
+        private string CalculateHeight() => UIComponentHelper.CalculateHeight(Item.PlannedActionDate.LocalDateTime, Item.PlannedEndTime.LocalDateTime);
 
-        private string CalculateTop() => UIComponentHelper.CalculateTop(Item.PlannedActionDate);
+        private string CalculateTop() => UIComponentHelper.CalculateTop(Item.PlannedActionDate.LocalDateTime);
 
         protected string CalculateFontColour()
         {

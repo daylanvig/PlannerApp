@@ -80,7 +80,7 @@ namespace Application.Accounts.Commands.RegisterNewUser
             // Assert
             Assert.False(result.IsSuccessful);
             Assert.Single(result.Errors);
-            Assert.Equal("desc", result.Errors.First());
+            Assert.Equal("desc", result.Errors.First().Value);
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Application.Interfaces.Infrastructure;
+using AutoFixture;
 using Domain.Accounts;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,12 +25,18 @@ namespace Application.Accounts.Commands.RegisterNewUser
                 UserName = registerModel.Email,
                 TenantID = Guid.NewGuid().ToString()
             }, registerModel.Password);
-
-            return new RegisterResult
+            var response = new RegisterResult
             {
                 IsSuccessful = result.Succeeded,
-                Errors = result.Succeeded ? Array.Empty<string>() : result.Errors.Select(e => e.Description)
             };
+            List<KeyValuePair<string, string>> errors = new List<KeyValuePair<string, string>>();
+            foreach(var error in result.Errors)
+            {
+                var field = error.Code.Contains("Password") ? nameof(RegisterModel.Password) : nameof(RegisterModel.Email);
+                errors.Add(new KeyValuePair<string, string>(field, error.Description));
+            }
+            response.Errors = errors;
+            return response;
         }
     }
 }

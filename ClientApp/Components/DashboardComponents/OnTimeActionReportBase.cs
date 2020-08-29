@@ -28,11 +28,11 @@ namespace ClientApp.Components.DashboardComponents
             var editItem = new PlannerItemCreateEditModel
             {
                 CategoryID = item.CategoryID,
-                CompletionDate = item.CompletionDate,
+                CompletionDate = item.CompletionDate?.LocalDateTime,
                 Description = item.Description,
                 ID = item.ID,
-                PlannedActionDate = item.PlannedActionDate,
-                PlannedEndTime = item.PlannedEndTime
+                PlannedActionDate = item.PlannedActionDate.LocalDateTime,
+                PlannedEndTime = item.PlannedEndTime.LocalDateTime
             };
             PlannerItemComponentService.ShowAddEditModal(editItem, (PlannerItemModel savedItem) =>
             {
@@ -47,7 +47,7 @@ namespace ClientApp.Components.DashboardComponents
 
         protected string GetDaysOverdue(PlannerItemModel item)
         {
-            var daysOverdue = DateTimeHelper.DaysBetween(DateTimeProvider.Now, item.PlannedActionDate);
+            var daysOverdue = DateTimeHelper.DaysBetween(DateTimeProvider.Now, item.PlannedActionDate.LocalDateTime);
             // less than a day, display hours
             if(daysOverdue < 1)
             {

@@ -55,9 +55,9 @@ namespace ClientApp.Components.CalendarComponents
                 ID = item.ID,
                 Description = item.Description,
                 CategoryID = item.CategoryID,
-                CompletionDate = item.CompletionDate,
-                PlannedActionDate = item.PlannedActionDate,
-                PlannedEndTime = item.PlannedEndTime
+                CompletionDate = item.CompletionDate?.LocalDateTime,
+                PlannedActionDate = item.PlannedActionDate.LocalDateTime,
+                PlannedEndTime = item.PlannedEndTime.LocalDateTime
             };
             PlannerItemComponentService.ShowAddEditModal(Mapper.Map<PlannerItemCreateEditModel>(item), UpdateItem);
         }

@@ -1,5 +1,6 @@
 ﻿@page "/"
 @inject ClientApp.Services.IPlannerItemDataService PlannerItemDataService
+@inject PlannerApp.Shared.Common.IDateTimeProvider DateTimeProvider
 @using PlannerApp.Shared.Common
 @using ClientApp.Services 
 @using Application.PlannerItems.Commands.Shared
@@ -27,7 +28,7 @@
         else
         {
             <h1 class="title is-5">Upcoming Events</h1>
-            @foreach (var daysEvents in plannerItems.Where(p => p.PlannedActionDate >= DateTime.Now).GroupBy(p => p.PlannedActionDate.Date).OrderBy(d => d.Key))
+            @foreach (var daysEvents in plannerItems.Where(p => p.PlannedActionDate >= DateTimeProvider.NowLocal).GroupBy(p => p.PlannedActionDate.Date).OrderBy(d => d.Key))
             {
                 <h2 class="title is-5">@(DateTimeHelper.FormatFullDate(daysEvents.Key))</h2>
                 <div class="mb-5">
@@ -46,7 +47,7 @@
                     }
                 </div>
             }
-            @if (!plannerItems.Any(p => p.PlannedActionDate >= DateTime.Now))
+            @if (!plannerItems.Any(p => p.PlannedActionDate >= DateTimeProvider.NowLocal))
             {
                 <p>You don't have any upcoming events.</p>
             }
@@ -64,6 +65,13 @@
     {
         AppState.UpdateTitle();
         plannerItems = (await PlannerItemDataService.LoadItems()).ToList();
+        plannerItems.ForEach(item =>
+        {
+            Console.WriteLine("ITEM");
+            Console.WriteLine(item.PlannedActionDate.LocalDateTime);
+            Console.WriteLine(item.PlannedActionDate.DateTime);
+            Console.WriteLine(DateTimeOffset.Now.LocalDateTime);
+        });
     }
 
     private async Task SaveItem()
