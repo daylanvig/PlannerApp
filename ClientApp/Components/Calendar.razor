@@ -1,7 +1,7 @@
 ﻿@using ClientApp.Components.CalendarComponents
 @inherits CalendarBase
 
-<div class="calendar">
+<div class="calendar" @onkeypress="HandleKeyPress" tabindex="0">
     <div class="calendar__header">
         <div class="calendar__time-scale">
             @*Place holder to align scale*@

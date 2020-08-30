@@ -1,20 +1,18 @@
 ﻿using Microsoft.JSInterop;
-using System.Threading.Tasks;
 
 namespace UIComponents.JSInterop.Services
 {
-    public class JSDateHelperService : IJSDateHelperService
+    public class JSDateHelperService : ScriptInteropService, IJSDateHelperService
     {
-        private readonly IJSInProcessRuntime jsRuntime;
 
-        public JSDateHelperService(IJSRuntime jsRuntime)
+
+        public JSDateHelperService(IJSRuntime jsRuntime) : base(jsRuntime)
         {
-            this.jsRuntime = (IJSInProcessRuntime)jsRuntime;
         }
 
         public int GetTimeZoneOffset()
         {
-            return jsRuntime.Invoke<int>("window.customScripts.Date.getTimeZoneOffset");
+            return InvokeCustom<int>("Date.getTimeZoneOffset");
         }
     }
 }

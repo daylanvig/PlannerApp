@@ -3,6 +3,7 @@ using ClientApp.Models;
 using ClientApp.Services;
 using ClientApp.Store.ChangePageUseCase;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using PlannerApp.Shared.Common;
 using System;
 using System.Collections.Generic;
@@ -51,12 +52,13 @@ namespace ClientApp.Components
             SwipeEvent.Subscribe(this);
         }
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+        
+        protected override void OnAfterRender(bool firstRender)
         {
             if (firstRender && DateTime.Now.Hour != 0)
             {
                 // display current time
-                await DOMService.ScrollIntoView($"#interval-{DateTime.Now.Hour - 1}");
+                DOMService.ScrollIntoView($"#interval-{DateTime.Now.Hour - 1}");
             }
         }
 
@@ -69,13 +71,30 @@ namespace ClientApp.Components
         {
             if (direction == SwipeDirection.Left)
             {
-                CalendarService.State.Date = CalendarService.State.Date.Value.AddDays(GetDaysVisible());
+                await GoToNextWeek();
             }
             else if (direction == SwipeDirection.Right)
             {
-                CalendarService.State.Date = CalendarService.State.Date.Value.AddDays(-1 * GetDaysVisible());
+                await GoToLastWeek();
             }
             // ignore up and down
+        }
+
+        protected async Task HandleKeyPress(KeyboardEventArgs e)
+        {
+            Console.WriteLine(e.Code);
+            Console.WriteLine(e.Key);
+        }
+
+        private async Task GoToNextWeek()
+        {
+            CalendarService.State.Date = CalendarService.State.Date.Value.AddDays(GetDaysVisible());
+            await HandleStateChange();
+        }
+
+        private async Task GoToLastWeek()
+        {
+            CalendarService.State.Date = CalendarService.State.Date.Value.AddDays(-1 * GetDaysVisible());
             await HandleStateChange();
         }
 

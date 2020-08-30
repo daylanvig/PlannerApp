@@ -1,4 +1,4 @@
-﻿window.customScripts.Date =  {
+﻿export class DateTimeHelper {
     getTimeZoneOffset(): number {
         return new Date().getTimezoneOffset();
     }

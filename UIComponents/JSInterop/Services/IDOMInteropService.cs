@@ -6,7 +6,7 @@ namespace UIComponents.JSInterop.Services
 {
     public interface IDOMInteropService
     {
-        Task<DOMRect> GetBoundingClientRect(ElementReference element);
-        Task ScrollIntoView(string cssSelector);
+        DOMRect GetBoundingClientRect(ElementReference element);
+        void ScrollIntoView(string cssSelector);
     }
 }

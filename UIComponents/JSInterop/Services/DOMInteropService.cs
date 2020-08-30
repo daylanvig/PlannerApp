@@ -5,23 +5,22 @@ using UIComponents.JSInterop.Models;
 
 namespace UIComponents.JSInterop.Services
 {
-    public class DOMInteropService : IDOMInteropService
+    public class DOMInteropService : ScriptInteropService, IDOMInteropService
     {
-        private readonly IJSInProcessRuntime jsRuntime;
-        public DOMInteropService(IJSRuntime jsRuntime)
+        
+        public DOMInteropService(IJSRuntime jsRuntime) : base(jsRuntime)
         {
-            this.jsRuntime = (IJSInProcessRuntime)jsRuntime;
+            
         }
 
-        public async Task<DOMRect> GetBoundingClientRect(ElementReference element)
+        public DOMRect GetBoundingClientRect(ElementReference element)
         {
-            var box = await jsRuntime.InvokeAsync<DOMRect>("window.customScripts.DOM.getBoundingClientRect", element);
-            return box;
+            return InvokeCustom<DOMRect>("DOM.getBoundingClientRect", element);
         }
 
-        public async Task ScrollIntoView(string cssSelector)
+        public void ScrollIntoView(string cssSelector)
         {
-            await jsRuntime.InvokeVoidAsync("window.customScripts.DOM.scrollIntoView", cssSelector);
+            InvokeCustomVoid("DOM.scrollIntoView", cssSelector);
         }
     }
 }

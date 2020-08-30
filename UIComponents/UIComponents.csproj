@@ -14,6 +14,12 @@
     <Content Remove="compilerconfig.json" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="src\styles\abstracts\_variables.scss" />
+    <Content Include="src\styles\components\_sheet.scss" />
+    <Content Include="src\styles\main.scss" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="bunit" Version="1.0.0-beta-8" />
@@ -22,6 +28,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Components" Version="5.0.0-preview.7.20365.19" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.0-preview.7.20365.19" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0-preview-20200812-03" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <PrivateAssets>all</PrivateAssets>
@@ -38,13 +48,6 @@
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
     <None Include="compilerconfig.json" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Content Update="wwwroot\src\scripts\domHelpers.ts">
-      <SubType>Code</SubType>
-    </Content>
   </ItemGroup>
 
 </Project>

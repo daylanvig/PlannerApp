@@ -1,11 +1,12 @@
 ﻿using Bunit;
+using ClientApp.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Moq;
-using ClientApp.Services;
 using PlannerApp.Shared.Common;
 using System;
 using System.Threading.Tasks;
+using UIComponents.JSInterop.Services;
 
 namespace PlannerApp.UnitTests.Infrastructure
 {
@@ -34,7 +35,7 @@ namespace PlannerApp.UnitTests.Infrastructure
         public TestContextBuilder AddDOMInteropServiceProvider()
         {
             var domService = new Mock<IDOMInteropService>();
-            domService.Setup(o => o.ScrollIntoView(It.IsAny<string>())).Returns(Task.CompletedTask);
+            domService.Setup(o => o.ScrollIntoView(It.IsAny<string>())).Verifiable();
             ctx.Services.AddScoped<IDOMInteropService>(o => domService.Object);
             return this;
         }

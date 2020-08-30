@@ -62,9 +62,9 @@ namespace ClientApp.Components.CalendarComponents
             PlannerItemComponentService.ShowAddEditModal(Mapper.Map<PlannerItemCreateEditModel>(item), UpdateItem);
         }
 
-        protected async Task AddItem(MouseEventArgs e)
+        protected void AddItem(MouseEventArgs e)
         {
-            var columnBounds = await DOMService.GetBoundingClientRect(ColumnEl);
+            var columnBounds = DOMService.GetBoundingClientRect(ColumnEl);
             // for every 80px from top, time +=1 hour from midnight
             var clickYRelativeToColumn = e.ClientY - columnBounds.Top;
             var clickedTime = clickYRelativeToColumn / 80;

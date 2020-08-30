@@ -12,7 +12,7 @@ namespace ClientApp.Components
         /// Calculate height in px
         /// </summary>
         /// <returns>px value for css height</returns>
-        public static string CalculateHeight(DateTime startDate, DateTime endDate)
+        public static string CalculateHeight(DateTimeOffset startDate, DateTimeOffset endDate)
         {
             var fractionsOfHour = DateTimeHelper.CalculateLength(startDate, endDate) / 60;
             // display to at least take half a block for visibility
@@ -23,10 +23,10 @@ namespace ClientApp.Components
         /// Get position to set top
         /// </summary>
         /// <returns>px value</returns>
-        public static string CalculateTop(DateTime startDate)
+        public static string CalculateTop(DateTimeOffset startDate)
         {
             var startMinuteFractions = (double)startDate.Minute / 60;
-            return $"{CALENDAR_INTERVAL_HEIGHT * ((double)startDate.Hour + startMinuteFractions)}px";
+            return $"{CALENDAR_INTERVAL_HEIGHT * ((double)(startDate.LocalDateTime).Hour + startMinuteFractions)}px";
         }
 
         /// <summary>

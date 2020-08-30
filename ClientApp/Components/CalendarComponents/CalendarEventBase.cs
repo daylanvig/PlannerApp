@@ -3,6 +3,7 @@ using ClientApp.Models;
 using ClientApp.Services;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
+using UIComponents.Services;
 
 namespace ClientApp.Components.CalendarComponents
 {
@@ -10,6 +11,7 @@ namespace ClientApp.Components.CalendarComponents
     {
         [Inject]
         public ICategoryDataService CategoryDataService { get; set; }
+        [Inject] IDateTimeGlobalizationService DateTimeGlobalizationService { get; set; }
         [Parameter]
         public PlannerItemModel Item { get; set; }
         [Parameter]
@@ -29,9 +31,9 @@ namespace ClientApp.Components.CalendarComponents
             }
         }
 
-        private string CalculateHeight() => UIComponentHelper.CalculateHeight(Item.PlannedActionDate.LocalDateTime, Item.PlannedEndTime.LocalDateTime);
+        private string CalculateHeight() => UIComponentHelper.CalculateHeight(Item.PlannedActionDate, Item.PlannedEndTime);
 
-        private string CalculateTop() => UIComponentHelper.CalculateTop(Item.PlannedActionDate.LocalDateTime);
+        private string CalculateTop() => UIComponentHelper.CalculateTop(Item.PlannedActionDate);
 
         protected string CalculateFontColour()
         {
