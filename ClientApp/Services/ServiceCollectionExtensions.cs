@@ -12,11 +12,13 @@ namespace ClientApp.Services
         public static IServiceCollection AddPlannerAppServices(this IServiceCollection services)
         {
             services.AddWebServices();
+            services.AddUIComponentServices();
             services.AddDataServices();
             services.AddStateServices();
             services.AddScoped<AuthenticationStateProvider, ApiAuthStateProvider>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IDateTimeGlobalizationService, DateTimeGlobalizationService>();
             return services;
         }
 
@@ -32,7 +34,6 @@ namespace ClientApp.Services
             services.AddSingleton<ICategoryComponentService, CategoryComponentService>();
             services.AddScoped<ICacheService, CacheService>();
             services.AddScoped<IAuthorizedHttpClientFactory, AuthorizedHttpClientFactory>();
-            services.AddTransient<IDOMInteropService, DOMInteropService>();
         }
 
         private static void AddDataServices(this IServiceCollection services)
@@ -45,6 +46,7 @@ namespace ClientApp.Services
         {
             services.AddSingleton<IApplicationWideComponentService<ModalParams>, ApplicationWideComponentService<ModalParams>>();
             services.AddSingleton<IApplicationWideComponentService<SheetParams>, ApplicationWideComponentService<SheetParams>>();
+            services.AddDefaultUIComponentServices();
             return services;
         }
 

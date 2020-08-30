@@ -1,4 +1,4 @@
-﻿namespace ClientApp.Models.DOM
+﻿namespace UIComponents.JSInterop.Models
 {
     public class DOMRect
     {

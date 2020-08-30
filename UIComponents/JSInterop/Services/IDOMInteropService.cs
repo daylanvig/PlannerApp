@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
-using ClientApp.Models.DOM;
 using System.Threading.Tasks;
+using UIComponents.JSInterop.Models;
 
-namespace ClientApp.Services
+namespace UIComponents.JSInterop.Services
 {
     public interface IDOMInteropService
     {

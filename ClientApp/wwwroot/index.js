@@ -1,5 +1,10 @@
 "use strict";
-const domHelpers = {
+window.customScripts.Date = {
+    getTimeZoneOffset() {
+        return new Date().getTimezoneOffset();
+    }
+};
+window.customScripts.DOM = {
     scrollIntoView: function scrollIntoView(cssSelector) {
         const element = document.querySelector(cssSelector);
         if (element == null) {
@@ -11,5 +16,4 @@ const domHelpers = {
         return element.getBoundingClientRect();
     }
 };
-Object.assign(window.customScripts, domHelpers);
 //# sourceMappingURL=index.js.map

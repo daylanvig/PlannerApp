@@ -20,7 +20,6 @@ namespace ClientApp
             builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddAuthorizationCore();
-            builder.Services.AddUIComponentServices();
             builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly(), Assembly.GetAssembly(typeof(Application.Config)));
             builder.Services.AddPlannerAppSharedServices();
             builder.Services.AddPlannerAppServices();

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UIComponents.Custom.SheetComponent;
 using UIComponents.Extensions.TouchSwipe;
+using UIComponents.JSInterop.Services;
 
 namespace ClientApp.Components
 {
@@ -39,7 +40,7 @@ namespace ClientApp.Components
         }
         private async Task LoadData()
         {
-            var items = await PlannerItemDataService.LoadItems(CalendarService.State.Date, CalendarService.State.Date.Value.AddDays(GetDaysVisible() - 1));
+            var items = await PlannerItemDataService.LoadItems(CalendarService.State.Date.Value.LocalDateTime, CalendarService.State.Date.Value.LocalDateTime.AddDays(GetDaysVisible() - 1));
             Items = items.Where(item => !CalendarService.State.HiddenCategoryIDs.Contains(item.CategoryID)).ToList();
         }
         protected override async Task OnInitializedAsync()
@@ -105,7 +106,7 @@ namespace ClientApp.Components
             var dates = new List<DateTime>();
             for (var i = 0; i < GetDaysVisible(); i++)
             {
-                dates.Add(CalendarService.State.Date.Value.AddDays(i));
+                dates.Add(CalendarService.State.Date.Value.LocalDateTime.AddDays(i));
             }
             return dates;
         }

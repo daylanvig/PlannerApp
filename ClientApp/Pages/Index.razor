@@ -65,23 +65,11 @@
     {
         AppState.UpdateTitle();
         plannerItems = (await PlannerItemDataService.LoadItems()).ToList();
-        plannerItems.ForEach(item =>
-        {
-            Console.WriteLine("ITEM");
-            Console.WriteLine(item.PlannedActionDate.LocalDateTime);
-            Console.WriteLine(item.PlannedActionDate.DateTime);
-            Console.WriteLine(DateTimeOffset.Now.LocalDateTime);
-        });
     }
 
-    private async Task SaveItem()
+    private void SaveItem(PlannerItemModel addedItem)
     {
-        var createdItem = await PlannerItemDataService.AddItem(NewItem);
-        if (createdItem == null)
-        {
-            throw new Exception("TODO");
-        }
-        plannerItems.Add(createdItem);
+        plannerItems.Add(addedItem);
         NewItem = new PlannerItemCreateEditModel();
     }
 

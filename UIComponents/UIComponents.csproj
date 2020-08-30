@@ -40,4 +40,11 @@
     <None Include="compilerconfig.json" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Content Update="wwwroot\src\scripts\domHelpers.ts">
+      <SubType>Code</SubType>
+    </Content>
+  </ItemGroup>
+
 </Project>

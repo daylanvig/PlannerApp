@@ -1,5 +1,6 @@
 ﻿declare interface ICustomScripts {
-    scrollIntoView (HTMLElement: element) : void;
+    DOM: object;
+    Date: object;
 }
 
 declare var customScripts: ICustomScripts;

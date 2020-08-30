@@ -1,7 +1,6 @@
 ﻿using Application.PlannerItems.Commands.Shared;
 using Application.PlannerItems.Queries.Common;
 using AutoMapper;
-using ClientApp.Services;
 using ClientApp.Services.ComponentHelperServices;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -9,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UIComponents.JSInterop.Services;
 
 namespace ClientApp.Components.CalendarComponents
 {

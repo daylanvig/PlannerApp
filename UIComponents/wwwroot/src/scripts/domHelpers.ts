@@ -1,5 +1,5 @@
 ﻿
-const domHelpers = {
+window.customScripts.DOM = {
     /**
      * Scroll to element
      * @param cssSelector
@@ -16,4 +16,4 @@ const domHelpers = {
     }
 };
 
-Object.assign(window.customScripts, domHelpers);
+

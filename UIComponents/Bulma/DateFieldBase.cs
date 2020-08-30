@@ -1,12 +1,15 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
+using UIComponents.Services;
 
 namespace UIComponents.Bulma
 {
-    public class DateFieldBase : InputFieldBase<DateTime?>
+    public class DateFieldBase : InputFieldBase<DateTimeOffset?>
     {
         [Parameter]
         public bool HasTime { get; set; }
+        [Inject] IDateTimeGlobalizationService DateTimeGlobalizationService { get; set; }
+
         protected override void OnInitialized()
         {
             base.OnInitialized();
@@ -19,7 +22,8 @@ namespace UIComponents.Bulma
                 Type = "date";
             }
         }
-        protected override string FormatValueAsString(DateTime? value)
+
+        protected override string FormatValueAsString(DateTimeOffset? value)
         {
 
             if (value.HasValue)
@@ -31,7 +35,7 @@ namespace UIComponents.Bulma
                 else if (Type == "datetime-local")
                 {
                     // html expected format
-                    return value.Value.ToString("yyyy-MM-ddTHH:mm");
+                    return value.Value.LocalDateTime.ToString("yyyy-MM-ddTHH:mm");
                 }
                 else
                 {
@@ -41,7 +45,7 @@ namespace UIComponents.Bulma
             return string.Empty;
         }
 
-        protected override bool TryParseValueFromString(string value, out DateTime? result, out string validationErrorMessage)
+        protected override bool TryParseValueFromString(string value, out DateTimeOffset? result, out string validationErrorMessage)
         {
             if (string.IsNullOrEmpty(value))
             {
@@ -50,7 +54,9 @@ namespace UIComponents.Bulma
             }
             else if (DateTime.TryParse(value, out var parsedResult))
             {
-                result = new DateTime(parsedResult.Ticks, DateTimeKind.Local);
+                Console.WriteLine(DateTimeGlobalizationService.ConvertToLocal(parsedResult));
+                result = DateTimeGlobalizationService.ConvertToLocal(parsedResult);
+                Console.WriteLine(result.Value.ToUniversalTime());
                 validationErrorMessage = string.Empty;
             }
             else

@@ -6,13 +6,17 @@
     <UseBlazorWebAssembly>true</UseBlazorWebAssembly>
     <RootNamespace>ClientApp</RootNamespace>
   </PropertyGroup>
+  <PropertyGroup>
+    <BlazorWebAssemblyI18NAssemblies>all</BlazorWebAssemblyI18NAssemblies>
+  </PropertyGroup>
   <ItemGroup>
     <Content Remove="bundleconfig.json" />
     <Content Remove="compilerconfig.json" />
   </ItemGroup>
-
   <ItemGroup>
-    <None Remove="wwwroot\src\Scripts\domHelpers.ts" />
+    <EmbeddedResource Include="LinkerConfig.xml">
+      <LogicalName>$(MSBuildProjectName).xml</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="bundleconfig.json" />

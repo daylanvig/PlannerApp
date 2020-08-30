@@ -20,9 +20,6 @@ namespace UIComponents
         {
             var identifier = ToFieldIdentifier(EditContext, propertyName);
             messages.Add(identifier, message);
-            Console.WriteLine(propertyName);
-            Console.WriteLine(message);
-            Console.WriteLine(identifier.FieldName);
         }
 
         public void DisplayErrors(IEnumerable<KeyValuePair<string, string>> errors)
