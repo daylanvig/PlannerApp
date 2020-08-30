@@ -54,9 +54,7 @@ namespace UIComponents.Bulma
             }
             else if (DateTime.TryParse(value, out var parsedResult))
             {
-                Console.WriteLine(DateTimeGlobalizationService.ConvertToLocal(parsedResult));
                 result = DateTimeGlobalizationService.ConvertToLocal(parsedResult);
-                Console.WriteLine(result.Value.ToUniversalTime());
                 validationErrorMessage = string.Empty;
             }
             else

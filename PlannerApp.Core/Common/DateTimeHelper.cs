@@ -1,12 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
 
 namespace PlannerApp.Shared.Common
 {
     public class DateTimeHelper
     {
+        /// <summary>
+        /// Gets the most recent occurrence of the provided day of the week, relative to the specified date.
+        /// </summary>
+        /// <example>
+        /// var date = new DateTime(2020, 9, 2, 8, 0, 0); // Wednesdayn September 2nd
+        /// var target = DayOfWeek.Sunday;
+        /// var result = DateTimeHelper.GetMostRecentDayOfWeek(date, target); // result is Sunday, August 30th
+        /// </example>
+        /// <param name="date">The date.</param>
+        /// <param name="targetDayOfWeek">The target day of week.</param>
+        /// <returns>The most recent date with the provided day of week. If date has that day of week, value is returned</returns>
         public static DateTime GetMostRecentDayOfWeek(DateTime date, DayOfWeek targetDayOfWeek)
         {
             var checkDate = date;
@@ -22,6 +30,11 @@ namespace PlannerApp.Shared.Common
             return startDate.Subtract(endDate).TotalDays;
         }
 
+        /// <summary>
+        /// Gets the hours as 12 hour time.
+        /// </summary>
+        /// <param name="date">The date.</param>
+        /// <returns>The hour value (1 - 12)</returns>
         public static string GetHoursAs12HourTime(DateTime date)
         {
             var hours = date.Hour;
